@@ -12,8 +12,7 @@ describe('Product', () => {
       Product.create({
         name: 'Bob',
         description: 'A happy puppy',
-        // need to change color to an array after color attribute in product model update merged to master
-        color: 'brown',
+        colors: ['brown', 'rainbow'],
         size: 'S',
         pictureURL: 'http://www.google.com',
         inventory: 10,
@@ -24,9 +23,9 @@ describe('Product', () => {
       .then(product => {
         expect(product.name).to.equal('Bob')
         expect(product.description).to.equal('A happy puppy')
-        expect(product.color).to.equal('brown')
+        expect(product.colors).to.eql(['brown', 'rainbow'])
         // add commented code below after color attribute in product model update merged to master
-        // expect(product.color).to.be.an('array')
+        expect(product.colors).to.be.an('array')
         expect(product.size).to.equal('S')
         expect(product.pictureURL).to.equal('http://www.google.com')
         expect(product.inventory).to.equal(10)
