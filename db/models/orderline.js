@@ -21,7 +21,7 @@ const Orderline = db.define('orderlines', {
   }
 }, {
 
-  instanceMethods:{
+  getterMethods:{
     subtotal: function(){
       return this.quantity * this.unitPrice;
     }
