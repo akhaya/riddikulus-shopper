@@ -15,9 +15,9 @@ OAuth.belongsTo(User)
 User.hasOne(OAuth)
 
 Orderline.belongsTo(Order)
-//Orderline.belongsTo(Product)
+Orderline.belongsTo(Product)
 Order.belongsToMany(Orderline, {through: 'order_orderline'})
-// Product.hasMany(Orderline)
+Product.hasMany(Orderline)
 Order.belongsTo(User)
 
 // adds breed id on product
