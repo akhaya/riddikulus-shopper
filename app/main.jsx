@@ -13,7 +13,6 @@ import {receiveProducts} from './reducers/products'
 const onAppEnter = () => {
   axios.get('/api/products')
   .then(res => {
-    console.log('=====', res.data)
     store.dispatch(receiveProducts(res.data))
   })
   .catch(console.error.bind(console))

@@ -22,12 +22,4 @@ export const receiveProducts = products => ({
   products: products,
 })
 
-// export const getProducts = () =>
-//   dispatch =>
-//     axios.get('/api/products')
-//       .then(res => {
-//         dispatch(receiveProducts(res.data))
-//       })
-//       .catch(console.error.bind(console))
-
 export default reducer
