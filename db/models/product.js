@@ -31,7 +31,7 @@ const Product = db.define('products', {
     validate: {
       min: 0
     }
-  } //either full galleons or in nuts. haha.
+  } //galleon
 })
 
 module.exports = Product
