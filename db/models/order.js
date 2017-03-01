@@ -35,6 +35,14 @@ const Order = db.define('orders', {
     defaultValue:0,
   }
 
+}, {
+  validate: {
+    checkShippingUponOrder: function () {
+      if(this.status !=='pending' && !this.shippingAddress){
+        throw new Error('Shipping address needs to be present if order is not pending')
+      }
+    }
+  }
 })
 
 module.exports = Order
