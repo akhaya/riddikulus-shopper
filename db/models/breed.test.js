@@ -8,13 +8,21 @@ describe('Breed', () => {
   before('wait for the db', () => db.didSync)
 
   describe('validations and required fields', () => {
+    it('includes name field', () =>{
+      Breed.create({
+        name: 'dog',
+      })
+      .then(breed => {
+        expect(breed.name).to.equal('dog')
+      })
+    })
+
     it('requires a breed name', () =>{
-      const breed = Breed.build()
-      return breed.validate()
-        .then(err => {
-          expect(err).to.be.an('object')
-          expect(err.errors[0].type).to.be.equal('notNull Violation')
-        })
+      Breed.create({})
+      .catch(err => {
+        expect(err).to.be.an('object')
+        expect(err.errors[0].type).to.be.equal('notNull Violation')
+      })
     })
 
 
