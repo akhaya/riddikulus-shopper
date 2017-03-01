@@ -9,7 +9,7 @@ describe('Orderline', () => {
     return db.sync({force: true})
       .then(() => {
         return Order.create({
-          status: 'processing'
+          status: 'pending'
         })
       })
   })

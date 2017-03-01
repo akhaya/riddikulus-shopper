@@ -32,7 +32,17 @@ describe('Order', () => {
         }).then(newOrder => {
             expect(newOrder.user_id).to.equal(userId)
         })
+      })
 
+      it('throws an error if an order is placed without an address', () =>{
+        Order.create({
+          status: 'pending'
+        }).then(order => {
+          return order.update({status: 'processing'})
+        }).catch(err =>{
+          expect(err).to.be.an('object');
+          expect(err.errors[0].message).to.be.equal('Shipping address needs to be present if order is not pending')
+        })
       })
   })
 })
