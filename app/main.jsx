@@ -5,18 +5,14 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 
 import store from './store'
-import Jokes from './components/Jokes'
-import Login from './components/Login'
-import WhoAmI from './components/WhoAmI'
+import NavbarComponent from './components/NavbarComponent'
 
-const ExampleApp = connect(
+const App = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user, children }) =>
     <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav> 
+      <NavbarComponent user={user} />
       {children}
     </div>
 )
@@ -24,10 +20,10 @@ const ExampleApp = connect(
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
-        <IndexRedirect to="/jokes" />
+      <Route path="/" component={App} />
+        {/*<IndexRedirect to="/jokes" />
         <Route path="/jokes" component={Jokes} />
-      </Route>
+      </Route>*/}
     </Router>
   </Provider>,
   document.getElementById('main')
