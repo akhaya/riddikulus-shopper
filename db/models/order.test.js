@@ -2,25 +2,17 @@
 
 const db = require('APP/db')
 const Order = require('./order')
+
 const Orderline = require('./orderline')
 const User = require('./user')
 const {expect} = require('chai')
 
-describe('Order Model', () => {
+
+describe('Order', () => {
   before('wait for the db', () => db.didSync)
 
-    var order1;
+    describe('Order Model', () => {
 
-    beforeEach('create an order with some orderlines', () => {
-      order1 = Order.create({
-        status: 'pending'
-      })
-      // let order2 = Order.create({
-      //   status: 'pending'
-      // })
-
-      // return Promise.all(order1, order2);
-    })
 
       // This assertion expects that the Order model will put a `status` column in the messages table.
       it('has status as part of definition', () => {
@@ -42,5 +34,5 @@ describe('Order Model', () => {
         })
 
       })
-
+  })
 })
