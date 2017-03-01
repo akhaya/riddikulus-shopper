@@ -53,6 +53,7 @@ const productData = [{
 ]
 
 export default (props) => {
+  console.log('got here=======')
   return (
     <div className="col-xs-10">
       <h3>Creatures</h3>
@@ -62,7 +63,7 @@ export default (props) => {
         return (<div className="col-xs-4" key = {product.id}>
           {/* add onclick handler to single product view */}
           <a className="thumbnail" href="#" onClick={() => clickedAlbum(album.id)}>
-            <img src={product.imageURL} />
+            <img src={product.pictureURL} />
             <div className="caption">
               <h5>
                 <span>{product.price} Galleons</span>
