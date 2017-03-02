@@ -1,31 +1,30 @@
 import React from 'react'
+var _ = require('lodash');
 
 export default (props) => {
   const animal = props.product
-  let quantity = [];
-  if (animal) {
-    for(var i = 0; i < animal.inventory; i++){
-      quantity.push(i);
-    }
-  }
+
+  if (!animal) return null
+
+  const quantity = _.range(0, animal.inventory);
 
   return(
     <div className="container-fluid">
       <div className="row">
         <div className="col-sm-6">
-          <img src={animal && animal.pictureURL} />
+          <img src={animal.pictureURL} />
         </div>
         <div className="col-sm-4">
           <div>
-            <h1> Name: {animal && animal.name} </h1>
+            <h1> Name: {animal.name} </h1>
             <h1> Price: </h1>
-            <h4>  {animal && animal.price}  </h4>
+            <h4>  {animal.price}  </h4>
             <h1> Profile:</h1>
-            <h4> {animal && animal.description} </h4>
+            <h4> {animal.description} </h4>
             <h4> Colors </h4>
             <select>
               {
-                animal && animal.colors.map((color, id) => {
+                animal.colors.map((color, id) => {
                   return <option key={id} value={color}> {color}</option>
                 })
               }
@@ -34,14 +33,14 @@ export default (props) => {
             {
               <select>
                 {
-                  quantity && quantity.map(num => {
+                  quantity.map(num => {
                     return <option key={num} value={num}> {num}</option>
                   })
                 }
               </select>
             }
             <div>
-              <button type="button" class="btn btn-default" aria-label="Left Align">
+              <button type="button" className="btn btn-default" aria-label="Left Align">
                 <div className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></div>
               </button>
             </div>
