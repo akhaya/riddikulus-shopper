@@ -8,6 +8,7 @@ const reducer = (state=null, action) => {
   case RECEIVE_PRODUCTS:
     return action.products
 
+
   }
 
   return state
@@ -16,10 +17,13 @@ const reducer = (state=null, action) => {
 // constants
 const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
 
+
 // action creators
 export const receiveProducts = products => ({
   type: RECEIVE_PRODUCTS,
   products: products,
 })
+
+
 
 export default reducer
