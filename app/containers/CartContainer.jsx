@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import OrderItem from '../components/OrderItem'
+import CartSidebar from '../components/CartSidebar'
 
 const dummyData = [{
     color: 'red',
@@ -36,7 +37,7 @@ export default class CartContainer extends Component {
             {dummyData.map(orderline => <OrderItem orderline={orderline} key={orderline.name} />)}
           </div>
           <div className="col-md-3">
-            dummy
+            <CartSidebar />
           </div>
         </div>
       </div>
