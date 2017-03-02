@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 const Order = require('./order')
+const Product = require('./product')
 
 const Orderline = db.define('orderlines', {
   color:{
@@ -20,13 +21,16 @@ const Orderline = db.define('orderlines', {
     allowNull: false,
   }
 }, {
-
-  getterMethods:{
+  getterMethods: {
     subtotal: function(){
       return this.quantity * this.unitPrice;
     }
   },
-
+  defaultScope: {
+    /*Eager loading with include or default query - always applied when querying for this model.
+    AN OBJECT*/
+    include: [ Product ]
+  }
 })
 
 module.exports = Orderline
