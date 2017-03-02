@@ -5,20 +5,23 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 import store from './store'
 import axios from 'axios';
-
 import NavbarComponent from './components/NavbarComponent'
 import ProductsContainer from './containers/ProductsContainer'
 import CartContainer from './containers/CartContainer'
 import {receiveProducts} from './reducers/products'
+import {makeCart} from './reducers/cart'
+import {whoami} from './reducers/auth'
 
-// const onAppEnter = () => {
-//   //GET THAT CART
-//   if(auth){
-//     //find or create a pending cart for user
-//   }else{
-//     //find or create a cart wih this sessionID
-//   }
-// }
+const onAppEnter = () => {
+  //GET THAT CART
+  const user = store.getState().auth
+  const cart = store.getState().cart
+
+  if(!cart.status){
+    store.dispatch(makeCart())
+  }
+
+}
 
 const onProductsEnter = () => {
   axios.get('/api/products')
@@ -43,7 +46,7 @@ const App = connect(
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App}>
+      <Route path="/" component={App} onEnter={onAppEnter}>
         <IndexRoute component={ProductsContainer} onEnter={onProductsEnter}/>
         <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
         <Route path="/cart" component={CartContainer} />
