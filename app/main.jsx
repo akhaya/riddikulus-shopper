@@ -35,12 +35,14 @@ render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
-        <IndexRoute component={ProductsContainer} />
+        <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
-      </Route>
+        <Route path="/products/1" component={SingleProduct} />
+
         {/*<IndexRedirect to="/jokes" />
         <Route path="/jokes" component={Jokes} />
       </Route>*/}
+    </Route>
     </Router>
   </Provider>,
   document.getElementById('main')
