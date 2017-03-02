@@ -4,42 +4,44 @@ const initialState = {}
 
 //REDUCER
 const reducer = (state=initialState, action) => {
-  const newState = Object.create({}, state)
+
+  //const newState = Object.create({}, state)
+
   switch(action.type) {
+    case SET_CART:
+      return action.cart
     default:
       return state
   }
-  return newState
+  //return newState
 }
 
 //CONSTANTS
-const ADD_ITEM = 'ADD_ITEM'
+const SET_CART = 'SET_CART'
 
 //ACTION CREATORS
-// export const authenticated = user => ({
-//   type: AUTHENTICATED, user
-// })
+export const receiveCart = cart => ({
+  type: SET_CART, cart
+})
 
-// export const login = (username, password) =>
-//   dispatch =>
-//     axios.post('/api/auth/login/local',
-//       {username, password})
-//       .then(() => dispatch(whoami()))
-//       .catch(() => dispatch(whoami()))
 
-// export const logout = () =>
-//   dispatch =>
-//     axios.post('/api/auth/logout')
-//       .then(() => dispatch(whoami()))
-//       .catch(() => dispatch(whoami()))
+export const receiveUserCart = (userId) =>
+  dispatch =>
+    axios.get(`/api/orders/cart/${userId}`)
+      .then(response => {
+        const cart = response.data
+        dispatch(receiveCart(cart))
+      })
+      .catch(failed => console.error.bind(console))
 
-// export const whoami = () =>
-//   dispatch =>
-//     axios.get('/api/auth/whoami')
-//       .then(response => {
-//         const user = response.data
-//         dispatch(authenticated(user))
-//       })
-//       .catch(failed => dispatch(authenticated(null)))
+export const makeCart = () =>
+  dispatch =>
+    axios.get(`/api/orders/cart`)
+      .then(response => {
+        const cart = response.data
+        dispatch(receiveCart(cart))
+      })
+      .catch(failed => console.error.bind(console))
+
 
 export default reducer

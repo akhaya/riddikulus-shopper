@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {receiveUserCart} from './cart'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
