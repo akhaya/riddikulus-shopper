@@ -1,0 +1,14 @@
+.thumbnailImg{
+  width:100%;
+  height:auto;
+  margin-top:15px;
+}
+
+.col-sm-5{
+  padding-right: 0 !important;
+}
+
+.carousel-pics{
+  width:200px;
+  height:auto;
+}
