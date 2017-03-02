@@ -9,7 +9,8 @@ import axios from 'axios';
 import NavbarComponent from './components/NavbarComponent'
 import ProductsContainer from './containers/ProductsContainer'
 import {receiveProducts} from './reducers/products'
-import SingleProduct from './components/SingleProduct'
+import SingleProductContainer from './containers/SingleProductContainer'
+import {receiveProduct, getProductById} from './reducers/product'
 
 const onAppEnter = () => {
   axios.get('/api/products')
@@ -19,6 +20,10 @@ const onAppEnter = () => {
   .catch(console.error.bind(console))
 }
 
+const onSingleProductEnter = (nextRouterState) => {
+  const productId = nextRouterState.params.productId
+  store.dispatch(getProductById(productId))
+}
 
 const App = connect(
 
@@ -37,11 +42,7 @@ render (
       <Route path="/" component={App} onEnter={onAppEnter}>
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
-        <Route path="/products/1" component={SingleProduct} />
-
-        {/*<IndexRedirect to="/jokes" />
-        <Route path="/jokes" component={Jokes} />
-      </Route>*/}
+        <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
     </Route>
     </Router>
   </Provider>,
