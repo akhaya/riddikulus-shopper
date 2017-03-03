@@ -17,7 +17,7 @@ User.hasOne(OAuth)
 
 Orderline.belongsTo(Order)
 Orderline.belongsTo(Product)
-Order.belongsToMany(Orderline, {through: 'order_orderline'})
+Order.hasMany(Orderline)
 Product.hasMany(Orderline)
 Order.belongsTo(User)
 

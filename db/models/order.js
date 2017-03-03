@@ -42,6 +42,9 @@ const Order = db.define('orders', {
         throw new Error('Shipping address needs to be present if order is not pending')
       }
     }
+  },
+  defaultScope: {
+    include: [Orderline]
   }
 })
 
