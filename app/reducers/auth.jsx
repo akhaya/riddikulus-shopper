@@ -38,10 +38,8 @@ export const whoami = () =>
         dispatch(authenticated(user))
         //get cart
         if(!user){
-          console.log('getting guest cart')
           dispatch(receiveGuestCart())
         }else{
-          console.log('getting user cart', user.id)
           dispatch(receiveUserCart(user.id))
         }
 

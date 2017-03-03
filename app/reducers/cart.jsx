@@ -35,7 +35,6 @@ export const receiveUserCart = (userId) =>
     axios.get(`/api/orders/cart/${userId}`)
       .then(response => {
         const cart = response.data
-        console.log('GOT USER CART', cart)
         dispatch(receiveCart(cart))
       })
       .catch(failed => console.error)
@@ -45,7 +44,6 @@ export const receiveGuestCart = () =>
     axios.get(`/api/orders/cart`)
       .then(response => {
         const cart = response.data
-        console.log('GOT GUEST CART', cart)
         dispatch(receiveCart(cart))
       })
       .catch(failed => console.error)
