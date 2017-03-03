@@ -24,24 +24,31 @@ export const receiveCart = cart => ({
   type: SET_CART, cart
 })
 
+export const clearCart = cart => ({
+  type: SET_CART,
+  cart: {}
+})
+
 
 export const receiveUserCart = (userId) =>
   dispatch =>
     axios.get(`/api/orders/cart/${userId}`)
       .then(response => {
         const cart = response.data
+        console.log('GOT USER CART', cart)
         dispatch(receiveCart(cart))
       })
-      .catch(failed => console.error.bind(console))
+      .catch(failed => console.error)
 
-export const makeCart = () =>
+export const receiveGuestCart = () =>
   dispatch =>
     axios.get(`/api/orders/cart`)
       .then(response => {
         const cart = response.data
+        console.log('GOT GUEST CART', cart)
         dispatch(receiveCart(cart))
       })
-      .catch(failed => console.error.bind(console))
+      .catch(failed => console.error)
 
 
 export default reducer
