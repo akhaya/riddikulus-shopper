@@ -26,22 +26,38 @@ const dummyData = [{
 
   }]
 
-
-export default class CartContainer extends Component {
+class CartContainer extends Component {
   render(){
+    const cart = this.props.cart
+    const orderlines = cart.orderlines
+    const noItemsMessage = (
+    <div className="panel panel-default">
+      <div className="panel-body">
+        <h4>  You have no items in your cart. </h4>
+      </div>
+    </div>)
+
     return (
       <div className="container">
         <h3>Cart</h3>
         <div className="row">
           <div className="col-md-9">
-            {dummyData.map(orderline => <OrderItem orderline={orderline} key={orderline.name} />)}
+            {orderlines? orderlines.map(orderline => <OrderItem orderline={orderline} key={orderline.id} />) : noItemsMessage}
           </div>
           <div className="col-md-3">
-            <CartSidebar />
+            <CartSidebar orderlines={orderlines? orderlines:null}/>
           </div>
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cart
+  }
+}
+
+export default connect(mapStateToProps)(CartContainer)
 

@@ -24,7 +24,7 @@ export default (props) => {
           <div className="col-md-4">
             <dl>
               <dt>Price</dt>
-              <dd>{product.price}</dd>
+              <dd>  {product.price}  </dd>
               <dt>Color</dt>
               <dd>
                 <select value={orderline.color} name="color" id="color" className="form-group" >
@@ -33,11 +33,12 @@ export default (props) => {
               </dd>
               <dt>Quantity</dt>
               <dd>
-                <input type="text"
-                  className="form-group small-input"
-                  id="quantity"
-                  name="quantity"
-                  placeholder="Amount" />
+                <button className="btn btn-default btn-circle">-</button>
+                { orderline.quantity }
+                <button className="btn btn-default btn-circle">+</button>
+              </dd>
+              <dd>
+                {props.errorMessage}
               </dd>
             </dl>
             <button className="btn btn-default" type="submit">Delete</button>

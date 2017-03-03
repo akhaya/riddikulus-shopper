@@ -9,17 +9,13 @@ import NavbarComponent from './components/NavbarComponent'
 import ProductsContainer from './containers/ProductsContainer'
 import CartContainer from './containers/CartContainer'
 import {receiveProducts} from './reducers/products'
-import {makeCart} from './reducers/cart'
+import {receiveUserCart, receiveGuestCart} from './reducers/cart'
 import {whoami} from './reducers/auth'
 
 const onAppEnter = () => {
   //GET THAT CART
-  const user = store.getState().auth
-  const cart = store.getState().cart
 
-  if(!cart.status){
-    store.dispatch(makeCart())
-  }
+  store.dispatch(whoami())
 
 }
 
