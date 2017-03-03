@@ -11,6 +11,8 @@ import CartContainer from './containers/CartContainer'
 import {receiveProducts} from './reducers/products'
 import {receiveUserCart, receiveGuestCart} from './reducers/cart'
 import {whoami} from './reducers/auth'
+import SingleProductContainer from './containers/SingleProductContainer'
+import {receiveProduct, getProductById} from './reducers/product'
 
 const onAppEnter = () => {
   //GET THAT CART
@@ -27,8 +29,13 @@ const onProductsEnter = () => {
   .catch(console.error.bind(console))
 }
 
+const onSingleProductEnter = (nextRouterState) => {
+  const productId = nextRouterState.params.productId
+  store.dispatch(getProductById(productId))
+}
 
 const App = connect(
+
   ({ auth }) => ({ user: auth })
 ) (
   ({ user, children }) =>
@@ -43,11 +50,11 @@ render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
-        <IndexRoute component={ProductsContainer} onEnter={onProductsEnter}/>
+        <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
+        <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
         <Route path="/cart" component={CartContainer} />
       </Route>
-
     </Router>
   </Provider>,
   document.getElementById('main')
