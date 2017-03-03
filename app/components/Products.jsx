@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import {convertPrice} from '../utils'
 
 export default (props) => {
   console.log('=====', props)
@@ -16,7 +17,7 @@ export default (props) => {
             <img src={product.pictureURL} />
             <div className="caption">
               <h5>
-                <span>{product.price} Galleons</span>
+                <span>{convertPrice(product.price)}</span>
               </h5>
               <small>INSERT REVIEW</small>
             </div>
