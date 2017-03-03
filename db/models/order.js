@@ -36,6 +36,9 @@ const Order = db.define('orders', {
         throw new Error('Address needs to be present if order is not pending')
       }
     }
+  },
+  defaultScope: {
+    include: [Orderline]
   }
 })
 
