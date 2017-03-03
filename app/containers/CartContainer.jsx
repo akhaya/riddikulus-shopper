@@ -12,13 +12,6 @@ class CartContainer extends Component {
     this.calculateTax = this.calculateTax.bind(this)
     this.calculateShipping =  this.calculateShipping.bind(this)
     this.calculateTotal =  this.calculateTotal.bind(this)
-
-    this.state = {
-      subtotal: this.calculateSubtotal(),
-      shipping: 0,
-      tax: this.calculateTax(),
-      total: this.calculateTotal()
-    }
   }
 
   calculateSubtotal(){
@@ -42,17 +35,6 @@ class CartContainer extends Component {
     return this.calculateSubtotal()+this.calculateTax()+this.calculateShipping()
   }
 
-  componentWillReceiveProps(){
-    this.setState({
-      subtotal: this.calculateSubtotal(),
-      shipping: this.calculateShipping(),
-      tax: this.calculateTax(),
-      total: this.calculateTotal()
-    })
-  }
-
-
-
   render(){
     const cart = this.props.cart
     const orderlines = cart.orderlines
@@ -71,7 +53,12 @@ class CartContainer extends Component {
             {orderlines? orderlines.map(orderline => <OrderItem orderline={orderline} key={orderline.id} />) : noItemsMessage}
           </div>
           <div className="col-md-3">
-            <CartSidebar orderTotals={this.state}/>
+            <CartSidebar orderTotals={{
+              subtotal: this.calculateSubtotal(),
+              shipping: this.calculateShipping(),
+              tax: this.calculateTax(),
+              total: this.calculateTotal()
+            }}/>
           </div>
         </div>
       </div>

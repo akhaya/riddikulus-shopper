@@ -48,5 +48,13 @@ export const receiveGuestCart = () =>
       })
       .catch(failed => console.error)
 
+// export const deleteOrderItem = (orderId, productId) =>
+//   dispatch =>
+//     axios.delete(`/api/orders/cart/${orderId}/${productId}`)
+//       .then(response => {
+//         const cart = response.data
+//         dispatch(receiveCart(cart))
+//       })
+//       .catch(failed => console.error)
 
 export default reducer

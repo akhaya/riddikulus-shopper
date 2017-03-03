@@ -2,15 +2,35 @@
 
 const db = require('APP/db')
 const Order = db.model('orders')
+const Orderline = db.model('orderlines')
 const localUserStorage = require('store')
-
-
 
 module.exports = require('express').Router()
   .use((req, res, next) => {
     //load the local storage cart
     req.cart = localUserStorage.get('cart')
     next()
+  })
+  .get('/cart/update/:orderId/:productId', (req, res, next) => {
+    Orderline.findAll({
+      where: {
+        order_id: req.params.orderId,
+        product_id: req.params.productId,
+      }
+    })
+    .then(([orderlineToDelete]) => {
+      orderlineToDelete.destroy()
+    })
+    .then(() => {
+      console.log('======deleted')
+    })
+    // .then(() => Orderline.findAll({
+    //   where: {
+    //     order_id: req.params.orderId
+    //   }
+    // }))
+    // .then(newOrderline => res.json(newOrderline))
+    .catch(next)
   })
   .get('/cart', (req, res, next) => {
     //guest user cart route
@@ -56,3 +76,7 @@ module.exports = require('express').Router()
       }
 
   })
+  // can't put any routes below the route above
+  // maybe there is a parens missing?
+  // check later if time
+
