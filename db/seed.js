@@ -75,20 +75,22 @@ const seedAddresses = () => db.Promise.map([
 const seedOrders = () => db.Promise.map([
   {status: 'pending'},
   {status: 'processing', shippingCost: 100, tax: 80, subtotal:250, totalCost: 430, user_id: 1, address_id: 1},
-  {status: 'shipped', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 2, address_id: 2}
+  {status: 'shipped', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 2, address_id: 2},
+  {status: 'pending', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 1, address_id: 1},
+  {status: 'pending', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 2, address_id: 2},
 ], order => db.model('orders').create(order))
 
 const seedOrderlines = () => db.Promise.map([
   {
-    color: 'gray',
+    color: 'green',
     quantity: 1,
-    size: 'L',
+    size: 'S',
     unitPrice: 500,
     order_id: 1,
     product_id: 1
   },
   {
-    color: 'white',
+    color: 'brown',
     quantity: 1,
     size: 'M',
     unitPrice: 100,
@@ -109,9 +111,32 @@ const seedOrderlines = () => db.Promise.map([
     size: 'S',
     unitPrice: 150,
     order_id: 3,
+    product_id: 1
+  },
+  {
+    color: 'gray',
+    quantity: 2,
+    size: 'L',
+    unitPrice: 2000,
+    order_id: 4,
+    product_id: 1
+  },
+  {
+    color: 'brown',
+    quantity: 1,
+    size: 'L',
+    unitPrice: 500,
+    order_id: 4,
+    product_id: 3
+  },
+  {
+    color: 'green',
+    quantity: 4,
+    size: 'XS',
+    unitPrice: 100,
+    order_id: 5,
     product_id: 2
-  }
-
+  },
 ], orderline => db.model('orderlines').create(orderline))
 
 

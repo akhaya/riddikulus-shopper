@@ -1,8 +1,12 @@
 import React from 'react'
 
 export default (props) => {
-  const product = props.orderline.product;
+  const product = props.orderline.product
   const orderline = props.orderline
+
+  const deleteOrderItem = (event) => {
+    console.log('delete!')
+  }
   return (
     <div className="panel panel-default">
       <div className="panel-body">
@@ -41,7 +45,7 @@ export default (props) => {
                 {props.errorMessage}
               </dd>
             </dl>
-            <button className="btn btn-default" type="submit">Delete</button>
+            <button className="btn btn-default" type="submit" onClick={deleteOrderItem}>Delete</button>
             <button className="btn btn-default" type="submit">Update</button>
           </div>
 
