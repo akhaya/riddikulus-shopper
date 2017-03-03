@@ -9,9 +9,8 @@ const Product = db.define('products', {
     allowNull: false
   },
   description: Sequelize.TEXT,
-  color: {
-    type: Sequelize.ENUM('red', 'black', 'white', 'green', 'yellow', 'blue', 'orange', 'purple', 'brown', 'pink'),
-    defaultValue: 'black'
+  colors: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
   },
   size: Sequelize.ENUM('XS', 'S', 'M', 'L', 'XL'),
   pictureURL: Sequelize.STRING,
@@ -32,7 +31,7 @@ const Product = db.define('products', {
     validate: {
       min: 0
     }
-  } //either full galleons or in nuts. haha.
+  } //galleon
 })
 
 module.exports = Product
