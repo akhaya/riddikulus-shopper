@@ -2,7 +2,6 @@ import React from 'react'
 import {Link} from 'react-router'
 
 export default (props) => {
-  console.log('=====', props)
   const products = props.products
   return (
     <div className="col-xs-12">

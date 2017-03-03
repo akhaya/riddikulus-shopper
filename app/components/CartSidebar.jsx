@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default (props) => {
+export default ({orderTotals}) => {
   return (
     <div className="panel panel-default">
       <div className="panel-heading">
@@ -9,17 +9,17 @@ export default (props) => {
       <div className="panel-body">
         <dl className="dl-horizontal">
           <dt>Subtotal:</dt>
-          <dd>1,200</dd>
+          <dd>{orderTotals.subtotal}</dd>
           <dt>Tax</dt>
-          <dd>80</dd>
+          <dd>{orderTotals.tax}</dd>
           <dt>Shipping</dt>
-          <dd>9-</dd>
+          <dd>{orderTotals.shipping}</dd>
         </dl>
       </div>
       <div className="panel-footer">
         <dl className="dl-horizontal">
           <dt>Total:</dt>
-          <dd>total dummy</dd>
+          <dd>{orderTotals.total}</dd>
         </dl>
       </div>
     </div>

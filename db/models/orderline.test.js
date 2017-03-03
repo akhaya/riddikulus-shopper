@@ -26,7 +26,7 @@ describe('Orderline', () => {
         return Order.create({
           status: 'pending'
         })
-      }).catch(console.log)
+      }).catch(console.error)
   })
 
     it('includes color, quantity, size and unitPrice fields', () => {
@@ -42,7 +42,7 @@ describe('Orderline', () => {
         expect(newOrderline.quantity).to.equal(3);
         expect(newOrderline.size).to.equal('small');
         expect(newOrderline.unitPrice).to.equal(25);
-      }).catch(console.log)
+      }).catch(console.error)
     })
 
     it('no field can be null', () => {
@@ -69,7 +69,7 @@ describe('Orderline', () => {
       })
       .then(newOrderline => {
         expect(newOrderline.order_id).to.equal(1);
-      }).catch(console.log)
+      }).catch(console.error)
     })
 
     it('calculates the subtotal', () => {
@@ -82,7 +82,7 @@ describe('Orderline', () => {
       })
       .then(newOrderline => {
         expect(newOrderline.subtotal).to.equal(75);
-      }).catch(console.log)
+      }).catch(console.error)
     })
 
     it('returns the associated product when querying an orderline (defaultScope)', () => {
@@ -99,7 +99,7 @@ describe('Orderline', () => {
         expect(orderline).to.have.property('product')
         expect(orderline.product).to.be.an('object')
         expect(orderline.product.name).to.be.equal('Thunderbird')
-      })
+      }).catch(console.error)
     })
 
 })

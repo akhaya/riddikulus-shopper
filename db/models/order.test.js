@@ -44,22 +44,5 @@ describe('Order', () => {
           expect(err.errors[0].message).to.be.equal('Shipping address needs to be present if order is not pending')
         })
       })
-
-      // it('loads the associated orderlines when querying', () => {
-      //   return Order.create({
-      //     status: 'pending'
-      //   }).then(order => {
-      //     return Orderline.create({
-      //       color: 'black',
-      //       quantity: 3,
-      //       size: 'small',
-      //       unitPrice: 25,
-      //       order_id: order.id
-      //     })
-      //   }).then(orderline =>{
-      //     return Order.findById(orderline.order_id)
-      //   }).then(order => console.log("ORDER", order.orderlines))
-      //   .catch(console.log.bind(console))
-      // })
   })
 })

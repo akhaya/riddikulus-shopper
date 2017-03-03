@@ -10,10 +10,10 @@ module.exports = require('express').Router()
   .use((req, res, next) => {
     //load the local storage cart
     req.cart = localUserStorage.get('cart')
-    console.log('REQ.CART:', req.cart)
     next()
   })
   .get('/cart', (req, res, next) => {
+    //guest user cart route
      if(!req.cart){
        localUserStorage.set('cart', { status: 'pending'})
        req.cart = localUserStorage.get('cart')
@@ -31,7 +31,6 @@ module.exports = require('express').Router()
           user_id: req.params.userId,
           orderlines: cart.orderlines
         }).then(newCart => {
-          console.log('NEW CART IN IF', newCart)
           res.send(newCart)
         }).catch(console.error)
       } else {
@@ -50,14 +49,10 @@ module.exports = require('express').Router()
             user_id: req.params.userId
           }
         }).spread((newCart, bool) => {
-          console.log('NEW CART IN ELSE', newCart)
           localUserStorage.remove('cart')
           res.send(newCart)
         })
 
       }
 
-  })
-  .get('/', (req, res, next) => {
-    res.send(localUserStorage.get('cart'))
   })
