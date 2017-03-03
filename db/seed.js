@@ -59,10 +59,23 @@ const seedBreeds = () => db.Promise.map([
   {name: 'mole'}
 ], breed => db.model('breeds').create(breed))
 
+const seedAddresses = () => db.Promise.map([
+  { address1: '5 Hanover Square',
+    city: 'New York',
+    state: 'NY',
+    zip: 10004
+  },
+  { address1: '1234 116th St',
+    city: 'New York',
+    state: 'NY',
+    zip: 10027
+  },
+], address => db.model('addresses').create(address))
+
 const seedOrders = () => db.Promise.map([
   {status: 'pending'},
-  {status: 'processing', shippingAddress: '568 Broadway, NYC 10012', shippingCost: 100, tax: 80, subtotal:250, totalCost: 430, user_id:1},
-  {status: 'shipped', shippingAddress: '5 Hanover Square, NYC, 10016', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id:2}
+  {status: 'processing', shippingCost: 100, tax: 80, subtotal:250, totalCost: 430, user_id: 1, address_id: 1},
+  {status: 'shipped', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 2, address_id: 2}
 ], order => db.model('orders').create(order))
 
 const seedOrderlines = () => db.Promise.map([
@@ -110,6 +123,8 @@ db.didSync
   .then((breeds) => console.log(`Seeded ${breeds.length} breeds OK`))
   .then(seedProducts)
   .then((products) => console.log(`Seeded ${products.length} products OK`))
+  .then(seedAddresses)
+  .then((addresses) => console.log(`Seeded ${addresses.length} addresses OK`))
   .then(seedOrders)
   .then((orders) => console.log(`Seeded ${orders.length} orders OK`))
   .then(seedOrderlines)
