@@ -16,9 +16,7 @@ import {receiveProduct, getProductById} from './reducers/product'
 
 const onAppEnter = () => {
   //GET THAT CART
-
   store.dispatch(whoami())
-
 }
 
 const onProductsEnter = () => {

@@ -11,27 +11,6 @@ module.exports = require('express').Router()
     req.cart = localUserStorage.get('cart')
     next()
   })
-  .get('/cart/update/:orderId/:productId', (req, res, next) => {
-    Orderline.findAll({
-      where: {
-        order_id: req.params.orderId,
-        product_id: req.params.productId,
-      }
-    })
-    .then(([orderlineToDelete]) => {
-      orderlineToDelete.destroy()
-    })
-    .then(() => {
-      console.log('======deleted')
-    })
-    // .then(() => Orderline.findAll({
-    //   where: {
-    //     order_id: req.params.orderId
-    //   }
-    // }))
-    // .then(newOrderline => res.json(newOrderline))
-    .catch(next)
-  })
   .get('/cart', (req, res, next) => {
     //guest user cart route
      if(!req.cart){
@@ -40,6 +19,7 @@ module.exports = require('express').Router()
      }
      res.send(req.cart)
   })
+  // make route for deleting from guest cart
   .get('/cart/:userId', (req, res, next) => {
       var cart = req.cart
       //is there a cart in local storage?
@@ -72,11 +52,31 @@ module.exports = require('express').Router()
           localUserStorage.remove('cart')
           res.send(newCart)
         })
-
+        .catch(console.error)
       }
-
   })
-  // can't put any routes below the route above
-  // maybe there is a parens missing?
-  // check later if time
+  .delete('/cart/delete/:userId/:orderId/:productId', (req, res, next) => {
+    // user cart: delete product from orderline and load the updated order
+    Orderline.findOne({
+      where: {
+        order_id: req.params.orderId,
+        product_id: req.params.productId,
+      }
+    })
+    .then((orderlineToDelete) => {
+      orderlineToDelete.destroy()
+    })
+    .then(() => {
+      return Order.findOne({
+        where: {
+          user_id: req.params.userId,
+          status: 'pending',
+        }
+      })
+    })
+    .then(updatedOrder => {
+      res.json(updatedOrder)
+    })
+    .catch(next)
+  })
 

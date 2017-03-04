@@ -29,7 +29,6 @@ export const clearCart = cart => ({
   cart: {}
 })
 
-
 export const receiveUserCart = (userId) =>
   dispatch =>
     axios.get(`/api/orders/cart/${userId}`)
@@ -48,13 +47,13 @@ export const receiveGuestCart = () =>
       })
       .catch(failed => console.error)
 
-// export const deleteOrderItem = (orderId, productId) =>
-//   dispatch =>
-//     axios.delete(`/api/orders/cart/${orderId}/${productId}`)
-//       .then(response => {
-//         const cart = response.data
-//         dispatch(receiveCart(cart))
-//       })
-//       .catch(failed => console.error)
+export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
+  dispatch =>
+    axios.delete(`/api/orders/cart/delete/${userId}/${orderId}/${productId}`)
+      .then(response => {
+        const updatedCart = response.data
+        dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.error)
 
 export default reducer
