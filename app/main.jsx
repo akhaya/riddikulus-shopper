@@ -10,7 +10,10 @@ import NavbarComponent from './components/NavbarComponent'
 import ProductsContainer from './containers/ProductsContainer'
 import {receiveProducts} from './reducers/products'
 import SingleProductContainer from './containers/SingleProductContainer'
+import AdminPanel from './components/AdminPanel'
+import AdminUsersContainer from './containers/AdminUsersContainer'
 import {receiveProduct, getProductById} from './reducers/product'
+import {receiveUsers} from './reducers/users'
 
 const onAppEnter = () => {
   axios.get('/api/products')
@@ -23,6 +26,20 @@ const onAppEnter = () => {
 const onSingleProductEnter = (nextRouterState) => {
   const productId = nextRouterState.params.productId
   store.dispatch(getProductById(productId))
+}
+
+const onAdminEnter = () => {
+  // const user = store.getState().auth
+  // if(!user || !user.isAdmin) {
+  //   browserHistory.push('/products')
+  // }
+}
+const onAdminUsersEnter = () => {
+  axios.get('/api/users')
+  .then(res => {
+    store.dispatch(receiveUsers(res.data))
+  })
+  .catch(console.error.bind(console))
 }
 
 const App = connect(
@@ -43,6 +60,10 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
+        <Route path="/admin" component={AdminPanel} onEnter={onAdminEnter}>
+          <IndexRoute component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
+          <Route path="/users" component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
+        </Route>
     </Route>
     </Router>
   </Provider>,
