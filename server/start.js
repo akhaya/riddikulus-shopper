@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const passport = require('passport')
 const PrettyError = require('pretty-error')
+const debug = require('debug')('oauth')
 // PrettyError docs: https://www.npmjs.com/package/pretty-error
 
 // Bones has a symlink from node_modules/APP to the root of the app.
@@ -72,6 +73,7 @@ if (module === require.main) {
       const { address, port } = server.address()
       const host = address === '::' ? 'localhost' : address
       const urlSafeHost = host.includes(':') ? `[${host}]` : host
+
       console.log(`Listening on http://${urlSafeHost}:${port}`)
     }
   )

@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 export default(props) => {
 
   return(
@@ -35,8 +34,15 @@ export default(props) => {
         </div>
         <div className="col-sm-6">
 
-          <p> google and facebook sign up </p>
-          <button type="submit" className="btn btn-danger" >Sign in</button>
+         <a href="/api/auth/login/github">
+          <button type="submit" className="btn btn-danger">
+              Sign in with Github
+            </button>
+          </a>
+          <br />
+          <a href="/api/auth/login/google">
+            <button type="submit" className="btn btn-info">Sign in with Google</button>
+          </a>
 
         </div>
       </div>
