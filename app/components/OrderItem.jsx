@@ -5,27 +5,47 @@ class OrderItem extends Component {
     super(props)
     this.state = {
       newColor: '',
-      newQuantity: null,
+      currentQuantity: this.props.orderline.quantity,
     }
 
-    this.handleColorUpdate = this.handleColorUpdate.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
     this.onColorChange = this.onColorChange.bind(this)
+    this.onQuantityChange = this.onQuantityChange.bind(this)
   }
 
   // this updates the orderline view and database correctly but the orderlines render in a different order from before
-  handleColorUpdate (event) {
+  handleUpdate (event) {
     event.preventDefault()
     const newColor = this.state.newColor
-    if (newColor !== '') {
-      const orderId = this.props.orderline.order_id
-      const productId = this.props.orderline.product_id
-      const userId = this.props.userId
-      this.props.handleColorUpdate(userId, orderId, productId, newColor)
+    const newQuantity = this.state.currentQuantity
+    const orderId = this.props.orderline.order_id
+    const productId = this.props.orderline.product_id
+    const userId = this.props.userId
+    if (newColor !== '' || newQuantity !== this.props.orderline.quantity) {
+      this.props.handleUpdate(userId, orderId, productId, newColor, newQuantity)
     }
   }
+
   onColorChange (event) {
     event.preventDefault()
     this.setState({newColor: event.target.value})
+  }
+
+  onQuantityChange (event) {
+    event.preventDefault()
+    let newQuantity
+    const inventory = this.props.orderline.product.inventory
+    // user can only increase quantity up to current inventory
+    if (event.target.value === 'increase' && this.state.currentQuantity < inventory) {
+      newQuantity = this.state.currentQuantity + 1
+      this.setState({currentQuantity: newQuantity})
+    }
+    // user can only decrease quantity down to 1
+    // user cannot decrease quantity to 0 because this is equivalent of deleting an order item
+    if (event.target.value === 'decrease' && this.state.currentQuantity > 1) {
+      newQuantity = this.state.currentQuantity - 1
+      this.setState({currentQuantity: newQuantity})
+    }
   }
 
   render() {
@@ -62,16 +82,16 @@ class OrderItem extends Component {
                 </dd>
                 <dt>Quantity</dt>
                 <dd>
-                  <button className="btn btn-default btn-circle">-</button>
-                  { orderline.quantity }
-                  <button className="btn btn-default btn-circle">+</button>
+                  <button className="btn btn-default btn-circle" value="decrease" onClick={this.onQuantityChange}>-</button>
+                  { this.state.currentQuantity }
+                  <button className="btn btn-default btn-circle" value="increase" onClick={this.onQuantityChange}>+</button>
                 </dd>
                 <dd>
                   {this.props.errorMessage}
                 </dd>
               </dl>
               <button className="btn btn-default" type="submit">Delete</button>
-              <button className="btn btn-default" type="submit" onClick={this.handleColorUpdate}>Update</button>
+              <button className="btn btn-default" type="submit" onClick={this.handleUpdate}>Update</button>
             </div>
 
           </div>
