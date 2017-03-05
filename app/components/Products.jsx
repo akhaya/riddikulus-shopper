@@ -5,8 +5,6 @@ export default (props) => {
 
   const products = props.products
 
-  console.log(products)
-
   if (!products) {
     return null
   }
