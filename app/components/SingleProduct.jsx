@@ -34,13 +34,14 @@ class SingleProduct extends Component {
     // user must choose color before adding to cart
     // quantity defaults to 1 if user doesn't select quantity
     if (this.state.color) {
+      //============= dispatch something!!!!!
       console.log('====', this.state.color, this.state.quantity)
     }
   }
 
   render() {
+    console.log('=====', this.props)
     const animal = this.props.product
-
     if (!animal) return null
 
     const quantity = _.range(1, animal.inventory);
