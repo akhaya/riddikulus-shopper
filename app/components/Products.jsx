@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import _ from 'lodash'
 
 export default (props) => {
 
@@ -8,32 +9,38 @@ export default (props) => {
   if (!products) {
     return null
   }
-  const magicalAbilities = products.reduce((accumulator, current) => {
+  const magicalAbilities = _.uniq(products.reduce((accumulator, current) => {
     return accumulator.concat(current.magicalAbilities)
-  }, [])
+  }, []));
+
+
+  // let breeds = _.uniq(products.breeds);
+
+  let breeds = _.uniq(products.map(product => {
+    return product.breed
+  }).map(breed => {
+    return breed.name
+  }))
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL']
 
-  // LOOK INTO LODASH METHODS. WHEN WE MAP THROUGH PRODUCT.BREED, MAY HAVE MULTIPLE BUT ONLY WANT TO LIST THE UNIQUE BREEDS.
-
-  // LIFESPAN AND PRICE SLIDERS DON'T SHOW THE NUMBER VALUE YET
   return (
 
     <div className="container-fluid">
       <div className="row">
 
         <div className="col-xs-2">
-          <h2> Breeds </h2>
-              {products.map((product, id) => {
+          <h3> Breeds </h3>
+              {breeds.map((breed, id) => {
                     return (
                     <div key={id}>
                       <label className="form-check-label">
-                        <input className="form-check-input" type="checkbox" value="" />{product.breed.name}
+                        <input className="form-check-input" type="checkbox" value="" />{breed}
                       </label>
                     </div>)
                 })}
-          <h2> Filters </h2>
-          <h3> Magical Abilities </h3>
+          <h3> Filters </h3>
+          <h4> Magical Abilities </h4>
               {magicalAbilities.map((magicalAbility, id) => {
                     return (
                     <div key={id}>
@@ -45,11 +52,9 @@ export default (props) => {
           <h3> Size </h3>
               {sizes.map((size, id) => {
                     return (
-                    <div key={id}>
-                      <label className="form-check-label">
-                        <input className="form-check-input" type="checkbox" value="" />{size}
-                      </label>
-                    </div>)
+                      <label className="form-check-label sizeLabels" key={id}>
+                        <input className="form-check-input sizeInput" type="checkbox" value="" />{size}
+                      </label>)
                 })}
           <h3> Lifespan </h3>
             <input type="range" min="0" max="100" />
