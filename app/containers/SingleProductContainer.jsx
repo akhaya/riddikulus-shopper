@@ -4,7 +4,7 @@ import SingleProduct from '../components/SingleProduct'
 
 const mapStateToProps = (state) => {
   return {
-    product: state.product
+    singleProduct: state.singleProduct
   }
 }
 
