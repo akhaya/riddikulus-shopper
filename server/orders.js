@@ -19,8 +19,8 @@ module.exports = require('express').Router()
      }
      res.send(req.cart)
   })
-  .get('/cart/update/:userId/:orderId/:productId/:color/:quantity', (req, res, next) => {
-    // user cart: update product on orderline and load the updated order
+  .get('/cart/update/:userId/:orderId/:productId/:color', (req, res, next) => {
+    // user cart: update product color on orderline and load the updated order
 
     //  not sure if RESTful, any suggestions welcome
     Orderline.findOne({
@@ -32,7 +32,6 @@ module.exports = require('express').Router()
     .then((orderlineToUpdate) => {
       return orderlineToUpdate.update({
         color: req.params.color,
-        quantity: req.params.quantity,
       })
     })
     .then(() => {
@@ -48,6 +47,7 @@ module.exports = require('express').Router()
     })
     .catch(next)
   })
+  // update quantity
   .get('/cart/:userId', (req, res, next) => {
       var cart = req.cart
       //is there a cart in local storage?

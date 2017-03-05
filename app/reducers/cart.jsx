@@ -48,9 +48,10 @@ export const receiveGuestCart = () =>
       })
       .catch(failed => console.error)
 
-export const updateOrderItemFromUserCart = (userId, orderId, productId, color, quantity) =>
+// update by color
+export const updateOrderItemFromUserCart = (userId, orderId, productId, color) =>
   dispatch =>
-    axios.get(`/api/orders/cart/update/${userId}/${orderId}/${productId}/${color}/${quantity}`)
+    axios.get(`/api/orders/cart/update/${userId}/${orderId}/${productId}/${color}`)
       .then(response => {
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
