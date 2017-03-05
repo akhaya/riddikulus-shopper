@@ -43,6 +43,10 @@ export default(props) => {
           <a href="/api/auth/login/google">
             <button type="submit" className="btn btn-info">Sign in with Google</button>
           </a>
+          <br />
+          <a href="/api/auth/login/facebook">
+            <button type="submit" className="btn btn-normal">Sign in with Facebook</button>
+          </a>
 
         </div>
       </div>
