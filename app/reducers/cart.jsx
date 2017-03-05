@@ -69,4 +69,13 @@ export const addItemToUserCart = (color, quantity, productId, orderId, price, si
       })
       .catch(failed => console.error)
 
+export const addItemToGuestCart = (color, quantity, productId, orderId, price, size) =>
+  dispatch =>
+    axios.post(`/api/orders/cart/add/guest`, {color, quantity, productId, orderId, price, size})
+      .then(response => {
+        const orderline = response.data
+        dispatch(addToCart(orderline))
+      })
+      .catch(failed => console.error)
+
 export default reducer
