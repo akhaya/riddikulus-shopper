@@ -4,8 +4,15 @@ import SingleProduct from '../components/SingleProduct'
 
 const mapStateToProps = (state) => {
   return {
-    product: state.product
+    product: state.product,
+    cart: state.cart,
   }
 }
 
-export default connect(mapStateToProps)(SingleProduct)
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

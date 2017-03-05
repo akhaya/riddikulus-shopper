@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const Order = db.model('orders')
+const Orderline = db.model('orderlines')
 const localUserStorage = require('store')
 
 
@@ -11,6 +12,19 @@ module.exports = require('express').Router()
     //load the local storage cart
     req.cart = localUserStorage.get('cart')
     next()
+  })
+  .get('/cart/add/:orderId/:productId/:price/:size/:color/:quantity', (req, res, next) => {
+    // user cart: add new orderline
+    Orderline.create({
+      color: req.params.color,
+      quantity: req.params.quantity,
+      product_id: req.params.productId,
+      order_id: req.params.orderId,
+      unitPrice: req.params.price,
+      size: req.params.size,
+    })
+    .then(orderline => res.json(orderline))
+    .catch(next)
   })
   .get('/cart', (req, res, next) => {
     //guest user cart route
