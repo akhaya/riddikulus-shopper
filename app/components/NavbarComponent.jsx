@@ -20,6 +20,10 @@ export default (props) => {
            <li>
             <Link to={'/signup'}>
               <button type="button" className="btn btn-danger">Sign up!</button>
+          <li>
+            <Link to="/cart" className="navbar-link">
+              <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              (1)
             </Link>
           </li>
         </ul>

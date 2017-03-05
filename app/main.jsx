@@ -5,15 +5,24 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 import store from './store'
 import axios from 'axios';
-
 import NavbarComponent from './components/NavbarComponent'
 import ProductsContainer from './containers/ProductsContainer'
+import CartContainer from './containers/CartContainer'
 import {receiveProducts} from './reducers/products'
+import {receiveUserCart, receiveGuestCart} from './reducers/cart'
+import {whoami} from './reducers/auth'
 import SingleProductContainer from './containers/SingleProductContainer'
 import {receiveProduct, getProductById} from './reducers/product'
 import Signup from './components/Signup'
 
 const onAppEnter = () => {
+  //GET THAT CART
+
+  store.dispatch(whoami())
+
+}
+
+const onProductsEnter = () => {
   axios.get('/api/products')
   .then(res => {
     store.dispatch(receiveProducts(res.data))
@@ -33,6 +42,7 @@ const App = connect(
   ({ user, children }) =>
     <div>
       <NavbarComponent user={user} />
+
       {children}
     </div>
 )
@@ -42,10 +52,15 @@ render (
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
         <IndexRedirect to="/products" />
-        <Route path="/products" component={ProductsContainer} />
+        <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
+<<<<<<< HEAD
         <Route path="/signup" component={Signup} />
     </Route>
+=======
+        <Route path="/cart" component={CartContainer} />
+      </Route>
+>>>>>>> a6cbe45ffacdbc3aa84d7b145ff82a0e8b808acc
     </Router>
   </Provider>,
   document.getElementById('main')
