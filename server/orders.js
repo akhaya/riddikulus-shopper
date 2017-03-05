@@ -5,23 +5,34 @@ const Order = db.model('orders')
 const Orderline = db.model('orderlines')
 const localUserStorage = require('store')
 
-
-
 module.exports = require('express').Router()
   .use((req, res, next) => {
     //load the local storage cart
     req.cart = localUserStorage.get('cart')
     next()
   })
-  .get('/cart/add/:orderId/:productId/:price/:size/:color/:quantity', (req, res, next) => {
+  .post('/cart/add', (req, res, next) => {
     // user cart: add new orderline
-    Orderline.create({
-      color: req.params.color,
-      quantity: req.params.quantity,
-      product_id: req.params.productId,
-      order_id: req.params.orderId,
-      unitPrice: req.params.price,
-      size: req.params.size,
+
+    // check if orderline alredy exists for the item
+    Orderline.findOrCreate({
+      where: {
+        product_id: req.body.productId,
+        order_id: req.body.orderId,
+        color: req.body.color,
+      }
+    })
+    .spread((orderline, created) => {
+      // if orderline was created and did not exist before
+      if (created) {
+        orderline.quantity = req.body.quantity
+        orderline.unitPrice = req.body.price
+        orderline.size = req.body.size
+      } else {
+      // if orderline already existed
+        orderline.quantity = +(orderline.quantity) + req.body.quantity
+      }
+      return orderline.save()
     })
     .then(orderline => res.json(orderline))
     .catch(next)
