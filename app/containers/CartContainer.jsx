@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import OrderItem from '../components/OrderItem'
 import CartSidebar from '../components/CartSidebar'
-import {updateOrderItemFromUserCart} from '../reducers/cart'
+import {updateOrderItemColorFromUserCart} from '../reducers/cart'
 
 class CartContainer extends Component {
   constructor(props){
@@ -45,7 +45,7 @@ class CartContainer extends Component {
   render(){
     const cart = this.props.cart
     const orderlines = cart.orderlines
-    const handleUpdate = this.props.handleUpdate
+    const handleColorUpdate = this.props.handleColorUpdate
     const userId = cart.user_id
     const noItemsMessage = (
     <div className="panel panel-default">
@@ -59,7 +59,7 @@ class CartContainer extends Component {
         <h3>Cart</h3>
         <div className="row">
           <div className="col-md-9">
-            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleUpdate={handleUpdate} userId={userId} key={orderline.id} />) : noItemsMessage}
+            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleColorUpdate={handleColorUpdate} userId={userId} key={orderline.id} />) : noItemsMessage}
           </div>
           <div className="col-md-3">
             <CartSidebar orderTotals={{
@@ -83,8 +83,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleUpdate(userId, orderId, productId, color) {
-      dispatch(updateOrderItemFromUserCart(userId, orderId, productId, color))
+    handleColorUpdate(userId, orderId, productId, color) {
+      dispatch(updateOrderItemColorFromUserCart(userId, orderId, productId, color))
     },
   }
 }
