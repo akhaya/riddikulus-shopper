@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import _ from 'lodash'
 import {convertPrice} from '../utils'
+import {Link} from 'react-router'
 
 class SingleProduct extends Component {
   constructor(props) {
@@ -8,7 +9,8 @@ class SingleProduct extends Component {
 
     this.state = {
       color: '',
-      quantity: 1
+      quantity: 1,
+      addedToCart: false,
     }
 
     this.onColorChange = this.onColorChange.bind(this)
@@ -28,6 +30,7 @@ class SingleProduct extends Component {
 
   handleSubmit (event) {
     event.preventDefault()
+    this.setState({addedToCart: true})
     // user must choose color before adding to cart
     // quantity defaults to 1 if user doesn't select quantity
     if (this.state.color) {
@@ -41,7 +44,15 @@ class SingleProduct extends Component {
     if (!animal) return null
 
     const quantity = _.range(1, animal.inventory);
-
+    const addedItemToCartMessage = (
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <h5>You've added {this.state.quantity} {this.state.color} {animal.name} to your cart!</h5>
+          <h5>Go to your <Link to='/cart'>cart</Link>.</h5>
+        </div>
+      </div>
+      )
+    const noMessage = (<div></div>)
     return(
       <div className="container-fluid">
         <div className="row">
@@ -76,10 +87,11 @@ class SingleProduct extends Component {
                 </select>
               }
               <div>
-                <button type="button" className="btn btn-default" aria-label="Left Align" onClick={this.handleSubmit}>
-                  <div className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></div>
-                </button>
+                  <button type="button" className="btn btn-default" aria-label="Left Align" onClick={this.handleSubmit}>
+                    <div className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></div>
+                  </button>
               </div>
+              {this.state.addedToCart ? addedItemToCartMessage : noMessage}
             </div>
           </div>
         </div>
@@ -100,16 +112,16 @@ class SingleProduct extends Component {
           <div className="col-sm-4">
             <h1> User Photos </h1>
               <div className="col-sm-5">
-                <img className='thumbnailImg' src={animal && animal.pictureURL} />
+                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
               </div>
               <div className="col-sm-5">
-                <img className='thumbnailImg' src={animal && animal.pictureURL} />
+                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
               </div>
               <div className="col-sm-5">
-                <img className='thumbnailImg' src={animal && animal.pictureURL} />
+                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
               </div>
               <div className="col-sm-5">
-                <img className='thumbnailImg' src={animal && animal.pictureURL} />
+                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
               </div>
           </div>
         </div>

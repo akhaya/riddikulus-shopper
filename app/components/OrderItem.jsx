@@ -14,6 +14,8 @@ export default (props) => {
 
           <div className="col-md-4">
             <dl>
+              <dt>Name:</dt>
+              <dd>{product.name}</dd>
               <dt>Description:</dt>
               <dd>{product.description}</dd>
               <dt>Size</dt>
