@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import OrderItem from '../components/OrderItem'
 import CartSidebar from '../components/CartSidebar'
-import {deleteOrderItemFromGuestCart} from '../reducers/cart'
+import {deleteOrderItemFromGuestCart, updateOrderItemFromGuestCart} from '../reducers/cart'
 
 class CartContainer extends Component {
   constructor(props){
@@ -45,6 +45,7 @@ class CartContainer extends Component {
   render(){
     const cart = this.props.cart
     const orderlines = cart.orderlines
+    const userId = cart.user_id
     const handleGuestDelete = this.props.handleGuestDelete
     const noItemsMessage = (
     <div className="panel panel-default">
@@ -58,7 +59,7 @@ class CartContainer extends Component {
         <h3>Cart</h3>
         <div className="row">
           <div className="col-md-9">
-            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleGuestDelete={handleGuestDelete} key={orderline.id} />) : noItemsMessage}
+            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleGuestDelete={handleGuestDelete} userId={userId} key={orderline.id} />) : noItemsMessage}
           </div>
           <div className="col-md-3">
             <CartSidebar orderTotals={{
@@ -84,7 +85,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleGuestDelete(orderlineId) {
       dispatch(deleteOrderItemFromGuestCart(orderlineId))
-    }
+    },
+    handleGuestUpdate(orderlineId, color, quantity) {
+      dispatch(updateOrderItemFromGuestCart(orderlineId, color, quantity))
+    },
   }
 }
 
