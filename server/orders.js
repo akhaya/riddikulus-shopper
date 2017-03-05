@@ -19,7 +19,7 @@ module.exports = require('express').Router()
      }
      res.send(req.cart)
   })
-  .get('/cart/update/:userId/:orderId/:productId/:color', (req, res, next) => {
+  .put('/cart/update/:userId/:orderId/:productId', (req, res, next) => {
     // user cart: update product color on orderline and load the updated order
 
     //  not sure if RESTful, any suggestions welcome
@@ -31,7 +31,7 @@ module.exports = require('express').Router()
     })
     .then((orderlineToUpdate) => {
       return orderlineToUpdate.update({
-        color: req.params.color,
+        color: req.body.color,
       })
     })
     .then(() => {
