@@ -4,8 +4,6 @@ const db = require('APP/db')
 const Order = db.model('orders')
 const localUserStorage = require('store')
 
-
-
 module.exports = require('express').Router()
   .use((req, res, next) => {
     //load the local storage cart
@@ -15,7 +13,42 @@ module.exports = require('express').Router()
   .get('/cart', (req, res, next) => {
     //guest user cart route
      if(!req.cart){
-       localUserStorage.set('cart', { status: 'pending'})
+      // initial cart for gues user commented out
+      // localUserStorage.set('cart', { status: 'pending'})
+
+      // seed local user storage for testing
+       localUserStorage.set('cart', {
+        status: 'pending',
+        orderlines: [
+          {
+            id: 1,
+            color: 'gray',
+            quantity: 1,
+            size: 'L',
+            unitPrice: 500,
+            order_id: 1,
+            product_id: 1
+          },
+          {
+            id: 2,
+            color: 'white',
+            quantity: 1,
+            size: 'M',
+            unitPrice: 100,
+            order_id: 2,
+            product_id: 4
+          },
+          {
+            id: 3,
+            color: 'black',
+            quantity: 1,
+            size: 'L',
+            unitPrice: 150,
+            order_id: 2,
+            product_id: 3
+          },
+        ]
+      })
        req.cart = localUserStorage.get('cart')
      }
      res.send(req.cart)

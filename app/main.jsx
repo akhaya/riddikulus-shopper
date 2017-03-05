@@ -9,10 +9,9 @@ import NavbarComponent from './components/NavbarComponent'
 import ProductsContainer from './containers/ProductsContainer'
 import CartContainer from './containers/CartContainer'
 import {receiveProducts} from './reducers/products'
-import {receiveUserCart, receiveGuestCart} from './reducers/cart'
 import {whoami} from './reducers/auth'
 import SingleProductContainer from './containers/SingleProductContainer'
-import {receiveProduct, getProductById} from './reducers/product'
+import {getProductById} from './reducers/product'
 
 const onAppEnter = () => {
   //GET THAT CART
