@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 var _ = require('lodash');
 
 export default (props) => {
@@ -7,6 +8,7 @@ export default (props) => {
   if (!animal) return null
 
   const quantity = _.range(0, animal.inventory);
+
 
   return(
     <div className="container-fluid">
@@ -42,6 +44,10 @@ export default (props) => {
             <div>
               <button type="button" className="btn btn-default" aria-label="Left Align">
                 <div className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></div>
+              <button type="button" class="btn btn-default" aria-label="Left Align">
+                <div className="glyphicon glyphicon-shopping-cart
+  " aria-hidden="true"></div>
+
               </button>
             </div>
           </div>
@@ -74,6 +80,16 @@ export default (props) => {
             </div>
             <div className="col-sm-5">
               <img className='thumbnailImg' src={animal && animal.pictureURL} />
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
             </div>
         </div>
       </div>
