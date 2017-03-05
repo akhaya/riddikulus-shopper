@@ -94,6 +94,22 @@ const seedOrderlines = () => db.Promise.map([
     quantity: 1,
     size: 'M',
     unitPrice: 100,
+    order_id: 2,
+    product_id: 4
+  },
+  {
+    color: 'black',
+    quantity: 1,
+    size: 'L',
+    unitPrice: 150,
+    order_id: 2,
+    product_id: 3
+  },
+  {
+    color: 'green',
+    quantity: 2,
+    size: 'S',
+    unitPrice: 150,
     order_id: 3,
     product_id: 1
   },
@@ -104,23 +120,23 @@ const seedOrderlines = () => db.Promise.map([
     unitPrice: 2000,
     order_id: 4,
     product_id: 1
-   },
-   {
+  },
+  {
     color: 'brown',
     quantity: 1,
     size: 'L',
     unitPrice: 500,
     order_id: 4,
     product_id: 3
-   },
-   {
+  },
+  {
     color: 'green',
     quantity: 4,
     size: 'XS',
     unitPrice: 100,
     order_id: 5,
     product_id: 2
-   }
+  },
 ], orderline => db.model('orderlines').create(orderline))
 
 
