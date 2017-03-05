@@ -4,8 +4,6 @@ const db = require('APP/db')
 const Order = db.model('orders')
 const localUserStorage = require('store')
 
-
-
 module.exports = require('express').Router()
   .use((req, res, next) => {
     //load the local storage cart
@@ -19,6 +17,35 @@ module.exports = require('express').Router()
        req.cart = localUserStorage.get('cart')
      }
      res.send(req.cart)
+  })
+  .get('/cart/update/:userId/:orderId/:productId/:color/:quantity', (req, res, next) => {
+    // user cart: update product on orderline and load the updated order
+
+    //  not sure if RESTful, any suggestions welcome
+    Orderline.findOne({
+      where: {
+        order_id: req.params.orderId,
+        product_id: req.params.productId,
+      }
+    })
+    .then((orderlineToUpdate) => {
+      return orderlineToUpdate.update({
+        color: req.params.color,
+        quantity: req.params.quantity,
+      })
+    })
+    .then(() => {
+      return Order.findOne({
+        where: {
+          user_id: req.params.userId,
+          status: 'pending',
+        }
+      })
+    })
+    .then(updatedOrder => {
+      res.json(updatedOrder)
+    })
+    .catch(next)
   })
   .get('/cart/:userId', (req, res, next) => {
       var cart = req.cart
