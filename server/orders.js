@@ -19,35 +19,6 @@ module.exports = require('express').Router()
      }
      res.send(req.cart)
   })
-  .put('/cart/update/:userId/:orderId/:productId', (req, res, next) => {
-    // user cart: update product color on orderline and load the updated order
-
-    //  not sure if RESTful, any suggestions welcome
-    Orderline.findOne({
-      where: {
-        order_id: req.params.orderId,
-        product_id: req.params.productId,
-      }
-    })
-    .then((orderlineToUpdate) => {
-      return orderlineToUpdate.update({
-        color: req.body.color,
-      })
-    })
-    .then(() => {
-      return Order.findOne({
-        where: {
-          user_id: req.params.userId,
-          status: 'pending',
-        }
-      })
-    })
-    .then(updatedOrder => {
-      res.json(updatedOrder)
-    })
-    .catch(next)
-  })
-  // update quantity
   .get('/cart/:userId', (req, res, next) => {
       var cart = req.cart
       //is there a cart in local storage?
@@ -84,3 +55,33 @@ module.exports = require('express').Router()
       }
 
   })
+  .put('/cart/update/:userId/:orderId/:productId', (req, res, next) => {
+    // user cart: update product color/quantity on orderline and load the updated order
+
+    //  not sure if RESTful, any suggestions welcome
+    Orderline.findOne({
+      where: {
+        order_id: req.params.orderId,
+        product_id: req.params.productId,
+      }
+    })
+    .then((orderlineToUpdate) => {
+      return orderlineToUpdate.update({
+        color: req.body.color,
+        quantity: req.body.quantity,
+      })
+    })
+    .then(() => {
+      return Order.findOne({
+        where: {
+          user_id: req.params.userId,
+          status: 'pending',
+        }
+      })
+    })
+    .then(updatedOrder => {
+      res.json(updatedOrder)
+    })
+    .catch(next)
+  })
+
