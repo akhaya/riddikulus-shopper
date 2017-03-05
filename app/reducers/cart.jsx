@@ -48,5 +48,13 @@ export const receiveGuestCart = () =>
       })
       .catch(failed => console.error)
 
+export const updateOrderItemFromUserCart = (userId, orderId, productId, color, quantity) =>
+  dispatch =>
+    axios.get(`/api/orders/cart/update/${userId}/${orderId}/${productId}/${color}/${quantity}`)
+      .then(response => {
+        const updatedCart = response.data
+        dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.error)
 
 export default reducer
