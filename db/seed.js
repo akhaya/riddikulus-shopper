@@ -17,7 +17,7 @@ const seedProducts = () => db.Promise.map([
     price: 2000,
     breed_id:1
   },
-  { name: 'Bowtruckles',
+  { name: 'Bowtruckle',
     description: 'A small twig-like creature that guards wand-wood trees.',
     colors: ['green', 'brown'],
     size: 'XS',
@@ -28,7 +28,7 @@ const seedProducts = () => db.Promise.map([
     price: 100,
     breed_id: 2
   },
-  { name: 'Hippogriffs',
+  { name: 'Hippogriff',
     description: 'Half horse, half eagle creatures, immensely proud and extremely dangerous.',
     colors: ['brown', 'white', 'black', 'silver'],
     size: 'L',
