@@ -1,7 +1,8 @@
 import React from 'react'
 
 export default (props) => {
-  const product = props.orderline.product;
+  const product = props.orderline.product
+  if (!product) return null
   const orderline = props.orderline
   return (
     <div className="panel panel-default">
