@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import OrderItem from '../components/OrderItem'
 import CartSidebar from '../components/CartSidebar'
 
-
 class CartContainer extends Component {
   constructor(props){
     super(props)
@@ -30,7 +29,7 @@ class CartContainer extends Component {
   }
   calculateShipping(){
     const orderlines = this.props.cart.orderlines
-    if(orderlines){
+    if(orderlines && orderlines.length > 0){
       return orderlines.length*50
     }
     return 0
@@ -41,17 +40,6 @@ class CartContainer extends Component {
   calculateTotal(){
     return this.calculateSubtotal()+this.calculateTax()+this.calculateShipping()
   }
-
-  componentWillReceiveProps(){
-    this.setState({
-      subtotal: this.calculateSubtotal(),
-      shipping: this.calculateShipping(),
-      tax: this.calculateTax(),
-      total: this.calculateTotal()
-    })
-  }
-
-
 
   render(){
     const cart = this.props.cart
@@ -68,10 +56,15 @@ class CartContainer extends Component {
         <h3>Cart</h3>
         <div className="row">
           <div className="col-md-9">
-            {orderlines? orderlines.map(orderline => <OrderItem orderline={orderline} key={orderline.id} />) : noItemsMessage}
+            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} key={orderline.id} />) : noItemsMessage}
           </div>
           <div className="col-md-3">
-            <CartSidebar orderTotals={this.state}/>
+            <CartSidebar orderTotals={{
+              subtotal: this.calculateSubtotal(),
+              shipping: this.calculateShipping(),
+              tax: this.calculateTax(),
+              total: this.calculateTotal()
+            }}/>
           </div>
         </div>
       </div>
