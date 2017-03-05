@@ -124,6 +124,11 @@ module.exports = require('express').Router()
     localUserStorage.set('cart', guestCart)
     res.send(guestCart)
   })
+  // check if local storage is updating correctly
+  // .get('/TEST', (req, res, next) => {
+  //   let guestCart = localUserStorage.get('cart')
+  //   res.send(guestCart)
+  // })
   .get('/cart/:userId', (req, res, next) => {
       var cart = req.cart
       //is there a cart in local storage?
