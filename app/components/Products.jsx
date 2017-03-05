@@ -68,8 +68,8 @@ export default (props) => {
 
             {products.map(product => {
             return (<div className="col-xs-3" key = {product.id}>
-              {/* add onclick handler to single product view */}
-              <a className="thumbnail" href="#" onClick={() => clickedAlbum(album.id)}>
+
+              <a className="thumbnail">
                 <img src={product.pictureURL} />
                 <div className="caption">
                   <h5>
