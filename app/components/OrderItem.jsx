@@ -1,8 +1,16 @@
 import React from 'react'
 
 export default (props) => {
-  const product = props.orderline.product;
+  const product = props.orderline.product
   const orderline = props.orderline
+
+  const handleDelete = (event) => {
+    // if cart is
+    if (!props.user_id) {
+      props.handleGuestDelete(orderline.id)
+    }
+    // put user handle delete in else statement below
+  }
   return (
     <div className="panel panel-default">
       <div className="panel-body">
@@ -41,7 +49,7 @@ export default (props) => {
                 {props.errorMessage}
               </dd>
             </dl>
-            <button className="btn btn-default" type="submit">Delete</button>
+            <button className="btn btn-default" type="submit" onClick={handleDelete}>Delete</button>
             <button className="btn btn-default" type="submit">Update</button>
           </div>
 
