@@ -12,3 +12,11 @@
   width:200px;
   height:auto;
 }
+
+.sizeLabels {
+  padding-right:8px !important;
+}
+
+.sizeInput {
+  margin-right: 2px !important;
+}
