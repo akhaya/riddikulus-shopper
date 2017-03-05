@@ -1,5 +1,4 @@
 import React from 'react'
-<<<<<<< HEAD
 var _ = require('lodash');
 
 export default (props) => {
@@ -44,10 +43,6 @@ export default (props) => {
             <div>
               <button type="button" className="btn btn-default" aria-label="Left Align">
                 <div className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></div>
-              <button type="button" class="btn btn-default" aria-label="Left Align">
-                <div className="glyphicon glyphicon-shopping-cart
-  " aria-hidden="true"></div>
-
               </button>
             </div>
           </div>
