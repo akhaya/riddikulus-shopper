@@ -1,6 +1,7 @@
-import React from 'react'
+ import React from 'react'
 import {Link} from 'react-router'
 import _ from 'lodash'
+
 
 export default (props) => {
 
@@ -24,6 +25,7 @@ export default (props) => {
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL']
 
+
   return (
 
     <div className="container-fluid">
@@ -35,7 +37,7 @@ export default (props) => {
                     return (
                     <div key={id}>
                       <label className="form-check-label">
-                        <input className="form-check-input" type="checkbox" value="" />{breed}
+                        <input className="form-check-input" type="checkbox" onChange={handleChange} />{breed}
                       </label>
                     </div>)
                 })}

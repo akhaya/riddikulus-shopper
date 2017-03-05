@@ -1,10 +1,7 @@
 import { combineReducers } from 'redux'
+import auth from './auth'
+import products from './products'
 
-const rootReducer = combineReducers({
-  auth: require('./auth').default,
-  products: require('./products').default,
-  product: require('./product').default,
-
-})
+const rootReducer = combineReducers({ auth, products })
 
 export default rootReducer
