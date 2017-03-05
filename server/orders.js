@@ -14,11 +14,13 @@ module.exports = require('express').Router()
     //guest user cart route
      if(!req.cart){
       // initial cart for guest user commented out
+      // comment in when you are testing users
       // localUserStorage.set('cart', { status: 'pending'})
 
       // local user storage cart dummy data for testing
+      // comment out when you are testing users, login doesn't work with dummy data below
       // cart sidebar subtotal, tax, and total will not properly update because cart is dummy data
-       localUserStorage.set('cart', {
+      localUserStorage.set('cart', {
         status: 'pending',
         shippingCost: 150,
         tax: 100,
@@ -90,20 +92,36 @@ module.exports = require('express').Router()
             }
           },
         ],
-
       })
        req.cart = localUserStorage.get('cart')
      }
      res.send(req.cart)
   })
   .delete('/cart/delete/guest/:orderlineId', (req, res, next) => {
+    // guest cart: delete orderline and load the updated order
     let guestCart = localUserStorage.get('cart')
     guestCart.orderlines = guestCart.orderlines.filter(orderline => {
       return orderline.id !== +(req.params.orderlineId)
     })
     localUserStorage.set('cart', guestCart)
     // not sure if I needed to use req.cart in any way? seems to work with just store.js
-    console.log('====', guestCart)
+    res.send(guestCart)
+  })
+  .put('/cart/update/guest/:orderlineId', (req, res, next) => {
+    // guest cart: update product order/quantity on orderline and load the updated order
+    let guestCart = localUserStorage.get('cart')
+    guestCart.orderlines = guestCart.orderlines.map(orderline => {
+      if (orderline.id === +(req.params.orderlineId)) {
+        if (req.body.color) {
+          orderline.color = req.body.color
+        }
+        if (req.body.quantity) {
+          orderline.quantity = req.body.quantity
+        }
+      }
+      return orderline
+    })
+    localUserStorage.set('cart', guestCart)
     res.send(guestCart)
   })
   .get('/cart/:userId', (req, res, next) => {
