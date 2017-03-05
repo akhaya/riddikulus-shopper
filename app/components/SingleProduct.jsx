@@ -1,5 +1,6 @@
 import React from 'react'
-var _ = require('lodash');
+import _ from 'lodash'
+import {convertPrice} from '../utils'
 
 export default (props) => {
   const animal = props.product
@@ -11,7 +12,7 @@ export default (props) => {
   return(
     <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-6">
+        <div className="col-sm-6 thumbnail">
           <img src={animal.pictureURL} />
         </div>
         <div className="col-sm-4">
