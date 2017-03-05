@@ -47,7 +47,7 @@ class SingleProduct extends Component {
     const addedItemToCartMessage = (
       <div className="panel panel-default">
         <div className="panel-body">
-          <h5>You've added {this.state.quantity} {this.state.color} {animal.name} to your cart!</h5>
+          <h5>You've added {this.state.quantity} {this.state.color} {animal.name}{this.state.quantity > 1 ? 's' : ''} to your cart!</h5>
           <h5>Go to your <Link to='/cart'>cart</Link>.</h5>
         </div>
       </div>
