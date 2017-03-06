@@ -13,6 +13,7 @@ import {receiveUserCart, receiveGuestCart} from './reducers/cart'
 import {whoami} from './reducers/auth'
 import SingleProductContainer from './containers/SingleProductContainer'
 import {receiveProduct, getProductById} from './reducers/product'
+import SignupContainer from './containers/SignupContainer'
 
 const onAppEnter = () => {
   //GET THAT CART
@@ -57,6 +58,7 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
+        <Route path="/signup" component={SignupContainer} />
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
       </Route>
     </Router>
