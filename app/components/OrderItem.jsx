@@ -2,6 +2,7 @@ import React from 'react'
 
 export default (props) => {
   const product = props.orderline.product
+  if (!product) return null
   const orderline = props.orderline
   const orderId = orderline.order_id
   const productId = orderline.product_id
@@ -22,6 +23,8 @@ export default (props) => {
 
           <div className="col-md-4">
             <dl>
+              <dt>Name:</dt>
+              <dd>{product.name}</dd>
               <dt>Description:</dt>
               <dd>{product.description}</dd>
               <dt>Size</dt>
