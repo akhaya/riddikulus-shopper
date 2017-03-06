@@ -155,6 +155,35 @@ module.exports = require('express').Router()
     })
     .catch(next)
   })
+  .put('/cart/update/:userId/:orderId/:productId', (req, res, next) => {
+    // user cart: update product color/quantity on orderline and load the updated order
+
+    //  not sure if RESTful, any suggestions welcome
+    Orderline.findOne({
+      where: {
+        order_id: req.params.orderId,
+        product_id: req.params.productId,
+      }
+    })
+    .then((orderlineToUpdate) => {
+      return orderlineToUpdate.update({
+        color: req.body.color,
+        quantity: req.body.quantity,
+      })
+    })
+    .then(() => {
+      return Order.findOne({
+        where: {
+          user_id: req.params.userId,
+          status: 'pending',
+        }
+      })
+    })
+    .then(updatedOrder => {
+      res.json(updatedOrder)
+    })
+    .catch(next)
+  })
   .delete('/:id', forbidden('only admins can delete orders'), (req, res, next) => {
 		Order.findById(req.params.id)
 		.then(order => order.destroy())
