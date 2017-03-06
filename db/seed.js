@@ -1,8 +1,10 @@
 const db = require('APP/db')
 
 const seedUsers = () => db.Promise.map([
-  {name: 'so many', email: 'god@example.com', password: '1234'},
-  {name: 'Barack Obama', email: 'barack@example.gov', password: '1234'},
+  {name: 'so many', email: 'god@example.com', password: '1234', isGuest: false, isAdmin: true, status: 'active'},
+  {name: 'Barack Obama', email: 'barack@example.gov', password: '1234', isGuest: false, status: 'active'},
+  {name: 'Beyonce', email: 'bey@test.com', password: '1234', isGuest: false, status: 'active'},
+  {name: 'Albert', email: 'al@test.com', password: '1234', isGuest: true}
 ], user => db.model('users').create(user))
 
 const seedProducts = () => db.Promise.map([
@@ -17,7 +19,7 @@ const seedProducts = () => db.Promise.map([
     price: 2000,
     breed_id:1
   },
-  { name: 'Bowtruckles',
+  { name: 'Bowtruckle',
     description: 'A small twig-like creature that guards wand-wood trees.',
     colors: ['green', 'brown'],
     size: 'XS',
@@ -28,7 +30,7 @@ const seedProducts = () => db.Promise.map([
     price: 100,
     breed_id: 2
   },
-  { name: 'Hippogriffs',
+  { name: 'Hippogriff',
     description: 'Half horse, half eagle creatures, immensely proud and extremely dangerous.',
     colors: ['brown', 'white', 'black', 'silver'],
     size: 'L',
@@ -36,7 +38,7 @@ const seedProducts = () => db.Promise.map([
     inventory: 50,
     magicalAbilities: ['flying'],
     lifespan: 70,
-    price: 100,
+    price: 500,
     breed_id: 3
   },
   { name: 'Niffler',
@@ -46,8 +48,8 @@ const seedProducts = () => db.Promise.map([
     pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/3x8xkyxFqU0w6WaMAuUmsK/69b6776507fba83b3f90a4c59475440c/FB-TRL2-niffler_alt.jpg?w=550&h=550&fit=thumb&f=center&q=85',
     inventory: 100,
     magicalAbilities: ['flying'],
-    lifespan: 70,
-    price: 100,
+    lifespan: 10,
+    price: 150,
     breed_id: 4
   },
   { name: 'Nundu',
@@ -254,6 +256,87 @@ const seedBreeds = () => db.Promise.map([
   {name: 'troll'}
 ], breed => db.model('breeds').create(breed))
 
+const seedAddresses = () => db.Promise.map([
+  { address1: '5 Hanover Square',
+    city: 'New York',
+    state: 'NY',
+    zip: 10004
+  },
+  { address1: '1234 116th St',
+    city: 'New York',
+    state: 'NY',
+    zip: 10027
+  },
+], address => db.model('addresses').create(address))
+
+const seedOrders = () => db.Promise.map([
+  {status: 'pending'},
+  {status: 'processing', shippingCost: 100, tax: 80, subtotal:250, totalCost: 430, user_id: 1, address_id: 1},
+  {status: 'shipped', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 2, address_id: 2},
+  {status: 'pending', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 1, address_id: 1},
+  {status: 'pending', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 2, address_id: 2},
+], order => db.model('orders').create(order))
+
+const seedOrderlines = () => db.Promise.map([
+  {
+    color: 'green',
+    quantity: 1,
+    size: 'S',
+    unitPrice: 500,
+    order_id: 1,
+    product_id: 1
+  },
+  {
+    color: 'brown',
+    quantity: 1,
+    size: 'M',
+    unitPrice: 100,
+    order_id: 2,
+    product_id: 4
+  },
+  {
+    color: 'black',
+    quantity: 1,
+    size: 'L',
+    unitPrice: 150,
+    order_id: 2,
+    product_id: 3
+  },
+  {
+    color: 'green',
+    quantity: 2,
+    size: 'S',
+    unitPrice: 150,
+    order_id: 3,
+    product_id: 1
+  },
+  {
+    color: 'gray',
+    quantity: 2,
+    size: 'L',
+    unitPrice: 2000,
+    order_id: 4,
+    product_id: 1
+  },
+  {
+    color: 'brown',
+    quantity: 1,
+    size: 'L',
+    unitPrice: 500,
+    order_id: 4,
+    product_id: 3
+  },
+  {
+    color: 'green',
+    quantity: 4,
+    size: 'XS',
+    unitPrice: 100,
+    order_id: 5,
+    product_id: 2
+  },
+], orderline => db.model('orderlines').create(orderline))
+
+
 db.didSync
   .then(() => db.sync({force: true}))
   .then(seedUsers)
@@ -262,5 +345,11 @@ db.didSync
   .then((breeds) => console.log(`Seeded ${breeds.length} breeds OK`))
   .then(seedProducts)
   .then((products) => console.log(`Seeded ${products.length} products OK`))
+  .then(seedAddresses)
+  .then((addresses) => console.log(`Seeded ${addresses.length} addresses OK`))
+  .then(seedOrders)
+  .then((orders) => console.log(`Seeded ${orders.length} orders OK`))
+  .then(seedOrderlines)
+  .then((orderlines) => console.log(`Seeded ${orderlines.length} orderlines OK`))
   .catch(error => console.error(error))
   .finally(() => db.close())
