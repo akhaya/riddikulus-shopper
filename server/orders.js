@@ -4,7 +4,6 @@ const db = require('APP/db')
 const Order = db.model('orders')
 const Orderline = db.model('orderlines')
 const localUserStorage = require('store')
-
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
 module.exports = require('express').Router()
@@ -17,6 +16,93 @@ module.exports = require('express').Router()
 		Order.findAll()
 		.then(orders => res.json(orders))
 		.catch(next)
+  })
+  .get('/cart', (req, res, next) => {
+    //guest user cart route
+     if(!req.cart){
+      // initial cart for guest user commented out
+      // comment in when you are testing users
+      // localUserStorage.set('cart', { status: 'pending'})
+
+      // local user storage cart dummy data for testing
+      // comment out when you are testing users, login doesn't work with dummy data below
+      // cart sidebar subtotal, tax, and total will not properly update because cart is dummy data
+      localUserStorage.set('cart', {
+        status: 'pending',
+        shippingCost: 150,
+        tax: 100,
+        subtotal:300,
+        totalCost: 550,
+        user_id: null,
+        orderlines: [
+          {
+            id: 1,
+            color: 'gray',
+            quantity: 1,
+            size: 'L',
+            unitPrice: 500,
+            order_id: 1,
+            product_id: 1,
+            subtotal: 500,
+            product:   { name: 'Thunderbird',
+              description: 'Flying beast that can sense danger, and create storms as it flies. Its tail feathers were used by Shikoba Wolfe to create powerful wands, particularly good for Transfiguration.',
+              colors: ['gray', 'white', 'black', 'red'],
+              size: 'L',
+              pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/6F2Hrc4vgASui8mcQMYKC2/88edf4f0d933a7cea6e36b9b0b66613d/Thunderbird_Fantastic_Beasts_CC_Trailer_WM.JPG?w=550&h=550&fit=thumb&f=center&q=85',
+              inventory: 20,
+              magicalAbilities: ['weather manipulation', 'fear sensing', 'flying'],
+              lifespan: 60,
+              price: 2000,
+              breed_id:1
+            }
+          },
+          {
+            id: 2,
+            color: 'white',
+            quantity: 1,
+            size: 'M',
+            unitPrice: 100,
+            order_id: 2,
+            product_id: 4,
+            subtotal: 100,
+            product: { name: 'Bowtruckles',
+              description: 'A small twig-like creature that guards wand-wood trees.',
+              colors: ['green', 'brown'],
+              size: 'XS',
+              pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/CHqGFAIkwK2y2meEMgQAY/9562ab7cb3f75af827bd4c3ffa1c2eea/FTB203_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM_A_NEW_HERO_FEATURETTE_2255.jpg?w=550&h=550&fit=thumb&f=center&q=85',
+              inventory: 100,
+              magicalAbilities: ['natural camouflage'],
+              lifespan: 5,
+              price: 100,
+              breed_id: 2
+            }
+          },
+          {
+            id: 3,
+            color: 'black',
+            quantity: 1,
+            size: 'L',
+            unitPrice: 150,
+            order_id: 2,
+            product_id: 3,
+            subtotal: 150,
+            product: { name: 'Niffler',
+              description: 'Long-snouted, burrowing creatures native to Britain with a penchant for anything shiny.',
+              colors: ['brown', 'white', 'black'],
+              size: 'S',
+              pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/3x8xkyxFqU0w6WaMAuUmsK/69b6776507fba83b3f90a4c59475440c/FB-TRL2-niffler_alt.jpg?w=550&h=550&fit=thumb&f=center&q=85',
+              inventory: 100,
+              magicalAbilities: ['flying'],
+              lifespan: 10,
+              price: 150,
+              breed_id: 4
+            }
+          },
+        ],
+      })
+       req.cart = localUserStorage.get('cart')
+     }
+     res.send(req.cart)
   })
   .post('/cart/add', (req, res, next) => {
     // user cart: add/update orderline
@@ -84,15 +170,38 @@ module.exports = require('express').Router()
     localUserStorage.set('cart', cart)
     res.json(newOrderline)
   })
-  .get('/cart', (req, res, next) => {
-    //guest user cart route
-
-    if(!req.cart){
-      localUserStorage.set('cart', { status: 'pending'})
-      req.cart = localUserStorage.get('cart')
-    }
-    res.send(req.cart)
+  .delete('/cart/delete/guest/:orderlineId', (req, res, next) => {
+    // guest cart: delete orderline and load the updated order
+    let guestCart = req.cart
+    guestCart.orderlines = guestCart.orderlines.filter(orderline => {
+      return orderline.id !== +(req.params.orderlineId)
+    })
+    localUserStorage.set('cart', guestCart)
+    // not sure if I needed to use req.cart in any way? seems to work with just store.js
+    res.send(guestCart)
   })
+  .put('/cart/update/guest/:orderlineId', (req, res, next) => {
+    // guest cart: update product order/quantity on orderline and load the updated order
+    let guestCart = localUserStorage.get('cart')
+    guestCart.orderlines = guestCart.orderlines.map(orderline => {
+      if (orderline.id === +(req.params.orderlineId)) {
+        if (req.body.color) {
+          orderline.color = req.body.color
+        }
+        if (req.body.quantity) {
+          orderline.quantity = req.body.quantity
+        }
+      }
+      return orderline
+    })
+    localUserStorage.set('cart', guestCart)
+    res.send(guestCart)
+  })
+  // check if local storage is updating correctly
+  // .get('/TEST', (req, res, next) => {
+  //   let guestCart = localUserStorage.get('cart')
+  //   res.send(guestCart)
+  // })
   .get('/cart/:userId', (req, res, next) => {
       var cart = req.cart
       //is there a cart in local storage?
