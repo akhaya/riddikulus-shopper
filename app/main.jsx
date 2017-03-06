@@ -15,8 +15,10 @@ import SingleProductContainer from './containers/SingleProductContainer'
 import AdminPanel from './components/AdminPanel'
 import AdminUsersContainer from './containers/AdminUsersContainer'
 import AdminProductsContainer from './containers/AdminProductsContainer'
+import AdminOrdersContainer from './containers/AdminOrdersContainer'
 import {receiveProduct, getProductById} from './reducers/product'
 import {receiveUsers} from './reducers/users'
+import {receiveOrders} from './reducers/orders'
 
 const onAppEnter = () => {
   //GET THAT CART
@@ -82,7 +84,8 @@ render (
         <Route path="/admin" component={AdminPanel} onEnter={onAdminEnter}>
           <IndexRoute component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
           <Route path="/admin/users" component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
-          <Route path="/admin/products" component={AdminProductsContainer} />
+          <Route path="/admin/orders" component={AdminOrdersContainer} onEnter={onAdminOrdersEnter}/>
+          <Route path="/admin/products" component={AdminProductsContainer} onEnter={onProductsEnter}/>
         </Route>
         <Route path="/cart" component={CartContainer} />
       </Route>

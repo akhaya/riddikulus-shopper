@@ -2,17 +2,16 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 export default (props) => {
-  const product = props.product
+  const order = props.order
   return (
       <tr>
-        <th scope="row">{product.id}</th>
-        <td>{product.name}</td>
-        <td>{product.breed}</td>
-        <td>{product.colors}</td>
-        <td>{product.size}</td>
-        <td>{product.inventory}</td>
+        <th scope="row">{order.id}</th>
+        <td>{order.user_id}</td>
+        <td>{order.created_at}</td>
+        <td>{order.total}</td>
+        <td>{order.status}</td>
         <td><a href="#" target="_self">DETAILS</a></td>
-        <td><a href="#" target="_self" onClick={props.onDelete}>DELETE</a></td>
+        <td><a href="#" target="_self">DELETE</a></td>
       </tr>
   )
 }
