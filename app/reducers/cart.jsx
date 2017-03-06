@@ -61,11 +61,15 @@ export const receiveGuestCart = () =>
       })
       .catch(failed => console.error)
 
-<<<<<<< HEAD
+//okay?
 export const deleteOrderItemFromGuestCart = (orderlineId) =>
   dispatch =>
     axios.delete(`api/orders/cart/delete/guest/${orderlineId}`)
-=======
+      .then(response => {
+        const updatedCart = response.data
+        dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.error)
 
 //okay
 // update by color
@@ -78,11 +82,16 @@ export const updateOrderItemFromUserCart = (userId, orderId, productId, color, q
       })
       .catch(failed => console.error)
 
-<<<<<<< HEAD
+//okay?
 export const updateOrderItemFromGuestCart = (orderlineId, color, quantity) =>
   dispatch =>
     axios.put(`api/orders/cart/update/guest/${orderlineId}`, {color, quantity})
-=======
+      .then(response => {
+        const updatedCart = response.data
+        dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.error)
+
 //okay
 export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
   dispatch =>
@@ -91,7 +100,7 @@ export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
       })
-      .catch(failed => console.errorcar)
+      .catch(failed => console.error)
 
 //okay
 export const addItemToUserCart = (color, quantity, productId, orderId, price, size) =>

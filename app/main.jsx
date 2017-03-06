@@ -11,9 +11,6 @@ import CartContainer from './containers/CartContainer'
 import {receiveProducts} from './reducers/products'
 import {whoami} from './reducers/auth'
 import SingleProductContainer from './containers/SingleProductContainer'
-<<<<<<< HEAD
-import {getProductById} from './reducers/product'
-=======
 import AdminPanel from './components/AdminPanel'
 import AdminUsersContainer from './containers/AdminUsersContainer'
 import AdminProductsContainer from './containers/AdminProductsContainer'
@@ -22,7 +19,6 @@ import {receiveProduct, getProductById} from './reducers/product'
 import {receiveUsers} from './reducers/users'
 import {receiveOrders} from './reducers/orders'
 import SignupContainer from './containers/SignupContainer'
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
 
 const onAppEnter = () => {
   //GET THAT CART
