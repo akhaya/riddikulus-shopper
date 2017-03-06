@@ -53,17 +53,6 @@ class Products extends Component {
     }
   }
 
-  // handleFilterChange(event){
-  //   if(event.target.checked){
-  //     this.setState({filters: this.state.filters.concat([event.target.value])})
-  //   }
-  //   else{
-  //     let i = this.state.filters.indexOf(event.target.value)
-  //     let x = this.state.filters.splice(i, 1)
-  //     this.setState({filters: this.state.filters})
-  //   }
-  // }
-
 
   render() {
 
@@ -77,6 +66,13 @@ class Products extends Component {
       .filter(product => {
         return this.state.size.length > 0 ? this.state.size.indexOf(product.size) > -1 : product
       })
+      .filter(creature => {
+        let x = _.intersection(creature.magicalAbilities, this.state.magicalAbilities) // should return array of similar elements between current creature's magicalAbilites and array of selected magicalAbilities from filter
+
+        // so if x has length > 0 then there are creatures selected with selected magical Abilities
+        return this.state.magicalAbilities.length === 0 ? creature : x.length > 0 ? creature : null ;
+      })
+
 
     if (!products) {
       return null
