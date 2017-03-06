@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'harry_pregular';
+    src: url('harryp__-webfont.woff2') format('woff2'),
+         url('harryp__-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.thumbnail > img{
+  height:250px;
+}
+
 .small-input {
   width: 80px;
 }
@@ -15,7 +27,37 @@
 .thumbnailImg{
   width:100%;
   height:auto;
-  margin-top:15px;
+  margin-top: 15px;
+}
+
+#creatureMainPic{
+  width:50%;
+  height:auto;
+}
+
+.nav-login {
+  margin-right: 10px;
+}
+
+input {
+  margin-right:2px !important;
+}
+
+.signup-btn{
+  margin-left:10px;
+}
+
+#shopperName{
+  font-family:"harry_pregular";
+  font-size: 4em;
+  color: black;
+  margin-left:5px;
+}
+
+#mainNav{
+  padding-top:21px;
+  padding-bottom:15px;
+  letter-spacing: 1px;
 }
 
 .col-sm-5{
@@ -26,3 +68,8 @@
   width:200px;
   height:auto;
 }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+}
+

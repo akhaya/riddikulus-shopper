@@ -1,8 +1,8 @@
 const db = require('APP/db')
 
 const seedUsers = () => db.Promise.map([
-  {name: 'so many', email: 'god@example.com', password: '1234'},
-  {name: 'Barack Obama', email: 'barack@example.gov', password: '1234'},
+  {name: 'so many', email: 'god@example.com', password: '1234', isGuest: false, isAdmin: true},
+  {name: 'Barack Obama', email: 'barack@example.gov', password: '1234', isGuest: false},
 ], user => db.model('users').create(user))
 
 const seedProducts = () => db.Promise.map([
@@ -17,7 +17,7 @@ const seedProducts = () => db.Promise.map([
     price: 2000,
     breed_id:1
   },
-  { name: 'Bowtruckles',
+  { name: 'Bowtruckle',
     description: 'A small twig-like creature that guards wand-wood trees.',
     colors: ['green', 'brown'],
     size: 'XS',
@@ -28,7 +28,7 @@ const seedProducts = () => db.Promise.map([
     price: 100,
     breed_id: 2
   },
-  { name: 'Hippogriffs',
+  { name: 'Hippogriff',
     description: 'Half horse, half eagle creatures, immensely proud and extremely dangerous.',
     colors: ['brown', 'white', 'black', 'silver'],
     size: 'L',
@@ -50,6 +50,7 @@ const seedProducts = () => db.Promise.map([
     price: 150,
     breed_id: 4
   }
+
 ], product => db.model('products').create(product))
 
 const seedBreeds = () => db.Promise.map([

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {receiveUserCart, receiveGuestCart, clearCart} from './cart'
+import {browserHistory} from 'react-router'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -27,6 +28,7 @@ export const logout = () =>
       .then(() => {
         dispatch(clearCart())
         dispatch(whoami())
+        browserHistory.push('/')
       })
       .catch(() => dispatch(whoami()))
 
