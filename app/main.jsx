@@ -34,6 +34,10 @@ const onSingleProductEnter = (nextRouterState) => {
   store.dispatch(getProductById(productId))
 }
 
+const onCartEnter = () => {
+  store.dispatch(whoami())
+}
+
 const App = connect(
 
   ({ auth }) => ({ user: auth })
@@ -53,7 +57,7 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
-        <Route path="/cart" component={CartContainer} />
+        <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
       </Route>
     </Router>
   </Provider>,
