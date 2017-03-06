@@ -122,7 +122,7 @@ const seedProducts = () => db.Promise.map([
     size: 'L',
     pictureURL: 'http://vignette2.wikia.nocookie.net/harrypotter/images/d/d2/Ara.jpg/revision/latest?cb=20100611145604',
     inventory: 13,
-    magicalAbilities: ['deadly'],
+    magicalAbilities: [],
     lifespan: 10,
     price: 5000,
     breed_id: 7
@@ -144,7 +144,7 @@ const seedProducts = () => db.Promise.map([
     size: 'M',
     pictureURL: 'http://vignette4.wikia.nocookie.net/harrypotter/images/a/a0/Fluffy_Still_PS.png/revision/latest?cb=20161205010946',
     inventory: 1,
-    magicalAbilities: ['loyal'],
+    magicalAbilities: [],
     lifespan: 50,
     price: 6000,
     breed_id: 6
