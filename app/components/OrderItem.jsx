@@ -16,12 +16,13 @@ class OrderItem extends Component {
   handleDelete (event) {
     event.preventDefault()
     // if user is guest
-    if (!this.props.user_id) {
+    console.log('===', this.props.userId)
+    if (!this.props.userId) {
       const orderlineId = this.props.orderline.id
       this.props.handleGuestDelete(orderlineId)
     } else {
     // if user is logged in
-      const userId = this.props.user_id
+      const userId = this.props.userId
       const orderId = this.props.orderline.order_id
       const productId = this.props.orderline.product_id
       this.props.handleUserDelete(userId, orderId, productId)
@@ -35,7 +36,7 @@ class OrderItem extends Component {
     const newQuantity = this.state.currentQuantity
 
     // if user is guest
-    if (!this.props.user_id) {
+    if (!this.props.userId) {
       const orderlineId = this.props.orderline.id
       if (newColor !== '' || newQuantity !== this.props.orderline.quantity) {
         this.props.handleGuestUpdate(orderlineId, newColor, newQuantity)
