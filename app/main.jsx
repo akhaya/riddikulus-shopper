@@ -1,4 +1,4 @@
-'use strict'
+// 'use strict'
 import React from 'react'
 import {Router, Route, IndexRedirect, IndexRoute, browserHistory} from 'react-router'
 import {render} from 'react-dom'
@@ -13,13 +13,11 @@ import {receiveUserCart, receiveGuestCart} from './reducers/cart'
 import {whoami} from './reducers/auth'
 import SingleProductContainer from './containers/SingleProductContainer'
 import {receiveProduct, getProductById} from './reducers/product'
-import Signup from './components/Signup'
+import SignupContainer from './containers/SignupContainer'
 
 const onAppEnter = () => {
   //GET THAT CART
-
   store.dispatch(whoami())
-
 }
 
 const onProductsEnter = () => {
@@ -33,6 +31,10 @@ const onProductsEnter = () => {
 const onSingleProductEnter = (nextRouterState) => {
   const productId = nextRouterState.params.productId
   store.dispatch(getProductById(productId))
+}
+
+const onCartEnter = () => {
+  store.dispatch(whoami())
 }
 
 const App = connect(
@@ -54,13 +56,9 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
-<<<<<<< HEAD
-        <Route path="/signup" component={Signup} />
-    </Route>
-=======
-        <Route path="/cart" component={CartContainer} />
+        <Route path="/signup" component={SignupContainer} />
+        <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
       </Route>
->>>>>>> a6cbe45ffacdbc3aa84d7b145ff82a0e8b808acc
     </Router>
   </Provider>,
   document.getElementById('main')
