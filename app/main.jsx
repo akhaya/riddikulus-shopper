@@ -38,12 +38,21 @@ const onSingleProductEnter = (nextRouterState) => {
   const productId = nextRouterState.params.productId
   store.dispatch(getProductById(productId))
 }
-
+//unsubsribe var declared globally so it can be accessed by onLeave hook.
+let unsubscribeAdmin
 const onAdminEnter = () => {
-  if(!store.getState().auth || !store.getState().auth.isAdmin) {
-    browserHistory.push('/products')
-  }
+  unsubscribeAdmin = store.subscribe(() => {
+    const user = store.getState().auth
+    if(!user || !user.isAdmin) browserHistory.push('/products')
+  })
+  // if(!store.getState().auth || !store.getState().auth.isAdmin) {
+  //   browserHistory.push('/products')
+  // }
 }
+const onAdminLeave = () => {
+  unsubscribeAdmin()
+}
+
 const onAdminUsersEnter = () => {
   axios.get('/api/users')
   .then(res => {
@@ -83,7 +92,7 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
-        <Route path="/admin" component={AdminPanel} onEnter={onAdminEnter}>
+        <Route path="/admin" component={AdminPanel} onEnter={onAdminEnter} onLeave={onAdminLeave}>
           <IndexRoute component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
           <Route path="/admin/users" component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
           <Route path="/admin/orders" component={AdminOrdersContainer} onEnter={onAdminOrdersEnter}/>
