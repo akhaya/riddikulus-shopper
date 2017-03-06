@@ -68,6 +68,8 @@ export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
       .then(response => {
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.errorcar)
 
 export const addItemToUserCart = (color, quantity, productId, orderId, price, size) =>
   dispatch =>
