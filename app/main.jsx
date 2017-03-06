@@ -19,12 +19,11 @@ import AdminOrdersContainer from './containers/AdminOrdersContainer'
 import {receiveProduct, getProductById} from './reducers/product'
 import {receiveUsers} from './reducers/users'
 import {receiveOrders} from './reducers/orders'
+import SignupContainer from './containers/SignupContainer'
 
 const onAppEnter = () => {
   //GET THAT CART
-
   store.dispatch(whoami())
-
 }
 
 const onProductsEnter = () => {
@@ -41,10 +40,10 @@ const onSingleProductEnter = (nextRouterState) => {
 }
 
 const onAdminEnter = () => {
-  // const user = store.getState().auth
-  // if(!user || !user.isAdmin) {
-  //   browserHistory.push('/products')
-  // }
+  const user = store.getState().auth
+  if(!user || !user.isAdmin) {
+    browserHistory.push('/products')
+  }
 }
 const onAdminUsersEnter = () => {
   axios.get('/api/users')
@@ -60,6 +59,10 @@ const onAdminOrdersEnter = () => {
     store.dispatch(receiveOrders(res.data))
   })
   .catch(console.error.bind(console))
+}
+
+const onCartEnter = () => {
+  store.dispatch(whoami())
 }
 
 const App = connect(
@@ -87,7 +90,8 @@ render (
           <Route path="/admin/orders" component={AdminOrdersContainer} onEnter={onAdminOrdersEnter}/>
           <Route path="/admin/products" component={AdminProductsContainer} onEnter={onProductsEnter}/>
         </Route>
-        <Route path="/cart" component={CartContainer} />
+        <Route path="/signup" component={SignupContainer} />
+        <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
       </Route>
     </Router>
   </Provider>,
