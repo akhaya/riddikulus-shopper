@@ -90,6 +90,7 @@ export const updateOrderItemFromGuestCart = (orderlineId, color, quantity) =>
     axios.put(`api/orders/cart/update/guest/${orderlineId}`, {color, quantity})
       .then(response => {
         const updatedCart = response.data
+        console.log(updatedCart)
         dispatch(receiveCart(updatedCart))
       })
       .catch(failed => console.error)
