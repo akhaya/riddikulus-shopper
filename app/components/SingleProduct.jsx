@@ -65,10 +65,10 @@ class SingleProduct extends Component {
     return(
       <div className="container-fluid">
         <div className="row">
-          <div className="col-sm-6 thumbnail">
+          <div className="col-sm-4">
             <img src={animal.pictureURL} />
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-6">
             <div>
               <h1> Name: {animal.name} </h1>
               <h1> Price: </h1>
