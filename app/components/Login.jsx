@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 export const Login = ({ login }) => (
   <form className="navbar-form navbar-left" onSubmit={evt => {
@@ -9,6 +10,9 @@ export const Login = ({ login }) => (
       <input type="text" className="form-control" placeholder="Username" name="username" />
       <input type="text" className="form-control" placeholder="Password" name="password" type="password" />
       <input type="submit" className="form-control" value="Login" />
+      <Link to={'/signup'}>
+        <input type="submit" className="form-control btn-danger signup-btn" value="Sign Up!" />
+      </Link>
     </div>
   </form>
 )

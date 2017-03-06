@@ -18,4 +18,36 @@ describe('User', () => {
         .then(user => user.authenticate('not ok'))
         .then(result => expect(result).to.be.false))
   })
+  describe('deactivateUser() instance method', () =>{
+    it('updates the user status, isGuest, isAdmin and password_digest fields', () => {
+      User.create({
+        email: 'test@test.com',
+        password: 'hihi',
+        isGuest: false,
+        isAdmin: true
+      }).then(user => {
+        return user.deactivateUser()
+      }).then(updatedUser => {
+        expect(updatedUser.status).to.equal('inactive')
+        expect(updatedUser.password_digest).to.equal(null)
+        expect(updatedUser.isGuest).to.be.true
+        expect(updatedUser.isAdmin).to.be.false
+      })
+      .catch(console.error)
+    })
+  })
+  describe('setAdmin() instance method', () =>{
+    it('sets isAdmin field to true', () => {
+      User.create({
+        email: 'test2@test.com',
+        password: 'hihi',
+        isAdmin: false
+      }).then(user => {
+        return user.setAdmin()
+      }).then(updatedUser => {
+        expect(updatedUser.isAdmin).to.be.true
+      })
+      .catch(console.error)
+    })
+  })
 })

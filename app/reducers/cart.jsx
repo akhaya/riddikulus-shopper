@@ -10,6 +10,13 @@ const reducer = (state=initialState, action) => {
   switch(action.type) {
     case SET_CART:
       return action.cart
+
+    case ADD_TO_CART:
+      let newState = Object.assign({}, state)
+      newState.orderlines = newState.orderlines || []
+      newState.orderlines = newState.orderlines.concat(action.orderline)
+      return newState
+
     default:
       return state
   }
@@ -18,6 +25,7 @@ const reducer = (state=initialState, action) => {
 
 //CONSTANTS
 const SET_CART = 'SET_CART'
+const ADD_TO_CART = 'ADD_TO_CART'
 
 //ACTION CREATORS
 export const receiveCart = cart => ({
@@ -29,6 +37,11 @@ export const clearCart = cart => ({
   cart: {}
 })
 
+
+export const addToCart = orderline => ({
+  type: ADD_TO_CART,
+  orderline: orderline,
+})
 
 export const receiveUserCart = (userId) =>
   dispatch =>
@@ -55,6 +68,31 @@ export const updateOrderItemFromUserCart = (userId, orderId, productId, color, q
       .then(response => {
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.error)
+
+export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
+  dispatch =>
+    axios.delete(`/api/orders/cart/delete/${userId}/${orderId}/${productId}`)
+      .then(response => {
+        const updatedCart = response.data
+        dispatch(receiveCart(updatedCart))
+
+export const addItemToUserCart = (color, quantity, productId, orderId, price, size) =>
+  dispatch =>
+    axios.post(`/api/orders/cart/add`, {color, quantity, productId, orderId, price, size})
+      .then(response => {
+        const orderline = response.data
+        dispatch(addToCart(orderline))
+      })
+      .catch(failed => console.error)
+
+export const addItemToGuestCart = (product, color, quantity, productId, price, size) =>
+  dispatch =>
+    axios.post(`/api/orders/cart/add/guest`, {product, color, quantity, productId, price, size})
+      .then(response => {
+        const orderline = response.data
+        dispatch(addToCart(orderline))
       })
       .catch(failed => console.error)
 
