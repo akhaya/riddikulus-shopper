@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleProduct from '../components/SingleProduct'
-import {addItemToUserCart} from '../reducers/cart'
+import {addItemToUserCart, addItemToGuestCart} from '../reducers/cart'
 
 const mapStateToProps = (state) => {
   return {
@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleAdd (color, quantity, productId, orderId, price, size) {
       dispatch(addItemToUserCart(color, quantity, productId, orderId, price, size))
+    },
+    handleGuestAdd (color, quantity, productId, price, size) {
+      dispatch(addItemToGuestCart(color, quantity, productId, price, size))
     },
   }
 }

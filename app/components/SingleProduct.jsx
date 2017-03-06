@@ -40,14 +40,17 @@ class SingleProduct extends Component {
       const orderId = this.props.cart.id
       const price = this.props.product.price
       const size = this.props.product.size
-      this.props.handleAdd(color, quantity, productId, orderId, price, size)
+      if (!this.props.cart.user_id) {
+        this.props.handleGuestAdd(color, quantity, productId, price, size)
+      } else {
+        this.props.handleAdd(color, quantity, productId, orderId, price, size)
+      }
     }
   }
 
   render() {
     const animal = this.props.product
     if (!animal) return null
-
     const quantity = _.range(1, animal.inventory);
     const addedItemToCartMessage = (
       <div className="panel panel-default">

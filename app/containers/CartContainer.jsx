@@ -45,6 +45,7 @@ class CartContainer extends Component {
   render(){
     const cart = this.props.cart
     const orderlines = cart.orderlines
+    console.log('====cartcontiner', orderlines)
     const noItemsMessage = (
     <div className="panel panel-default">
       <div className="panel-body">
