@@ -11,7 +11,7 @@ export default (props) => {
   return(
     <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-6">
+        <div className="col-sm-6" id="creatureMainPic">
           <img src={animal.pictureURL} />
         </div>
         <div className="col-sm-4">
