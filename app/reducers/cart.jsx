@@ -69,7 +69,7 @@ export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
       })
-      .catch(failed => console.error)
+      .catch(failed => console.errorcar)
 
 export const addItemToUserCart = (color, quantity, productId, orderId, price, size) =>
   dispatch =>
