@@ -17,7 +17,7 @@ const seedProducts = () => db.Promise.map([
     price: 2000,
     breed_id:1
   },
-  { name: 'Bowtruckles',
+  { name: 'Bowtruckle',
     description: 'A small twig-like creature that guards wand-wood trees.',
     colors: ['green', 'brown'],
     size: 'XS',
@@ -28,7 +28,7 @@ const seedProducts = () => db.Promise.map([
     price: 100,
     breed_id: 2
   },
-  { name: 'Hippogriffs',
+  { name: 'Hippogriff',
     description: 'Half horse, half eagle creatures, immensely proud and extremely dangerous.',
     colors: ['brown', 'white', 'black', 'silver'],
     size: 'L',
@@ -59,23 +59,38 @@ const seedBreeds = () => db.Promise.map([
   {name: 'mole'}
 ], breed => db.model('breeds').create(breed))
 
+const seedAddresses = () => db.Promise.map([
+  { address1: '5 Hanover Square',
+    city: 'New York',
+    state: 'NY',
+    zip: 10004
+  },
+  { address1: '1234 116th St',
+    city: 'New York',
+    state: 'NY',
+    zip: 10027
+  },
+], address => db.model('addresses').create(address))
+
 const seedOrders = () => db.Promise.map([
   {status: 'pending'},
-  {status: 'processing', shippingAddress: '568 Broadway, NYC 10012', shippingCost: 100, tax: 80, subtotal:250, totalCost: 430, user_id:1},
-  {status: 'shipped', shippingAddress: '5 Hanover Square, NYC, 10016', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id:2}
+  {status: 'processing', shippingCost: 100, tax: 80, subtotal:250, totalCost: 430, user_id: 1, address_id: 1},
+  {status: 'shipped', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 2, address_id: 2},
+  {status: 'pending', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 1, address_id: 1},
+  {status: 'pending', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id: 2, address_id: 2},
 ], order => db.model('orders').create(order))
 
 const seedOrderlines = () => db.Promise.map([
   {
-    color: 'gray',
+    color: 'green',
     quantity: 1,
-    size: 'L',
+    size: 'S',
     unitPrice: 500,
     order_id: 1,
     product_id: 1
   },
   {
-    color: 'white',
+    color: 'brown',
     quantity: 1,
     size: 'M',
     unitPrice: 100,
@@ -96,9 +111,32 @@ const seedOrderlines = () => db.Promise.map([
     size: 'S',
     unitPrice: 150,
     order_id: 3,
+    product_id: 1
+  },
+  {
+    color: 'gray',
+    quantity: 2,
+    size: 'L',
+    unitPrice: 2000,
+    order_id: 4,
+    product_id: 1
+  },
+  {
+    color: 'brown',
+    quantity: 1,
+    size: 'L',
+    unitPrice: 500,
+    order_id: 4,
+    product_id: 3
+  },
+  {
+    color: 'green',
+    quantity: 4,
+    size: 'XS',
+    unitPrice: 100,
+    order_id: 5,
     product_id: 2
-  }
-
+  },
 ], orderline => db.model('orderlines').create(orderline))
 
 
@@ -110,6 +148,8 @@ db.didSync
   .then((breeds) => console.log(`Seeded ${breeds.length} breeds OK`))
   .then(seedProducts)
   .then((products) => console.log(`Seeded ${products.length} products OK`))
+  .then(seedAddresses)
+  .then((addresses) => console.log(`Seeded ${addresses.length} addresses OK`))
   .then(seedOrders)
   .then((orders) => console.log(`Seeded ${orders.length} orders OK`))
   .then(seedOrderlines)
