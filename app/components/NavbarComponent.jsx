@@ -2,17 +2,20 @@ import React from 'react'
 import {Link} from 'react-router'
 import Login from './Login'
 import WhoAmI from './WhoAmI'
+import SignupContainer from '../containers/SignupContainer'
 
 export default (props) => {
+
+
   return (
     <div>
       <nav className="navbar navbar-default">
-        <div className="container-fluid">
+        <div className="container-fluid" id="mainNav">
           <div className="navbar-header">
-           <a href="#" className="navbar-brand">Riddikulus</a>
+           <Link to={'/products'} className="navbar-brand" id="shopperName">Riddikulus</Link>
           </div>
         <ul className="nav navbar-nav navbar-right">
-          <li>
+          <li className="nav-login">
             {props.user ? <WhoAmI/> : <Login/>}
           </li>
           <li>

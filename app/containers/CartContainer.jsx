@@ -23,7 +23,7 @@ class CartContainer extends Component {
   }
   calculateShipping(){
     const orderlines = this.props.cart.orderlines
-    if(orderlines){
+    if(orderlines && orderlines.length > 0 ){
       return orderlines.length*50
     }
     return 0
@@ -38,8 +38,10 @@ class CartContainer extends Component {
   render(){
     const cart = this.props.cart
     const orderlines = cart.orderlines
+
     const handleDelete = this.props.handleDelete
     const userId = cart.user_id
+
     const noItemsMessage = (
     <div className="panel panel-default">
       <div className="panel-body">
@@ -51,7 +53,9 @@ class CartContainer extends Component {
         <h3>Cart</h3>
         <div className="row">
           <div className="col-md-9">
+
             {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleDelete={handleDelete} userId={userId} key={orderline.id} />) : noItemsMessage}
+
           </div>
           <div className="col-md-3">
             <CartSidebar orderTotals={{
