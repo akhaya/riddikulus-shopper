@@ -36,16 +36,19 @@ describe('User', () => {
       .catch(console.error)
     })
   })
-  describe('setAdmin() instance method', () =>{
-    it('sets isAdmin field to true', () => {
+  describe('toggleAdmin instance method', () =>{
+    it('toggles the isAdmin field between true and false', () => {
       User.create({
         email: 'test2@test.com',
         password: 'hihi',
         isAdmin: false
       }).then(user => {
-        return user.setAdmin()
+        return user.toggleAdmin()
       }).then(updatedUser => {
         expect(updatedUser.isAdmin).to.be.true
+        return updatedUser.toggleAdmin()
+      }).then(updatedUser => {
+        expect(updatedUser.isAdmin).to.be.false
       })
       .catch(console.error)
     })

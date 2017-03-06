@@ -16,6 +16,7 @@ export default (props) => {
                 <th>Guest</th>
                 <th>Admin</th>
                 <th>Password Reset</th>
+                <th>Status</th>
                 <th>Deactivate?</th>
               </tr>
             </thead>
@@ -24,7 +25,8 @@ export default (props) => {
                 <UserRow
                   user={user}
                   key={user.id}
-                  onDelete={() => props.deleteUser(user.id)}
+                  onDelete={props.deleteUser}
+                  onAdminStatus={props.onAdminStatus}
                   />
                 )}
             </tbody>
