@@ -1,7 +1,6 @@
-.thumbnailImg{
-  width:100%;
-  height:auto;
-  margin-top:15px;
+.thumbnail > img{
+  width:240px;
+  height:250px;
 }
 
 .col-sm-5{

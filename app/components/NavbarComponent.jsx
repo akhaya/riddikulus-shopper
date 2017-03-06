@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router'
 import Login from './Login'
 import WhoAmI from './WhoAmI'
+import SignupContainer from '../containers/SignupContainer'
 
 export default (props) => {
 

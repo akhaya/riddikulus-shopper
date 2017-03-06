@@ -37,6 +37,7 @@ const User = db.define('users', {
 })
 
 function setEmailAndPassword(user) {
+  console.log('inside setEmailAndPassword', user)
   user.email = user.email && user.email.toLowerCase()
   if (!user.password) return Promise.resolve(user)
 
