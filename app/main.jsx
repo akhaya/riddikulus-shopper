@@ -12,7 +12,13 @@ import {receiveProducts} from './reducers/products'
 import {receiveUserCart, receiveGuestCart} from './reducers/cart'
 import {whoami} from './reducers/auth'
 import SingleProductContainer from './containers/SingleProductContainer'
+import AdminPanel from './components/AdminPanel'
+import AdminUsersContainer from './containers/AdminUsersContainer'
+import AdminProductsContainer from './containers/AdminProductsContainer'
+import AdminOrdersContainer from './containers/AdminOrdersContainer'
 import {receiveProduct, getProductById} from './reducers/product'
+import {receiveUsers} from './reducers/users'
+import {receiveOrders} from './reducers/orders'
 import SignupContainer from './containers/SignupContainer'
 
 const onAppEnter = () => {
@@ -31,6 +37,27 @@ const onProductsEnter = () => {
 const onSingleProductEnter = (nextRouterState) => {
   const productId = nextRouterState.params.productId
   store.dispatch(getProductById(productId))
+}
+
+const onAdminEnter = () => {
+  if(!store.getState().auth || !store.getState().auth.isAdmin) {
+    browserHistory.push('/products')
+  }
+}
+const onAdminUsersEnter = () => {
+  axios.get('/api/users')
+  .then(res => {
+    store.dispatch(receiveUsers(res.data))
+  })
+  .catch(console.error.bind(console))
+}
+
+const onAdminOrdersEnter = () => {
+  axios.get('/api/orders')
+  .then(res => {
+    store.dispatch(receiveOrders(res.data))
+  })
+  .catch(console.error.bind(console))
 }
 
 const onCartEnter = () => {
@@ -56,6 +83,12 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} onEnter={onProductsEnter} />
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
+        <Route path="/admin" component={AdminPanel} onEnter={onAdminEnter}>
+          <IndexRoute component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
+          <Route path="/admin/users" component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
+          <Route path="/admin/orders" component={AdminOrdersContainer} onEnter={onAdminOrdersEnter}/>
+          <Route path="/admin/products" component={AdminProductsContainer} onEnter={onProductsEnter}/>
+        </Route>
         <Route path="/signup" component={SignupContainer} />
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
       </Route>
