@@ -40,8 +40,7 @@ const onSingleProductEnter = (nextRouterState) => {
 }
 
 const onAdminEnter = () => {
-  const user = store.getState().auth
-  if(!user || !user.isAdmin) {
+  if(!store.getState().auth.isAdmin) {
     browserHistory.push('/products')
   }
 }
