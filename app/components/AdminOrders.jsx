@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
-import ProductRow from './ProductRow'
+import OrderRow from './OrderRow'
 
 export default (props) => {
   return (
@@ -11,20 +11,19 @@ export default (props) => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Breed</th>
-                <th>Colors</th>
-                <th>Size</th>
-                <th>Inventory</th>
-                <th>See details</th>
+                <th>User Id</th>
+                <th>Date Placed</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>See Details</th>
                 <th>Delete?</th>
               </tr>
             </thead>
             <tbody>
-              {props.products && props.products.map(product =>
-                <ProductRow
-                  product={product}
-                  key={product.id}
+              {props.orders && props.orders.map(order =>
+                <OrderRow
+                  order={order}
+                  key={order.id}
                   />
                 )}
             </tbody>

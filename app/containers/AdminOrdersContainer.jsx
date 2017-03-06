@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
-import AdminUsers from '../components/AdminUsers'
+import AdminOrders from '../components/AdminOrders'
 import deleteUser from '../reducers/users'
 
 
@@ -19,4 +19,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(AdminUsers)
+export default connect (mapStateToProps, mapDispatchToProps)(AdminOrders)

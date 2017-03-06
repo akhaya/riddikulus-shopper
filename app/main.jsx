@@ -12,6 +12,7 @@ import {receiveProducts} from './reducers/products'
 import SingleProductContainer from './containers/SingleProductContainer'
 import AdminPanel from './components/AdminPanel'
 import AdminUsersContainer from './containers/AdminUsersContainer'
+import AdminProductsContainer from './containers/AdminProductsContainer'
 import {receiveProduct, getProductById} from './reducers/product'
 import {receiveUsers} from './reducers/users'
 
@@ -70,8 +71,8 @@ render (
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
         <Route path="/admin" component={AdminPanel} onEnter={onAdminEnter}>
           <IndexRoute component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
-          <Route path="/users" component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
-          <Route path="/orders" component={AdminOrdersContainer} onEnter={onAdminOrdersEnter}/>
+          <Route path="/admin/users" component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
+          <Route path="/admin/products" component={AdminProductsContainer} />
         </Route>
     </Route>
     </Router>
