@@ -10,10 +10,10 @@ export default (props) => {
         <td>{user.name}</td>
         <td>{user.isGuest? 'Yes' : 'No'}</td>
         <td>{user.isAdmin? 'Yes' : 'No'}<br/>
-          {user.sAdmin? <a href="#">REVOKE ADMIN ACCESS</a>:<a href="#">GRANT ADMIN ACCESS</a>}
+          {user.sAdmin? <a href="#" target="_self">REVOKE ADMIN ACCESS</a>:<a href="#" target="_self">GRANT ADMIN ACCESS</a>}
         </td>
         <td><a href="#">RESET PASSWORD</a></td>
-        <td><a href="#">DEACTIVATE</a></td>
+        <td><a href="#" target="_self" onClick={props.onDelete}>DEACTIVATE</a></td>
       </tr>
   )
 }
