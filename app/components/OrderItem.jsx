@@ -7,7 +7,6 @@ class OrderItem extends Component {
       newColor: '',
       currentQuantity: this.props.orderline.quantity,
     }
-<<<<<<< HEAD
     this.handleDelete = this.handleDelete.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.onColorChange = this.onColorChange.bind(this)
@@ -20,24 +19,20 @@ class OrderItem extends Component {
     if (!this.props.user_id) {
       const orderlineId = this.props.orderline.id
       this.props.handleGuestDelete(orderlineId)
+    } else {
+    // if user is logged in
+      const userId = this.props.user_id
+      const orderId = this.props.orderline.order_id
+      const productId = this.props.orderline.product_id
+      this.props.handleUserDelete(userId, orderId, productId)
     }
-    // put user handle delete in else statement below
-  }
-
-=======
-
-    this.handleUpdate = this.handleUpdate.bind(this)
-    this.onColorChange = this.onColorChange.bind(this)
-    this.onQuantityChange = this.onQuantityChange.bind(this)
   }
 
   // this updates the orderline view and database correctly but the orderlines render in a different order from before
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
   handleUpdate (event) {
     event.preventDefault()
     const newColor = this.state.newColor
     const newQuantity = this.state.currentQuantity
-<<<<<<< HEAD
 
     // if user is guest
     if (!this.props.user_id) {
@@ -45,16 +40,15 @@ class OrderItem extends Component {
       if (newColor !== '' || newQuantity !== this.props.orderline.quantity) {
         this.props.handleGuestUpdate(orderlineId, newColor, newQuantity)
       }
+    } else {
+      // if user is logged in
+      const orderId = this.props.orderline.order_id
+      const productId = this.props.orderline.product_id
+      const userId = this.props.userId
+      if (newColor !== '' || newQuantity !== this.props.orderline.quantity) {
+        this.props.handleUserUpdate(userId, orderId, productId, newColor, newQuantity)
+      }
     }
-    // put user handle update in else statement below
-=======
-    const orderId = this.props.orderline.order_id
-    const productId = this.props.orderline.product_id
-    const userId = this.props.userId
-    if (newColor !== '' || newQuantity !== this.props.orderline.quantity) {
-      this.props.handleUpdate(userId, orderId, productId, newColor, newQuantity)
-    }
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
   }
 
   onColorChange (event) {
@@ -106,10 +100,7 @@ class OrderItem extends Component {
                 <dd>  {product.price}  </dd>
                 <dt>Color</dt>
                 <dd>
-<<<<<<< HEAD
-=======
                   {/* tag doesn't show new option when clicked, if time fix */}
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
                   <select value={orderline.color} name="color" id="color" className="form-group" onChange={this.onColorChange}>
                     {product.colors.map(color => <option value={color} key={color}>{color}</option>)}
                   </select>
@@ -124,11 +115,7 @@ class OrderItem extends Component {
                   {this.props.errorMessage}
                 </dd>
               </dl>
-<<<<<<< HEAD
               <button className="btn btn-default" type="submit" onClick={this.handleDelete}>Delete</button>
-=======
-              <button className="btn btn-default" type="submit">Delete</button>
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
               <button className="btn btn-default" type="submit" onClick={this.handleUpdate}>Update</button>
             </div>
 

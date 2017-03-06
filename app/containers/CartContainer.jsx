@@ -2,14 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import OrderItem from '../components/OrderItem'
 import CartSidebar from '../components/CartSidebar'
-<<<<<<< HEAD
-import {deleteOrderItemFromGuestCart, updateOrderItemFromGuestCart} from '../reducers/cart'
-=======
-import {updateOrderItemFromUserCart} from '../reducers/cart'
-
-import {deleteOrderItemFromUserCart} from '../reducers/cart'
-
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
+import {updateOrderItemFromUserCart, deleteOrderItemFromUserCart, deleteOrderItemFromGuestCart, updateOrderItemFromGuestCart} from '../reducers/cart'
 
 class CartContainer extends Component {
   constructor(props){
@@ -30,11 +23,7 @@ class CartContainer extends Component {
   }
   calculateShipping(){
     const orderlines = this.props.cart.orderlines
-<<<<<<< HEAD
     if(orderlines && orderlines.length > 0){
-=======
-    if(orderlines && orderlines.length > 0 ){
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
       return orderlines.length*50
     }
     return 0
@@ -49,17 +38,11 @@ class CartContainer extends Component {
   render(){
     const cart = this.props.cart
     const orderlines = cart.orderlines
-<<<<<<< HEAD
     const userId = cart.user_id
-    const handleGuestDelete = this.props.handleGuestDelete
-    const handleGuestUpdate = this.props.handleGuestUpdate
-=======
-
     const handleUpdate = this.props.handleUpdate
     const handleDelete = this.props.handleDelete
-    const userId = cart.user_id
-
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
+    const handleGuestDelete = this.props.handleGuestDelete
+    const handleGuestUpdate = this.props.handleGuestUpdate
     const noItemsMessage = (
     <div className="panel panel-default">
       <div className="panel-body">
@@ -71,8 +54,7 @@ class CartContainer extends Component {
         <h3>Cart</h3>
         <div className="row">
           <div className="col-md-9">
-<<<<<<< HEAD
-            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleGuestDelete={handleGuestDelete} handleGuestUpdate={handleGuestUpdate} userId={userId} key={orderline.id} />) : noItemsMessage}
+            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleDelete={handleDelete} handleUpdate={handleUpdate} handleGuestDelete={handleGuestDelete} handleGuestUpdate={handleGuestUpdate} userId={userId} key={orderline.id} />) : noItemsMessage}
           </div>
           <div className="col-md-3">
             <CartSidebar orderTotals={{
@@ -81,17 +63,6 @@ class CartContainer extends Component {
               tax: this.calculateTax(),
               total: this.calculateTotal()
             }}/>
-=======
-            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleDelete={handleDelete} handleUpdate={handleUpdate} userId={userId} key={orderline.id} />) : noItemsMessage}
-          </div>
-          <div className="col-md-3">
-            <CartSidebar orderTotals={{
-               subtotal: this.calculateSubtotal(),
-               shipping: this.calculateShipping(),
-               tax: this.calculateTax(),
-               total: this.calculateTotal()
-             }}/>
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
           </div>
         </div>
       </div>
@@ -107,21 +78,18 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-<<<<<<< HEAD
+    handleUserUpdate(userId, orderId, productId, color, quantity) {
+      dispatch(updateOrderItemFromUserCart(userId, orderId, productId, color, quantity))
+    },
+    handleUserDelete (userId, orderId, productId) {
+      dispatch(deleteOrderItemFromUserCart(userId, orderId, productId))
+    },
     handleGuestDelete(orderlineId) {
       dispatch(deleteOrderItemFromGuestCart(orderlineId))
     },
     handleGuestUpdate(orderlineId, color, quantity) {
       dispatch(updateOrderItemFromGuestCart(orderlineId, color, quantity))
     },
-=======
-    handleUpdate(userId, orderId, productId, color, quantity) {
-      dispatch(updateOrderItemFromUserCart(userId, orderId, productId, color, quantity))
-    },
-    handleDelete (userId, orderId, productId) {
-      dispatch(deleteOrderItemFromUserCart(userId, orderId, productId))
-    }
->>>>>>> c42766acfd8eac7959d95ff3ca42fca48864a1b6
   }
 }
 
