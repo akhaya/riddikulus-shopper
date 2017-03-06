@@ -30,10 +30,10 @@ class SingleProduct extends Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    this.setState({addedToCart: true})
     // user must choose color before adding to cart
     // quantity defaults to 1 if user doesn't select quantity
-    if (this.state.color) {
+    if (this.state.color !== '') {
+      this.setState({addedToCart: true})
       const color = this.state.color
       const quantity = this.state.quantity
       const productId = this.props.product.id
