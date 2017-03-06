@@ -5,11 +5,18 @@ const Order = db.model('orders')
 const Orderline = db.model('orderlines')
 const localUserStorage = require('store')
 
+const {mustBeLoggedIn, forbidden} = require('./auth.filters')
+
 module.exports = require('express').Router()
   .use((req, res, next) => {
     //load the local storage cart
     req.cart = localUserStorage.get('cart')
     next()
+  })
+  .get('/', forbidden('only admins can list all orders'), (req, res, next) => {
+		Order.findAll()
+		.then(orders => res.json(orders))
+		.catch(next)
   })
   .post('/cart/add', (req, res, next) => {
     // user cart: add/update orderline
@@ -148,4 +155,11 @@ module.exports = require('express').Router()
     })
     .catch(next)
   })
-
+  .delete('/:id', forbidden('only admins can delete orders'), (req, res, next) => {
+		Order.findById(req.params.id)
+		.then(order => order.destroy())
+		.then(() => {
+			res.redirect('/')
+		})
+		.catch(next)
+  })
