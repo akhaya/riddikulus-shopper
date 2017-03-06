@@ -69,9 +69,9 @@ export const addItemToUserCart = (color, quantity, productId, orderId, price, si
       })
       .catch(failed => console.error)
 
-export const addItemToGuestCart = (color, quantity, productId, price, size) =>
+export const addItemToGuestCart = (product, color, quantity, productId, price, size) =>
   dispatch =>
-    axios.post(`/api/orders/cart/add/guest`, {color, quantity, productId, price, size})
+    axios.post(`/api/orders/cart/add/guest`, {product, color, quantity, productId, price, size})
       .then(response => {
         const orderline = response.data
         dispatch(addToCart(orderline))
