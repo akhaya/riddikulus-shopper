@@ -11,12 +11,6 @@ const Order = db.define('orders', {
     defaultValue: 'pending',
   },
 
-  shippingAddress:{
-    // can be null if user is a guest user and is still browsing,
-    // should not be null once they want to place order
-    type: Sequelize.STRING,
-  },
-
   shippingCost:{
     type: Sequelize.INTEGER,
   },
@@ -38,10 +32,13 @@ const Order = db.define('orders', {
 }, {
   validate: {
     checkShippingUponOrder: function () {
-      if(this.status !=='pending' && !this.shippingAddress){
-        throw new Error('Shipping address needs to be present if order is not pending')
+      if(this.status !=='pending' && !this.address_id){
+        throw new Error('Address needs to be present if order is not pending')
       }
     }
+  },
+  defaultScope: {
+    include: [Orderline]
   }
 })
 

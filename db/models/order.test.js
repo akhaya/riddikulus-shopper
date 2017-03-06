@@ -21,7 +21,7 @@ describe('Order', () => {
 
       it('has a user_id', () => {
         let userId
-        User.create({
+        return User.create({
           name:'blah',
           email: 'blah@blah.com'
         }).then(user => {
@@ -34,14 +34,14 @@ describe('Order', () => {
         })
       })
 
-      it('throws an error if an order is placed without an address', () =>{
-        Order.create({
+      it('throws an error if an order is placed without an address id', () =>{
+        return Order.create({
           status: 'pending'
         }).then(order => {
           return order.update({status: 'processing'})
         }).catch(err =>{
           expect(err).to.be.an('object');
-          expect(err.errors[0].message).to.be.equal('Shipping address needs to be present if order is not pending')
+          expect(err.errors[0].message).to.be.equal('Address needs to be present if order is not pending')
         })
       })
   })

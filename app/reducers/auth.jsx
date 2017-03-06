@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {receiveUserCart, receiveGuestCart, clearCart} from './cart'
+import {browserHistory} from 'react-router'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -23,7 +25,11 @@ export const login = (username, password) =>
 export const logout = () =>
   dispatch =>
     axios.post('/api/auth/logout')
-      .then(() => dispatch(whoami()))
+      .then(() => {
+        dispatch(clearCart())
+        dispatch(whoami())
+        browserHistory.push('/')
+      })
       .catch(() => dispatch(whoami()))
 
 export const whoami = () =>
@@ -32,7 +38,17 @@ export const whoami = () =>
       .then(response => {
         const user = response.data
         dispatch(authenticated(user))
+        //get cart
+        if(!user){
+          dispatch(receiveGuestCart())
+        }else{
+          dispatch(receiveUserCart(user.id))
+        }
+
       })
-      .catch(failed => dispatch(authenticated(null)))
+      .catch(failed => {
+        dispatch(authenticated(null))
+        dispatch(receiveGuestCart())
+      })
 
 export default reducer

@@ -10,6 +10,7 @@ const Order = require('./order')
 const Orderline = require('./orderline')
 const Product = require('./product')
 const Breed = require('./breed')
+const Address = require('./address')
 const Review = require('./review')
 
 OAuth.belongsTo(User)
@@ -17,10 +18,11 @@ User.hasOne(OAuth)
 
 Orderline.belongsTo(Order)
 Orderline.belongsTo(Product)
-Order.belongsToMany(Orderline, {through: 'order_orderline'})
+Order.hasMany(Orderline)
 Product.hasMany(Orderline)
 Order.belongsTo(User)
-
+Order.belongsTo(Address)
+Address.hasMany(Order)
 // adds breed id on product
 // gives product getBreed, setBreed, removeBreed
 Product.belongsTo(Breed)
@@ -37,4 +39,4 @@ Product.hasMany(Review)
 // gives review getUser, setUser, removeUser
 Review.belongsTo(User)
 
-module.exports = {User, Product, Breed, Order, Orderline}
+module.exports = {User, Product, Breed, Order, Orderline, Address}
