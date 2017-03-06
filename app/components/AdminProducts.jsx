@@ -3,6 +3,10 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import ProductRow from './ProductRow'
 
+
+//--N.A.: a way to generate tables with slightly different information? 
+  //possibly using this.props.children (NOT in the react-router way)
+  //have a TableComponent, provide tr, th, etc as this.props.children
 export default (props) => {
   return (
       <div className="container-fluid">

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 
+//--N.A.: what is role used for? 
 export default (props) => {
   return (
       <div className="container-fluid">

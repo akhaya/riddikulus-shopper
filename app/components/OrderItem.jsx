@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 
+
+//--N.A.: good commenting here (ask about this.props.errorMessage)
 class OrderItem extends Component {
   constructor(props) {
     super(props)
@@ -14,6 +16,7 @@ class OrderItem extends Component {
   }
 
   // this updates the orderline view and database correctly but the orderlines render in a different order from before
+  //--N.A. (joe): refactor handleUpdate so that it takes an object instead of several properties (so that you don't have to remember the exact order of parameters)
   handleUpdate (event) {
     event.preventDefault()
     const newColor = this.state.newColor
@@ -31,6 +34,7 @@ class OrderItem extends Component {
     this.setState({newColor: event.target.value})
   }
 
+  //--N.A. (joe): why are you declaring newQuantity?  
   onQuantityChange (event) {
     event.preventDefault()
     let newQuantity

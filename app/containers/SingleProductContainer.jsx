@@ -10,13 +10,14 @@ const mapStateToProps = (state) => {
   }
 }
 
+//--N.A. (joe): great use case for rest and spread here (...args)
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleAdd (color, quantity, productId, orderId, price, size) {
-      dispatch(addItemToUserCart(color, quantity, productId, orderId, price, size))
+    handleAdd (...args) {
+      dispatch(addItemToUserCart(...args))
     },
-    handleGuestAdd (product, color, quantity, productId, price, size) {
-      dispatch(addItemToGuestCart(product, color, quantity, productId, price, size))
+    handleGuestAdd (...args) {
+      dispatch(addItemToGuestCart(...args))
     },
   }
 }

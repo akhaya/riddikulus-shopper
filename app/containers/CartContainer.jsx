@@ -6,7 +6,8 @@ import {updateOrderItemFromUserCart} from '../reducers/cart'
 
 import {deleteOrderItemFromUserCart} from '../reducers/cart'
 
-
+//--N.A.: talk about the structure of this file --> why defining methods on class? 
+  //refactor into presentational component 
 class CartContainer extends Component {
   constructor(props){
     super(props)

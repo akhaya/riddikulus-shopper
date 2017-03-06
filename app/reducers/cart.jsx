@@ -12,6 +12,7 @@ const reducer = (state=initialState, action) => {
       return action.cart
 
     case ADD_TO_CART:
+    //--N.A.: use lodash?
       let newState = Object.assign({}, state)
       newState.orderlines = newState.orderlines || []
       newState.orderlines = newState.orderlines.concat(action.orderline)
@@ -42,14 +43,16 @@ export const addToCart = orderline => ({
   type: ADD_TO_CART,
   orderline: orderline,
 })
-
+//--N.A.: make an async function that takes some data and passes it to receiveCart
+  //also modularize addCart (in a similar fashion)
 export const receiveUserCart = (userId) =>
   dispatch =>
     axios.get(`/api/orders/cart/${userId}`)
       .then(response => {
         const cart = response.data
         dispatch(receiveCart(cart))
-      })
+      }) 
+      //--N.A.: either: .catch(console.error) or .catch(failed => console.error(failed))
       .catch(failed => console.error)
 
 export const receiveGuestCart = () =>

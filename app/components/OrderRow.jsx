@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
+//--N.A.: 14 and 15 placeholders? 
 export default (props) => {
   const order = props.order
   return (

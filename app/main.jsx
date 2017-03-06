@@ -21,6 +21,8 @@ import {receiveUsers} from './reducers/users'
 import {receiveOrders} from './reducers/orders'
 import SignupContainer from './containers/SignupContainer'
 
+
+//--N.A.: put onEnter functions in a separate file? 
 const onAppEnter = () => {
   //GET THAT CART
   store.dispatch(whoami())

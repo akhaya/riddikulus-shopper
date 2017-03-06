@@ -6,9 +6,9 @@ import {Link} from 'react-router'
 class SingleProduct extends Component {
   constructor(props) {
     super(props)
-
+    
     this.state = {
-      color: '',
+      color: '', //props.color? 
       quantity: 1,
       addedToCart: false,
     }
@@ -61,6 +61,8 @@ class SingleProduct extends Component {
         </div>
       </div>
       )
+      //--N.A.: can use null to show nothing instead of an empty element
+        //because empty elements might still have side effects
     const noMessage = (<div></div>)
     return(
       <div className="container-fluid">

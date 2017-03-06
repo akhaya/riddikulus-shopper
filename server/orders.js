@@ -7,6 +7,8 @@ const localUserStorage = require('store')
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
+//nice commenting in this routes file 
+
 module.exports = require('express').Router()
   .use((req, res, next) => {
     //load the local storage cart
@@ -133,6 +135,8 @@ module.exports = require('express').Router()
 
     // not sure if this is RESTful but couldn't think of another way to make sure the new order rendered after the delete
     // let me know if you have suggestions
+
+    //--niz: Orderline.delete?
     Orderline.findOne({
       where: {
         order_id: req.params.orderId,

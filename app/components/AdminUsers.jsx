@@ -25,7 +25,7 @@ export default (props) => {
                   user={user}
                   key={user.id}
                   onDelete={() => props.deleteUser(user.id)}
-                  />
+                  ><h1>Hello!</h1></UserRow>
                 )}
             </tbody>
           </table>
