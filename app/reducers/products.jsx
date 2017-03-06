@@ -19,7 +19,7 @@ const reducer = (state=initialProductsState, action) => {
   switch(action.type) {
 
   case RECEIVE_PRODUCTS:
-    newState.list = actions.products
+    newState.list = action.products
     break;
 
   case RECEIVE_PRODUCT:
