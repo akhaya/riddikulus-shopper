@@ -36,7 +36,7 @@ const seedProducts = () => db.Promise.map([
     inventory: 50,
     magicalAbilities: ['flying'],
     lifespan: 70,
-    price: 100,
+    price: 500,
     breed_id: 3
   },
   { name: 'Niffler',
@@ -46,8 +46,8 @@ const seedProducts = () => db.Promise.map([
     pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/3x8xkyxFqU0w6WaMAuUmsK/69b6776507fba83b3f90a4c59475440c/FB-TRL2-niffler_alt.jpg?w=550&h=550&fit=thumb&f=center&q=85',
     inventory: 100,
     magicalAbilities: ['flying'],
-    lifespan: 70,
-    price: 100,
+    lifespan: 10,
+    price: 150,
     breed_id: 4
   }
 ], product => db.model('products').create(product))
@@ -59,6 +59,49 @@ const seedBreeds = () => db.Promise.map([
   {name: 'mole'}
 ], breed => db.model('breeds').create(breed))
 
+const seedOrders = () => db.Promise.map([
+  {status: 'pending'},
+  {status: 'processing', shippingAddress: '568 Broadway, NYC 10012', shippingCost: 100, tax: 80, subtotal:250, totalCost: 430, user_id:1},
+  {status: 'shipped', shippingAddress: '5 Hanover Square, NYC, 10016', shippingCost: 150, tax: 100, subtotal:300, totalCost: 550, user_id:2}
+], order => db.model('orders').create(order))
+
+const seedOrderlines = () => db.Promise.map([
+  {
+    color: 'gray',
+    quantity: 1,
+    size: 'L',
+    unitPrice: 500,
+    order_id: 1,
+    product_id: 1
+  },
+  {
+    color: 'white',
+    quantity: 1,
+    size: 'M',
+    unitPrice: 100,
+    order_id: 2,
+    product_id: 4
+  },
+  {
+    color: 'black',
+    quantity: 1,
+    size: 'L',
+    unitPrice: 150,
+    order_id: 2,
+    product_id: 3
+  },
+  {
+    color: 'green',
+    quantity: 2,
+    size: 'S',
+    unitPrice: 150,
+    order_id: 3,
+    product_id: 2
+  }
+
+], orderline => db.model('orderlines').create(orderline))
+
+
 db.didSync
   .then(() => db.sync({force: true}))
   .then(seedUsers)
@@ -67,5 +110,9 @@ db.didSync
   .then((breeds) => console.log(`Seeded ${breeds.length} breeds OK`))
   .then(seedProducts)
   .then((products) => console.log(`Seeded ${products.length} products OK`))
+  .then(seedOrders)
+  .then((orders) => console.log(`Seeded ${orders.length} orders OK`))
+  .then(seedOrderlines)
+  .then((orderlines) => console.log(`Seeded ${orderlines.length} orderlines OK`))
   .catch(error => console.error(error))
   .finally(() => db.close())
