@@ -11,11 +11,13 @@ class Products extends Component {
       breeds: [],
       magicalAbilities: [],
       lifespan: 1000,
-      price: 20000
+      price: 20000,
+      filters: []
     }
     this.handleSizeInput = this.handleSizeInput.bind(this)
     this.handleBreedInput = this.handleBreedInput.bind(this)
     this.handleMagicalAbilitiesInput = this.handleMagicalAbilitiesInput.bind(this)
+    // this.handleFilterChange = this.handleFilterChange.bind(this)
   }
 
   handleSizeInput (event) {
@@ -51,10 +53,30 @@ class Products extends Component {
     }
   }
 
+  // handleFilterChange(event){
+  //   if(event.target.checked){
+  //     this.setState({filters: this.state.filters.concat([event.target.value])})
+  //   }
+  //   else{
+  //     let i = this.state.filters.indexOf(event.target.value)
+  //     let x = this.state.filters.splice(i, 1)
+  //     this.setState({filters: this.state.filters})
+  //   }
+  // }
+
+
   render() {
-    console.log(this.state.breeds)
-    const products = this.props.products
-    console.log("********* products", products)
+
+    const products = this.props.products;
+
+    // filtering creatures based on filter inputs
+    let filteredProducts = products
+      .filter(product => {
+        return this.state.breeds.length > 0 ? this.state.breeds.indexOf(product.breed.name) > -1 : product
+      })
+      .filter(product => {
+        return this.state.size.length > 0 ? this.state.size.indexOf(product.size) > -1 : product
+      })
 
     if (!products) {
       return null
@@ -107,7 +129,7 @@ class Products extends Component {
                         </label>)
                   })}
             <h3> Lifespan </h3>
-              <input type="range" min="0" max="100" />
+              <input type="range" min="0" max="1000" />
             <h3> Price </h3>
               <input type="range" min="0" max="5000" />
           </div>
@@ -116,10 +138,7 @@ class Products extends Component {
             <h3>Creatures</h3>
             <div className="row">
 
-              {products
-                .filter(product => {
-                  return this.state.breeds.length > 0 ? this.state.breeds.indexOf(product.breed.name) > -1 : product
-                })
+              {filteredProducts
                 .map(product => {
                   return (<div className="col-xs-3" key={product.id}>
 
