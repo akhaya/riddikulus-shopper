@@ -4,6 +4,14 @@ export default (props) => {
   const product = props.orderline.product
   if (!product) return null
   const orderline = props.orderline
+  const orderId = orderline.order_id
+  const productId = orderline.product_id
+  const userId = props.userId
+  const handleDelete = (event) => {
+    event.preventDefault();
+    props.handleDelete(userId, orderId, productId)
+  }
+
   return (
     <div className="panel panel-default">
       <div className="panel-body">
@@ -44,7 +52,7 @@ export default (props) => {
                 {props.errorMessage}
               </dd>
             </dl>
-            <button className="btn btn-default" type="submit">Delete</button>
+            <button className="btn btn-default" type="submit" onClick={handleDelete}>Delete</button>
             <button className="btn btn-default" type="submit">Update</button>
           </div>
 
