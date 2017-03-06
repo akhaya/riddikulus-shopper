@@ -118,7 +118,34 @@ module.exports = require('express').Router()
           localUserStorage.remove('cart')
           res.send(newCart)
         })
-
+        .catch(console.error)
       }
-
   })
+  .delete('/cart/delete/:userId/:orderId/:productId', (req, res, next) => {
+    // user cart: delete product from orderline and load the updated order
+
+    // not sure if this is RESTful but couldn't think of another way to make sure the new order rendered after the delete
+    // let me know if you have suggestions
+    Orderline.findOne({
+      where: {
+        order_id: req.params.orderId,
+        product_id: req.params.productId,
+      }
+    })
+    .then((orderlineToDelete) => {
+      orderlineToDelete.destroy()
+    })
+    .then(() => {
+      return Order.findOne({
+        where: {
+          user_id: req.params.userId,
+          status: 'pending',
+        }
+      })
+    })
+    .then(updatedOrder => {
+      res.json(updatedOrder)
+    })
+    .catch(next)
+  })
+
