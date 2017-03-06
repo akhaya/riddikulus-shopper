@@ -7,8 +7,19 @@
 }
 
 .thumbnail > img{
-  width:240px;
+  width:100%;
   height:250px;
+}
+
+.thumbnailImg {
+  width:100%;
+  height:auto;
+  margin-top: 15px;
+}
+
+#creatureMainPic{
+  width:50%;
+  height:auto;
 }
 
 .nav-login {
@@ -43,4 +54,8 @@ input {
 .carousel-pics{
   width:200px;
   height:auto;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
 }
