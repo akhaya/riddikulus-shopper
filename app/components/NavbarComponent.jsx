@@ -5,7 +5,7 @@ import WhoAmI from './WhoAmI'
 import SignupContainer from '../containers/SignupContainer'
 
 export default (props) => {
-
+  const cart = props.cart
 
   return (
     <div>
@@ -22,7 +22,7 @@ export default (props) => {
           <li>
             <Link to="/cart" className="navbar-link">
               <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-              (1)
+              ({cart.orderlines? cart.orderlines.length : "0"})
             </Link>
           </li>
         </ul>
