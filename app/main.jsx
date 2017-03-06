@@ -42,6 +42,14 @@ const onAdminUsersEnter = () => {
   .catch(console.error.bind(console))
 }
 
+const onAdminOrdersEnter = () => {
+  axios.get('/api/orders')
+  .then(res => {
+    store.dispatch(receiveOrders(res.data))
+  })
+  .catch(console.error.bind(console))
+}
+
 const App = connect(
 
   ({ auth }) => ({ user: auth })
@@ -63,6 +71,7 @@ render (
         <Route path="/admin" component={AdminPanel} onEnter={onAdminEnter}>
           <IndexRoute component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
           <Route path="/users" component={AdminUsersContainer} onEnter={onAdminUsersEnter}/>
+          <Route path="/orders" component={AdminOrdersContainer} onEnter={onAdminOrdersEnter}/>
         </Route>
     </Route>
     </Router>

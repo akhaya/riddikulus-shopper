@@ -7,14 +7,14 @@ import deleteUser from '../reducers/users'
 
 const mapStateToProps = (state) => {
   return {
-      users: state.users
+      orders: state.orders
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deleteUser: function(userId) {
-        dispatch(deleteUser(userId))
+    deleteOrder: function(orderId) {
+        dispatch(deleteOrder(userId))
       }
   }
 }

@@ -18,3 +18,10 @@ module.exports = require('express').Router()
 		User.findById(req.params.id)
 		.then(user => res.json(user))
 		.catch(next))
+	.delete('/:id', forbidden('only admins can delete users'), (req, res, next) =>
+		User.findById(req.params.id)
+		.then(user => user.deactivateUser())
+		.then(() => {
+			res.redirect('/')
+		})
+		.catch(next))

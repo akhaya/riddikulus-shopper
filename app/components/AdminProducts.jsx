@@ -11,20 +11,20 @@ export default (props) => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Guest</th>
-                <th>Admin</th>
-                <th>Password Reset</th>
-                <th>Deactivate?</th>
+                <th>User Id</th>
+                <th>Date Placed</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>See Details</th>
+                <th>Delete?</th>
               </tr>
             </thead>
             <tbody>
-              {props.users && props.users.map(user =>
+              {props.orders && props.orders.map(order =>
                 <UserRow
-                  user={user}
-                  key={user.id}
-                  onDelete={() => props.deleteUser(user.id)}
+                  order={order}
+                  key={order.id}
+                  onDelete={() => props.deleteOrder(order.id)}
                   />
                 )}
             </tbody>
