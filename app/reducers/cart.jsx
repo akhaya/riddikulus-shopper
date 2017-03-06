@@ -1,4 +1,5 @@
 import axios from 'axios'
+import _ from 'lodash'
 
 const initialState = {}
 
@@ -14,8 +15,11 @@ const reducer = (state=initialState, action) => {
     case ADD_TO_CART:
       let newState = Object.assign({}, state)
       newState.orderlines = newState.orderlines || []
-      newState.orderlines = newState.orderlines.concat(action.orderline)
-      console.log('======', newState.orderlines)
+      const duplicateOrder = _.find(newState.orderlines, {'id': action.orderline.id})
+      newState.orderlines = newState.orderlines.filter(orderline => {
+        return orderline !== duplicateOrder
+      })
+      .concat(action.orderline)
       return newState
 
     default:
