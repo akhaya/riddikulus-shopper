@@ -66,11 +66,11 @@ const onCartEnter = () => {
 
 const App = connect(
 
-  ({ auth }) => ({ user: auth })
+  ({ auth, cart }) => ({ user: auth, cart })
 ) (
-  ({ user, children }) =>
+  ({ user, children, cart }) =>
     <div>
-      <NavbarComponent user={user} />
+      <NavbarComponent user={user} cart={cart}/>
 
       {children}
     </div>
