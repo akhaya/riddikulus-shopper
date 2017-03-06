@@ -17,7 +17,7 @@ class CartContainer extends Component {
   calculateSubtotal(){
     const orderlines = this.props.cart.orderlines
     if(orderlines && orderlines.length > 0){
-      return orderlines.map(ol => ol.subtotal).reduce( (a,b) => a+b )
+      return orderlines.map(ol => ol.quantity*ol.unitPrice).reduce( (a,b) => a+b )
     }
     return 0
   }
@@ -29,7 +29,7 @@ class CartContainer extends Component {
     return 0
   }
   calculateTax(){
-    return this.calculateSubtotal()*0.089
+    return Math.floor(this.calculateSubtotal()*0.089)
   }
   calculateTotal(){
     return this.calculateSubtotal()+this.calculateTax()+this.calculateShipping()
