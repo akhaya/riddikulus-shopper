@@ -16,8 +16,6 @@ const reducer = (state=null, action) => {
 
 // constants
 const RECEIVE_USERS = 'RECEIVE_USERS'
-const DELETE_USER = 'DELETE_USER'
-const MAKE_ADMIN = 'MAKE_ADMIN'
 
 // action creators
 export const receiveUsers = users => ({
@@ -25,12 +23,19 @@ export const receiveUsers = users => ({
   users: users
 })
 
+export const changeAdminStatus = userId => {
+  return dispatch => {
+    axios.put(`api/users/${userId}/admin`)
+      .then(res => {
+        console.log("RES IN ACTION CREATOR", res)
+        dispatch(receiveUsers(res.data))
+      }).catch(console.error)
+  }
+}
+
 export const deleteUser = userId => {
-  dispatch => {
-    axios.delete(`/${userID}`)
-      .then(() => {
-        return axios.get('/api/users')
-      })
+  return dispatch => {
+    axios.delete(`api/users/${userId}`)
       .then(res => {
         dispatch(receiveUsers(res.data))
       }).catch(console.error)

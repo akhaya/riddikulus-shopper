@@ -1,8 +1,10 @@
 const db = require('APP/db')
 
 const seedUsers = () => db.Promise.map([
-  {name: 'so many', email: 'god@example.com', password: '1234', isGuest: false, isAdmin: true},
-  {name: 'Barack Obama', email: 'barack@example.gov', password: '1234', isGuest: false},
+  {name: 'so many', email: 'god@example.com', password: '1234', isGuest: false, isAdmin: true, status: 'active'},
+  {name: 'Barack Obama', email: 'barack@example.gov', password: '1234', isGuest: false, status: 'active'},
+  {name: 'Beyonce', email: 'bey@test.com', password: '1234', isGuest: false, status: 'active'},
+  {name: 'Albert', email: 'al@test.com', password: '1234', isGuest: true}
 ], user => db.model('users').create(user))
 
 const seedProducts = () => db.Promise.map([

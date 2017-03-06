@@ -52,8 +52,9 @@ const User = db.define('users', {
       this.set('password', null)
       return this.save()
     },
-    setAdmin(){
-      return this.set('isAdmin', true).save()
+    toggleAdmin(){
+      const newStatus = !this.isAdmin
+      return this.set('isAdmin', newStatus).save()
     }
   }
 })
