@@ -3,7 +3,7 @@
 const db = require('APP/db')
 const Order = db.model('orders')
 const localUserStorage = require('store')
-
+const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
 
 module.exports = require('express').Router()
@@ -11,6 +11,11 @@ module.exports = require('express').Router()
     //load the local storage cart
     req.cart = localUserStorage.get('cart')
     next()
+  })
+  .get('/', forbidden('only admins can list all orders'), (req, res, next) => {
+		Order.findAll()
+		.then(orders => res.json(orders))
+		.catch(next)
   })
   .get('/cart', (req, res, next) => {
     //guest user cart route
@@ -54,5 +59,18 @@ module.exports = require('express').Router()
         })
 
       }
-
+  }).get('/:id', mustBeLoggedIn, (req, res, next) => {
+		User.findById(req.params.id)
+		.then(user => res.json(user))
+		.catch(next)
   })
+
+  .delete('/:id', forbidden('only admins can delete orders'), (req, res, next) =>
+		Order.findById(req.params.id)
+		.then(order => order.destroy())
+		.then(() => {
+			res.redirect('/')
+		})
+		.catch(next))
+
+
