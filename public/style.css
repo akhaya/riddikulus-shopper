@@ -11,7 +11,21 @@
   height:250px;
 }
 
-.thumbnailImg {
+.small-input {
+  width: 80px;
+}
+
+.btn-circle {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 42%;
+  }
+
+.thumbnailImg{
   width:100%;
   height:auto;
   margin-top: 15px;
@@ -59,3 +73,4 @@ input {
 h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
 }
+
