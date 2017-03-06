@@ -172,7 +172,7 @@ module.exports = require('express').Router()
   })
   .delete('/cart/delete/guest/:orderlineId', (req, res, next) => {
     // guest cart: delete orderline and load the updated order
-    let guestCart = localUserStorage.get('cart')
+    let guestCart = req.cart
     guestCart.orderlines = guestCart.orderlines.filter(orderline => {
       return orderline.id !== +(req.params.orderlineId)
     })
