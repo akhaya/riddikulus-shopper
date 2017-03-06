@@ -17,9 +17,7 @@ import SignupContainer from './containers/SignupContainer'
 
 const onAppEnter = () => {
   //GET THAT CART
-
   store.dispatch(whoami())
-
 }
 
 const onProductsEnter = () => {
