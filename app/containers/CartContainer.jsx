@@ -39,8 +39,8 @@ class CartContainer extends Component {
     const cart = this.props.cart
     const orderlines = cart.orderlines
     const userId = cart.user_id
-    const handleUpdate = this.props.handleUpdate
-    const handleDelete = this.props.handleDelete
+    const handleUserUpdate = this.props.handleUserUpdate
+    const handleUserDelete = this.props.handleUserDelete
     const handleGuestDelete = this.props.handleGuestDelete
     const handleGuestUpdate = this.props.handleGuestUpdate
     const noItemsMessage = (
@@ -54,7 +54,7 @@ class CartContainer extends Component {
         <h3>Cart</h3>
         <div className="row">
           <div className="col-md-9">
-            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleDelete={handleDelete} handleUpdate={handleUpdate} handleGuestDelete={handleGuestDelete} handleGuestUpdate={handleGuestUpdate} userId={userId} key={orderline.id} />) : noItemsMessage}
+            {orderlines && orderlines.length > 0 ? orderlines.map(orderline => <OrderItem orderline={orderline} handleUserDelete={handleUserDelete} handleUserUpdate={handleUserUpdate} handleGuestDelete={handleGuestDelete} handleGuestUpdate={handleGuestUpdate} userId={userId} key={orderline.id} />) : noItemsMessage}
           </div>
           <div className="col-md-3">
             <CartSidebar orderTotals={{

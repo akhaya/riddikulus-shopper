@@ -15,6 +15,7 @@ const reducer = (state=initialState, action) => {
       let newState = Object.assign({}, state)
       newState.orderlines = newState.orderlines || []
       newState.orderlines = newState.orderlines.concat(action.orderline)
+      console.log('======', newState.orderlines)
       return newState
 
     default:
@@ -61,7 +62,6 @@ export const receiveGuestCart = () =>
       })
       .catch(failed => console.error)
 
-//okay?
 export const deleteOrderItemFromGuestCart = (orderlineId) =>
   dispatch =>
     axios.delete(`api/orders/cart/delete/guest/${orderlineId}`)
@@ -71,7 +71,6 @@ export const deleteOrderItemFromGuestCart = (orderlineId) =>
       })
       .catch(failed => console.error)
 
-//okay
 // update by color
 export const updateOrderItemFromUserCart = (userId, orderId, productId, color, quantity) =>
   dispatch =>
@@ -82,7 +81,6 @@ export const updateOrderItemFromUserCart = (userId, orderId, productId, color, q
       })
       .catch(failed => console.error)
 
-//okay?
 export const updateOrderItemFromGuestCart = (orderlineId, color, quantity) =>
   dispatch =>
     axios.put(`api/orders/cart/update/guest/${orderlineId}`, {color, quantity})
@@ -92,7 +90,6 @@ export const updateOrderItemFromGuestCart = (orderlineId, color, quantity) =>
       })
       .catch(failed => console.error)
 
-//okay
 export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
   dispatch =>
     axios.delete(`/api/orders/cart/delete/${userId}/${orderId}/${productId}`)
@@ -102,7 +99,6 @@ export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
       })
       .catch(failed => console.error)
 
-//okay
 export const addItemToUserCart = (color, quantity, productId, orderId, price, size) =>
   dispatch =>
     axios.post(`/api/orders/cart/add`, {color, quantity, productId, orderId, price, size})
@@ -112,7 +108,6 @@ export const addItemToUserCart = (color, quantity, productId, orderId, price, si
       })
       .catch(failed => console.error)
 
-//okay
 export const addItemToGuestCart = (product, color, quantity, productId, price, size) =>
   dispatch =>
     axios.post(`/api/orders/cart/add/guest`, {product, color, quantity, productId, price, size})
