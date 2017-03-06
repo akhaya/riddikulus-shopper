@@ -11,7 +11,7 @@ import ProductsContainer from './containers/ProductsContainer'
 import {receiveProducts} from './reducers/products'
 import SingleProductContainer from './containers/SingleProductContainer'
 import {receiveProduct, getProductById} from './reducers/product'
-import Signup from './components/Signup'
+import SignupContainer from './containers/SignupContainer'
 
 const onAppEnter = () => {
   axios.get('/api/products')
@@ -44,7 +44,7 @@ render (
         <IndexRedirect to="/products" />
         <Route path="/products" component={ProductsContainer} />
         <Route path="/products/:productId" component={SingleProductContainer} onEnter={onSingleProductEnter} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/signup" component={SignupContainer} />
     </Route>
     </Router>
   </Provider>,
