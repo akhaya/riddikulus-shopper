@@ -43,7 +43,6 @@ module.exports = require('express').Router()
 
     let existingOrderline = cart.orderlines.filter(orderline => {
       return orderline.product_id === req.body.productId
-              // && orderline.order_id === +(req.body.orderId)
               && orderline.color === req.body.color
     })
 
@@ -52,7 +51,6 @@ module.exports = require('express').Router()
     if (existingOrderline.length === 0) {
       newOrderline.id = cart.orderlines.length + 1
       newOrderline.product_id = req.body.productId
-      // newOrderline.order_id = +(req.body.orderId)
       newOrderline.color = req.body.color
       newOrderline.quantity = req.body.quantity
       newOrderline.unitPrice = req.body.price
@@ -64,12 +62,11 @@ module.exports = require('express').Router()
     } else {
     // if orderline already existed
       newOrderline = existingOrderline[0]
-      newOrderline.quantity += +req.body.quantity
+      newOrderline.quantity += req.body.quantity
       newOrderline.subtotal = newOrderline.quantity * newOrderline.unitPrice
 
       cart.orderlines = cart.orderlines.map(orderline => {
         if (orderline.product_id === req.body.productId
-              // && orderline.order_id === +(req.body.orderId)
               && orderline.color === req.body.color) {
           return newOrderline
         } else {
@@ -78,7 +75,6 @@ module.exports = require('express').Router()
       })
     }
     localUserStorage.set('cart', cart)
-    console.log('=======', cart)
     res.json(newOrderline)
   })
   .get('/cart', (req, res, next) => {
@@ -87,84 +83,84 @@ module.exports = require('express').Router()
     if(!req.cart){
       // initial cart for guest user commented out
       // comment in when you are testing users
-      // localUserStorage.set('cart', { status: 'pending'})
+      localUserStorage.set('cart', { status: 'pending'})
 
       // local user storage cart dummy data for testing
       // comment out when you are testing users, login doesn't work with dummy data below
       // cart sidebar subtotal, tax, and total will not properly update because cart is dummy data
-      localUserStorage.set('cart', {
-        status: 'pending',
-        shippingCost: 150,
-        tax: 100,
-        subtotal:300,
-        totalCost: 550,
-        user_id: null,
-        orderlines: [
-          {
-            id: 1,
-            color: 'gray',
-            quantity: 1,
-            size: 'L',
-            unitPrice: 500,
-            // order_id: 1,
-            product_id: 1,
-            subtotal: 500,
-            product:   { name: 'Thunderbird',
-              description: 'Flying beast that can sense danger, and create storms as it flies. Its tail feathers were used by Shikoba Wolfe to create powerful wands, particularly good for Transfiguration.',
-              colors: ['gray', 'white', 'black', 'red'],
-              size: 'L',
-              pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/6F2Hrc4vgASui8mcQMYKC2/88edf4f0d933a7cea6e36b9b0b66613d/Thunderbird_Fantastic_Beasts_CC_Trailer_WM.JPG?w=550&h=550&fit=thumb&f=center&q=85',
-              inventory: 20,
-              magicalAbilities: ['weather manipulation', 'fear sensing', 'flying'],
-              lifespan: 60,
-              price: 2000,
-              breed_id:1
-            }
-          },
-          {
-            id: 2,
-            color: 'white',
-            quantity: 1,
-            size: 'M',
-            unitPrice: 100,
-            // order_id: 2,
-            product_id: 4,
-            subtotal: 100,
-            product: { name: 'Bowtruckles',
-              description: 'A small twig-like creature that guards wand-wood trees.',
-              colors: ['green', 'brown'],
-              size: 'XS',
-              pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/CHqGFAIkwK2y2meEMgQAY/9562ab7cb3f75af827bd4c3ffa1c2eea/FTB203_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM_A_NEW_HERO_FEATURETTE_2255.jpg?w=550&h=550&fit=thumb&f=center&q=85',
-              inventory: 100,
-              magicalAbilities: ['natural camouflage'],
-              lifespan: 5,
-              price: 100,
-              breed_id: 2
-            }
-          },
-          {
-            id: 3,
-            color: 'black',
-            quantity: 1,
-            size: 'L',
-            unitPrice: 150,
-            // order_id: 2,
-            product_id: 3,
-            subtotal: 150,
-            product: { name: 'Niffler',
-              description: 'Long-snouted, burrowing creatures native to Britain with a penchant for anything shiny.',
-              colors: ['brown', 'white', 'black'],
-              size: 'S',
-              pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/3x8xkyxFqU0w6WaMAuUmsK/69b6776507fba83b3f90a4c59475440c/FB-TRL2-niffler_alt.jpg?w=550&h=550&fit=thumb&f=center&q=85',
-              inventory: 100,
-              magicalAbilities: ['flying'],
-              lifespan: 10,
-              price: 150,
-              breed_id: 4
-            }
-          },
-        ],
-      })
+      // localUserStorage.set('cart', {
+      //   status: 'pending',
+      //   shippingCost: 150,
+      //   tax: 100,
+      //   subtotal:300,
+      //   totalCost: 550,
+      //   user_id: null,
+      //   orderlines: [
+      //     {
+      //       id: 1,
+      //       color: 'gray',
+      //       quantity: 1,
+      //       size: 'L',
+      //       unitPrice: 500,
+      //       // order_id: 1,
+      //       product_id: 1,
+      //       subtotal: 500,
+      //       product:   { name: 'Thunderbird',
+      //         description: 'Flying beast that can sense danger, and create storms as it flies. Its tail feathers were used by Shikoba Wolfe to create powerful wands, particularly good for Transfiguration.',
+      //         colors: ['gray', 'white', 'black', 'red'],
+      //         size: 'L',
+      //         pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/6F2Hrc4vgASui8mcQMYKC2/88edf4f0d933a7cea6e36b9b0b66613d/Thunderbird_Fantastic_Beasts_CC_Trailer_WM.JPG?w=550&h=550&fit=thumb&f=center&q=85',
+      //         inventory: 20,
+      //         magicalAbilities: ['weather manipulation', 'fear sensing', 'flying'],
+      //         lifespan: 60,
+      //         price: 2000,
+      //         breed_id:1
+      //       }
+      //     },
+      //     {
+      //       id: 2,
+      //       color: 'white',
+      //       quantity: 1,
+      //       size: 'M',
+      //       unitPrice: 100,
+      //       // order_id: 2,
+      //       product_id: 4,
+      //       subtotal: 100,
+      //       product: { name: 'Bowtruckles',
+      //         description: 'A small twig-like creature that guards wand-wood trees.',
+      //         colors: ['green', 'brown'],
+      //         size: 'XS',
+      //         pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/CHqGFAIkwK2y2meEMgQAY/9562ab7cb3f75af827bd4c3ffa1c2eea/FTB203_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM_A_NEW_HERO_FEATURETTE_2255.jpg?w=550&h=550&fit=thumb&f=center&q=85',
+      //         inventory: 100,
+      //         magicalAbilities: ['natural camouflage'],
+      //         lifespan: 5,
+      //         price: 100,
+      //         breed_id: 2
+      //       }
+      //     },
+      //     {
+      //       id: 3,
+      //       color: 'black',
+      //       quantity: 1,
+      //       size: 'L',
+      //       unitPrice: 150,
+      //       // order_id: 2,
+      //       product_id: 3,
+      //       subtotal: 150,
+      //       product: { name: 'Niffler',
+      //         description: 'Long-snouted, burrowing creatures native to Britain with a penchant for anything shiny.',
+      //         colors: ['brown', 'white', 'black'],
+      //         size: 'S',
+      //         pictureURL: 'https://images.pottermore.com/bxd3o8b291gf/3x8xkyxFqU0w6WaMAuUmsK/69b6776507fba83b3f90a4c59475440c/FB-TRL2-niffler_alt.jpg?w=550&h=550&fit=thumb&f=center&q=85',
+      //         inventory: 100,
+      //         magicalAbilities: ['flying'],
+      //         lifespan: 10,
+      //         price: 150,
+      //         breed_id: 4
+      //       }
+      //     },
+      //   ],
+      // })
       req.cart = localUserStorage.get('cart')
     }
     res.send(req.cart)
