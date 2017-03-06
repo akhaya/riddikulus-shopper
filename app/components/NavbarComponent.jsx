@@ -18,6 +18,12 @@ export default (props) => {
           <li className="nav-login">
             {props.user ? <WhoAmI/> : <Login/>}
           </li>
+          <li>
+            <Link to="/cart" className="navbar-link">
+              <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              (1)
+            </Link>
+          </li>
         </ul>
         </div>
       </nav>
