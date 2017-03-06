@@ -123,18 +123,16 @@ class Products extends Component {
                         <label className="form-check-label sizeLabels" key={id}>
                           <input className="form-check-input sizeInput" type="checkbox" value={size} onClick={this.handleSizeInput} />{size}
                         </label>)
-                  })}
-            <h3> Lifespan </h3>
-              <input type="range" min="0" max="1000" />
-            <h3> Price </h3>
-              <input type="range" min="0" max="5000" />
+                  })}>
           </div>
 
           <div className="col-xs-10">
             <h3>Creatures</h3>
             <div className="row">
 
-              {filteredProducts
+              {filteredProducts.length > 0 ?
+
+                filteredProducts
                 .map(product => {
                   return (<div className="col-xs-3" key={product.id}>
 
@@ -149,7 +147,10 @@ class Products extends Component {
                       </div>
                     </a>
                   </div>)
-                  })
+                  }) :
+                <div>
+                  <h3> No products match that search criteria </h3>
+                </div>
               }
             </div>
           </div>
