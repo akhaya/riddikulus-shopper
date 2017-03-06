@@ -1,4 +1,5 @@
 import axios from 'axios'
+import _ from 'lodash'
 
 const initialState = {}
 
@@ -14,7 +15,11 @@ const reducer = (state=initialState, action) => {
     case ADD_TO_CART:
       let newState = Object.assign({}, state)
       newState.orderlines = newState.orderlines || []
-      newState.orderlines = newState.orderlines.concat(action.orderline)
+      const duplicateOrder = _.find(newState.orderlines, {'id': action.orderline.id})
+      newState.orderlines = newState.orderlines.filter(orderline => {
+        return orderline !== duplicateOrder
+      })
+      .concat(action.orderline)
       return newState
 
     default:
@@ -61,12 +66,31 @@ export const receiveGuestCart = () =>
       })
       .catch(failed => console.error)
 
+export const deleteOrderItemFromGuestCart = (orderlineId) =>
+  dispatch =>
+    axios.delete(`api/orders/cart/delete/guest/${orderlineId}`)
+      .then(response => {
+        const updatedCart = response.data
+        dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.error)
+
 // update by color
 export const updateOrderItemFromUserCart = (userId, orderId, productId, color, quantity) =>
   dispatch =>
     axios.put(`/api/orders/cart/update/${userId}/${orderId}/${productId}`, {color, quantity})
       .then(response => {
         const updatedCart = response.data
+        dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.error)
+
+export const updateOrderItemFromGuestCart = (orderlineId, color, quantity) =>
+  dispatch =>
+    axios.put(`api/orders/cart/update/guest/${orderlineId}`, {color, quantity})
+      .then(response => {
+        const updatedCart = response.data
+        console.log(updatedCart)
         dispatch(receiveCart(updatedCart))
       })
       .catch(failed => console.error)
@@ -78,7 +102,7 @@ export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
       })
-      .catch(failed => console.errorcar)
+      .catch(failed => console.error)
 
 export const addItemToUserCart = (color, quantity, productId, orderId, price, size) =>
   dispatch =>

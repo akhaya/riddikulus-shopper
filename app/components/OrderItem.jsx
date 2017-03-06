@@ -7,10 +7,26 @@ class OrderItem extends Component {
       newColor: '',
       currentQuantity: this.props.orderline.quantity,
     }
-
+    this.handleDelete = this.handleDelete.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.onColorChange = this.onColorChange.bind(this)
     this.onQuantityChange = this.onQuantityChange.bind(this)
+  }
+
+  handleDelete (event) {
+    event.preventDefault()
+    // if user is guest
+    console.log('===', this.props.userId)
+    if (!this.props.userId) {
+      const orderlineId = this.props.orderline.id
+      this.props.handleGuestDelete(orderlineId)
+    } else {
+    // if user is logged in
+      const userId = this.props.userId
+      const orderId = this.props.orderline.order_id
+      const productId = this.props.orderline.product_id
+      this.props.handleUserDelete(userId, orderId, productId)
+    }
   }
 
   // this updates the orderline view and database correctly but the orderlines render in a different order from before
@@ -18,11 +34,21 @@ class OrderItem extends Component {
     event.preventDefault()
     const newColor = this.state.newColor
     const newQuantity = this.state.currentQuantity
-    const orderId = this.props.orderline.order_id
-    const productId = this.props.orderline.product_id
-    const userId = this.props.userId
-    if (newColor !== '' || newQuantity !== this.props.orderline.quantity) {
-      this.props.handleUpdate(userId, orderId, productId, newColor, newQuantity)
+
+    // if user is guest
+    if (!this.props.userId) {
+      const orderlineId = this.props.orderline.id
+      if (newColor !== '' || newQuantity !== this.props.orderline.quantity) {
+        this.props.handleGuestUpdate(orderlineId, newColor, newQuantity)
+      }
+    } else {
+      // if user is logged in
+      const orderId = this.props.orderline.order_id
+      const productId = this.props.orderline.product_id
+      const userId = this.props.userId
+      if (newColor !== '' || newQuantity !== this.props.orderline.quantity) {
+        this.props.handleUserUpdate(userId, orderId, productId, newColor, newQuantity)
+      }
     }
   }
 
@@ -90,7 +116,7 @@ class OrderItem extends Component {
                   {this.props.errorMessage}
                 </dd>
               </dl>
-              <button className="btn btn-default" type="submit">Delete</button>
+              <button className="btn btn-default" type="submit" onClick={this.handleDelete}>Delete</button>
               <button className="btn btn-default" type="submit" onClick={this.handleUpdate}>Update</button>
             </div>
 

@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleAdd (color, quantity, productId, orderId, price, size) {
+    handleUserAdd (color, quantity, productId, orderId, price, size) {
       dispatch(addItemToUserCart(color, quantity, productId, orderId, price, size))
     },
     handleGuestAdd (product, color, quantity, productId, price, size) {
