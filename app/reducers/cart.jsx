@@ -37,6 +37,7 @@ export const clearCart = cart => ({
   cart: {}
 })
 
+
 export const addToCart = orderline => ({
   type: ADD_TO_CART,
   orderline: orderline,
@@ -59,6 +60,16 @@ export const receiveGuestCart = () =>
         dispatch(receiveCart(cart))
       })
       .catch(failed => console.error)
+
+
+export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
+  dispatch =>
+    axios.delete(`/api/orders/cart/delete/${userId}/${orderId}/${productId}`)
+      .then(response => {
+        const updatedCart = response.data
+        dispatch(receiveCart(updatedCart))
+      })
+      .catch(failed => console.errorcar)
 
 export const addItemToUserCart = (color, quantity, productId, orderId, price, size) =>
   dispatch =>
