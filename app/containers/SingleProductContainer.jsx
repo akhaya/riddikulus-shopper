@@ -15,8 +15,8 @@ const mapDispatchToProps = (dispatch) => {
     handleAdd (color, quantity, productId, orderId, price, size) {
       dispatch(addItemToUserCart(color, quantity, productId, orderId, price, size))
     },
-    handleGuestAdd (color, quantity, productId, price, size) {
-      dispatch(addItemToGuestCart(color, quantity, productId, price, size))
+    handleGuestAdd (product, color, quantity, productId, price, size) {
+      dispatch(addItemToGuestCart(product, color, quantity, productId, price, size))
     },
   }
 }
