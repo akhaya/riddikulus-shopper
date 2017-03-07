@@ -1,25 +1,49 @@
 import axios from 'axios'
 
-// reducer
-const reducer = (state=null, action) => {
+
+/* -------------- CONSTANTS ------------- */
+const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
+const RECEIVE_PRODUCT = 'RECEIVE_PRODUCT'
+
+
+const initialProductsState = {
+  selected: {},
+  list: []
+}
+
+/* -------------- REDUCERS -------------- */
+const reducer = (state=initialProductsState, action) => {
+
+  const newState = Object.assign({}, state);
 
   switch(action.type) {
 
   case RECEIVE_PRODUCTS:
-    return action.products
+    newState.list = action.products
+    break;
 
+  case RECEIVE_PRODUCT:
+    newState.selected = action.product
+
+  default:
+    return state;
   }
 
-  return state
+  return newState
+
 }
 
-// constants
-const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
 
-// action creators
+/* ---------------- ACTION CREATORS -------------- */
 export const receiveProducts = products => ({
   type: RECEIVE_PRODUCTS,
-  products: products,
+  products
 })
+
+export const receiveProduct = product => ({
+  type: RECEIVE_PRODUCT,
+  product
+})
+
 
 export default reducer

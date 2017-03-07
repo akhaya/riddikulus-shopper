@@ -101,6 +101,7 @@ module.exports = require('express').Router()
       //   ],
       // })
       req.cart = localUserStorage.get('cart')
+
      }
      res.send(req.cart)
   })
