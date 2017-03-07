@@ -141,9 +141,10 @@ auth.post('/logout', (req, res, next) => {
 auth.post('/signup', (req, res, next) => {
   User.create(req.body)
   .then(user => {
-    req.login(user, function(err){
+    console.log(user)
+    req.login(user, function(err) {
       if(!err){
-        res.redirect('/products')
+        res.redirect('/api/auth/whoami')
       }
     })
   })
