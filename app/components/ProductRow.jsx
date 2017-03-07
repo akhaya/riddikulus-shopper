@@ -8,7 +8,7 @@ export default (props) => {
         <th scope="row">{product.id}</th>
         <td>{product.name}</td>
         <td>{product.breed}</td>
-        <td>{product.colors}</td>
+        <td>{product.colors.join(", ")}</td>
         <td>{product.size}</td>
         <td>{product.inventory}</td>
         <td><a href="#" target="_self">DETAILS</a></td>
