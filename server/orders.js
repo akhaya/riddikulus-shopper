@@ -13,7 +13,7 @@ module.exports = require('express').Router()
     next()
   })
   .get('/', forbidden('only admins can list all orders'), (req, res, next) => {
-		Order.findAll()
+		Order.findAll({order: [['id', 'ASC']]})
 		.then(orders => res.json(orders))
 		.catch(next)
   })
@@ -294,11 +294,20 @@ module.exports = require('express').Router()
     })
     .catch(next)
   })
+  .post('/:id/update', forbidden('only admins can update orders'), (req, res, next) => {
+    Order.findById(req.params.id)
+      .then(order => {
+        return order.update(req.body)
+      }).then((updatedOrder) => res.json(updatedOrder) )
+  })
   .delete('/:id', forbidden('only admins can delete orders'), (req, res, next) => {
-		Order.findById(req.params.id)
-		.then(order => order.destroy())
-		.then(() => {
-			res.redirect('/')
+		Order.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+		.then(results => {
+			res.send(req.params.id)
 		})
 		.catch(next)
   })
