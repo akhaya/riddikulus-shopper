@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import _ from 'lodash'
+import {convertPrice} from '../utils'
 
 // changed to smart container to add form handling functions
 class Products extends Component {
@@ -123,7 +124,7 @@ class Products extends Component {
                         <label className="form-check-label sizeLabels" key={id}>
                           <input className="form-check-input sizeInput" type="checkbox" value={size} onClick={this.handleSizeInput} />{size}
                         </label>)
-                  })}>
+                  })}
           </div>
 
           <div className="col-xs-10">
@@ -131,26 +132,25 @@ class Products extends Component {
             <div className="row">
 
               {filteredProducts.length > 0 ?
-
                 filteredProducts
                 .map(product => {
-                  return (<div className="col-xs-3" key={product.id}>
+                  return (
+                    <div className="col-xs-3" key={product.id}>
 
-                    <a className="thumbnail">
+                    <Link className="thumbnail" to={`/products/${product.id}`}>
                       <img src={product.pictureURL} />
                       <div className="caption">
-                        <h5> {product.name} </h5>
                         <h5>
-                          <span>{product.price} Galleons</span>
+                          <span>{convertPrice(product.price)}</span>
                         </h5>
                         <small>INSERT REVIEW</small>
                       </div>
-                    </a>
-                  </div>)
-                  }) :
-                <div>
-                  <h3> No products match that search criteria </h3>
-                </div>
+                    </Link>
+                    </div>)
+                    }) :
+                  <div>
+                    <h3> No products match that search criteria </h3>
+                  </div>
               }
             </div>
           </div>
@@ -161,3 +161,14 @@ class Products extends Component {
 }
 
 export default Products
+
+                      // <a className="thumbnail">
+                      //   <img src={product.pictureURL} />
+                      //   <div className="caption">
+                      //     <h5> {product.name} </h5>
+                      //     <h5>
+                      //       <span>{product.price} Galleons</span>
+                      //     </h5>
+                      //     <small>INSERT REVIEW</small>
+                      //   </div>
+                      // </a>

@@ -144,7 +144,7 @@ class SingleProduct extends Component {
             </div>
         </div>
       </div>
-
+    </div>
     )
 
   }
