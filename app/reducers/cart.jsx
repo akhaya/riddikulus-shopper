@@ -33,6 +33,7 @@ const SET_CART = 'SET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 
 //ACTION CREATORS
+
 export const receiveCart = cart => ({
   type: SET_CART, cart
 })
@@ -42,11 +43,19 @@ export const clearCart = cart => ({
   cart: {}
 })
 
-
 export const addToCart = orderline => ({
   type: ADD_TO_CART,
   orderline: orderline,
 })
+
+export const checkoutUserCart = (orderTotals, userId) =>
+  dispatch =>
+    axios.put(`/api/orders/cart/checkout/${userId}`, orderTotals)
+      .then(response => {
+        const cart = response.data
+        dispatch(receiveCart(cart))
+      })
+      .catch(console.error)
 
 export const receiveUserCart = (userId) =>
   dispatch =>
@@ -55,7 +64,7 @@ export const receiveUserCart = (userId) =>
         const cart = response.data
         dispatch(receiveCart(cart))
       })
-      .catch(failed => console.error)
+      .catch(console.error)
 
 export const receiveGuestCart = () =>
   dispatch =>
@@ -64,7 +73,7 @@ export const receiveGuestCart = () =>
         const cart = response.data
         dispatch(receiveCart(cart))
       })
-      .catch(failed => console.error)
+      .catch(console.error)
 
 export const deleteOrderItemFromGuestCart = (orderlineId) =>
   dispatch =>
@@ -73,7 +82,7 @@ export const deleteOrderItemFromGuestCart = (orderlineId) =>
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
       })
-      .catch(failed => console.error)
+      .catch(console.error)
 
 // update by color
 export const updateOrderItemFromUserCart = (userId, orderId, productId, color, quantity) =>
@@ -83,17 +92,16 @@ export const updateOrderItemFromUserCart = (userId, orderId, productId, color, q
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
       })
-      .catch(failed => console.error)
+      .catch(console.error)
 
 export const updateOrderItemFromGuestCart = (orderlineId, color, quantity) =>
   dispatch =>
     axios.put(`api/orders/cart/update/guest/${orderlineId}`, {color, quantity})
       .then(response => {
         const updatedCart = response.data
-        console.log(updatedCart)
         dispatch(receiveCart(updatedCart))
       })
-      .catch(failed => console.error)
+      .catch(console.error)
 
 export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
   dispatch =>
@@ -102,7 +110,7 @@ export const deleteOrderItemFromUserCart = (userId, orderId, productId) =>
         const updatedCart = response.data
         dispatch(receiveCart(updatedCart))
       })
-      .catch(failed => console.error)
+      .catch(console.error)
 
 export const addItemToUserCart = (color, quantity, productId, orderId, price, size) =>
   dispatch =>
@@ -111,7 +119,7 @@ export const addItemToUserCart = (color, quantity, productId, orderId, price, si
         const orderline = response.data
         dispatch(addToCart(orderline))
       })
-      .catch(failed => console.error)
+      .catch(console.error)
 
 export const addItemToGuestCart = (product, color, quantity, productId, price, size) =>
   dispatch =>
@@ -120,6 +128,6 @@ export const addItemToGuestCart = (product, color, quantity, productId, price, s
         const orderline = response.data
         dispatch(addToCart(orderline))
       })
-      .catch(failed => console.error)
+      .catch(console.error)
 
 export default reducer
