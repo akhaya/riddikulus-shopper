@@ -33,7 +33,6 @@ class SingleProduct extends Component {
     // user must choose color before adding to cart
     // quantity defaults to 1 if user doesn't select quantity
     if (this.state.color !== '') {
-      console.log('======')
       this.setState({addedToCart: true})
       const color = this.state.color
       const quantity = this.state.quantity
