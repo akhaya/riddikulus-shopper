@@ -16,7 +16,6 @@ class OrderItem extends Component {
   handleDelete (event) {
     event.preventDefault()
     // if user is guest
-    console.log('===', this.props.userId)
     if (!this.props.userId) {
       const orderlineId = this.props.orderline.id
       this.props.handleGuestDelete(orderlineId)
@@ -75,6 +74,7 @@ class OrderItem extends Component {
   }
 
   render() {
+    console.log('===orderitem', this.props)
     const product = this.props.orderline.product
     const orderline = this.props.orderline
     return (
