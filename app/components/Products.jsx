@@ -159,14 +159,3 @@ class Products extends Component {
 }
 
 export default Products
-
-                      // <a className="thumbnail">
-                      //   <img src={product.pictureURL} />
-                      //   <div className="caption">
-                      //     <h5> {product.name} </h5>
-                      //     <h5>
-                      //       <span>{product.price} Galleons</span>
-                      //     </h5>
-                      //     <small>INSERT REVIEW</small>
-                      //   </div>
-                      // </a>
