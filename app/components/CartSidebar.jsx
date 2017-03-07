@@ -1,10 +1,11 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 
 export default ({orderTotals, handleCheckoutUserCart, userId}) => {
   function handleCheckout (event) {
     event.preventDefault()
     handleCheckoutUserCart(orderTotals, userId)
+    browserHistory.push('/checkout')
   }
   return (
     <div>
@@ -29,9 +30,7 @@ export default ({orderTotals, handleCheckoutUserCart, userId}) => {
           </dl>
         </div>
       </div>
-      <Link to='#'>
         <button className="btn btn-default" type="submit" onClick={handleCheckout}>Proceed to Checkout</button>
-      </Link>
     </div>
   )
 }
