@@ -119,24 +119,32 @@ class SingleProduct extends Component {
                 </div>
               </div>
             </div>
-          <div className="col-sm-4">
-            <h1> User Photos </h1>
-              <div className="col-sm-5">
-                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
-              </div>
-              <div className="col-sm-5">
-                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
-              </div>
-              <div className="col-sm-5">
-                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
-              </div>
-              <div className="col-sm-5">
-                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
-              </div>
-          </div>
+        <div className="col-sm-4">
+          <h1> User Photos </h1>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal && animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal && animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal && animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal && animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
         </div>
       </div>
-
+    </div>
     )
 
   }
