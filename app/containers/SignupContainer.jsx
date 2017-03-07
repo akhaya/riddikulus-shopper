@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import Signup from '../components/Signup'
 import axios from 'axios'
 import {browserHistory} from 'react-router'
+import {signup} from '../reducers/auth'
+
 class SignupContainer extends React.Component {
 
   constructor(props){
@@ -20,8 +22,6 @@ class SignupContainer extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePassword1Change = this.handlePassword1Change.bind(this)
     this.handlePassword2Change = this.handlePassword2Change.bind(this)
-
-
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -44,9 +44,6 @@ class SignupContainer extends React.Component {
     const value = evt.target.value
     console.log(this.state.pw1, value, "equality", this.state.pw1 === value)
 
-    // if they don't equal, apply this CSS class
-    // if they are equal, do some stuff with state; class would be an emptyString
-
     if(value !== this.state.pw1){
       this.setState({
         isIncorrectPassword: true
@@ -68,8 +65,7 @@ class SignupContainer extends React.Component {
       email: this.state.email,
       password: this.state.password
     }
-    axios.post('/api/auth/signup', newUser)
-    .then(() => browserHistory.push('/'))
+    this.props.signupNewUser(newUser.name, newUser.email, newUser.password)
   }
 
 
@@ -94,4 +90,15 @@ class SignupContainer extends React.Component {
 
 }
 
-export default SignupContainer
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+    signupNewUser(user, email, password){
+      dispatch(signup(user, email, password))
+      browserHistory.push('/')
+    }
+
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignupContainer)
