@@ -112,9 +112,6 @@ class OrderItem extends Component {
                   { this.state.currentQuantity }
                   <button className="btn btn-default btn-circle" value="increase" onClick={this.onQuantityChange}>+</button>
                 </dd>
-                <dd>
-                  {this.props.errorMessage}
-                </dd>
               </dl>
               <button className="btn btn-default" type="submit" onClick={this.handleDelete}>Delete</button>
               <button className="btn btn-default" type="submit" onClick={this.handleUpdate}>Update</button>
