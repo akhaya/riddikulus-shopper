@@ -56,7 +56,7 @@ class CartContainer extends Component {
           <div className="col-md-9">
             {orderlines && orderlines.length > 0 ?
               orderlines.map(orderline => {
-                return orderline.product? <OrderItem orderline={orderline} handleUserDelete={handleUserDelete} handleUserUpdate={handleUserUpdate} handleGuestDelete={handleGuestDelete} handleGuestUpdate={handleGuestUpdate} userId={userId} key={orderline.id} /> : null
+                return orderline.product ? <OrderItem orderline={orderline} handleUserDelete={handleUserDelete} handleUserUpdate={handleUserUpdate} handleGuestDelete={handleGuestDelete} handleGuestUpdate={handleGuestUpdate} userId={userId} key={orderline.id} /> : null
               })
               : noItemsMessage}
           </div>
