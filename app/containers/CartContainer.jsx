@@ -36,7 +36,6 @@ class CartContainer extends Component {
   }
 
   render(){
-    console.log('======cartcontainer', this.props)
     const cart = this.props.cart
     const orderlines = cart.orderlines
     const userId = cart.user_id
