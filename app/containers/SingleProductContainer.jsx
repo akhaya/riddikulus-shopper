@@ -5,6 +5,7 @@ import {addItemToUserCart, addItemToGuestCart} from '../reducers/cart'
 
 const mapStateToProps = (state) => {
   return {
+    singleProduct: state.singleProduct,
     product: state.product,
     cart: state.cart,
   }

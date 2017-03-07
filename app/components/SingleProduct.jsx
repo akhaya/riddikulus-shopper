@@ -6,9 +6,9 @@ import {Link} from 'react-router'
 class SingleProduct extends Component {
   constructor(props) {
     super(props)
-
+    console.log('=====', props)
     this.state = {
-      color: '',
+      color: props.product ? props.product.colors[0] : '',
       quantity: 1,
       addedToCart: false,
     }
@@ -32,21 +32,18 @@ class SingleProduct extends Component {
     event.preventDefault()
     // user must choose color before adding to cart
     // quantity defaults to 1 if user doesn't select quantity
-    if (this.state.color !== '') {
-      console.log('======')
-      this.setState({addedToCart: true})
-      const color = this.state.color
-      const quantity = this.state.quantity
-      const productId = this.props.product.id
-      const orderId = this.props.cart.id
-      const price = this.props.product.price
-      const size = this.props.product.size
-      const product = this.props.product
-      if (!this.props.cart.user_id) {
-        this.props.handleGuestAdd(product, color, quantity, productId, price, size)
-      } else {
-        this.props.handleUserAdd(color, quantity, productId, orderId, price, size)
-      }
+    this.setState({addedToCart: true})
+    const color = this.state.color
+    const quantity = this.state.quantity
+    const productId = this.props.product.id
+    const orderId = this.props.cart.id
+    const price = this.props.product.price
+    const size = this.props.product.size
+    const product = this.props.product
+    if (!this.props.cart.user_id) {
+      this.props.handleGuestAdd(product, color, quantity, productId, price, size)
+    } else {
+      this.props.handleUserAdd(color, quantity, productId, orderId, price, size)
     }
   }
 
@@ -79,7 +76,6 @@ class SingleProduct extends Component {
               <h4> Colors </h4>
               <select onChange={this.onColorChange}>
                 {/* added a blank option because didn't know how to automatically set local state to the this.props.product.color[0] */}
-                <option> </option>
                 {
                   animal.colors.map((color, id) => {
                     return <option key={id} value={color}> {color}</option>
@@ -119,24 +115,32 @@ class SingleProduct extends Component {
                 </div>
               </div>
             </div>
-          <div className="col-sm-4">
-            <h1> User Photos </h1>
-              <div className="col-sm-5">
-                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
-              </div>
-              <div className="col-sm-5">
-                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
-              </div>
-              <div className="col-sm-5">
-                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
-              </div>
-              <div className="col-sm-5">
-                <img className='thumbnail thumbnailImg' src={animal && animal.pictureURL} />
-              </div>
-          </div>
+        <div className="col-sm-4">
+          <h1> User Photos </h1>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal && animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal && animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal && animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal && animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
+            <div className="col-sm-5">
+              <img className='thumbnailImg' src={animal.pictureURL} />
+            </div>
         </div>
       </div>
-
+    </div>
     )
 
   }

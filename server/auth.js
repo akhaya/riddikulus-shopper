@@ -5,6 +5,7 @@ const passport = require('passport')
 const User = require('APP/db/models/user')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
+const localUserStorage = require('store')
 
 
 /*************************
@@ -135,6 +136,7 @@ auth.get('/login/:strategy', (req, res, next) =>
 
 auth.post('/logout', (req, res, next) => {
   req.logout()
+  localUserStorage.remove('cart')
   res.redirect('/api/auth/whoami')
 })
 

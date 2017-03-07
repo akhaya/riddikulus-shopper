@@ -1,13 +1,15 @@
+.thumbnail > img{
+  width:240px;
+  height:240px;
+  margin-top:15px;
+}
+
 @font-face {
     font-family: 'harry_pregular';
     src: url('harryp__-webfont.woff2') format('woff2'),
          url('harryp__-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
-
-.thumbnail > img{
-  height:250px;
 }
 
 .small-input {
@@ -69,6 +71,14 @@ input {
   height:auto;
 }
 
+.sizeLabels {
+  padding-right:8px !important;
+}
+
+.sizeInput {
+  margin-right: 2px !important;
+}
+
 h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
 }
@@ -80,3 +90,4 @@ h1, h2, h3, h4, h5 {
 .incorrectPasswordBorder:focus{
   border: 3px solid red;
 }
+
