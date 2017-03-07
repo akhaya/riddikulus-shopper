@@ -8,11 +8,12 @@ export default (props) => {
   const userId = props.cart.user_id
   function handleCheckout (event) {
     event.preventDefault()
-    console.log(props.cart)
+    console.log('====checkout', props.cart)
     // props.handleProcessUserOrder(userId)
     // browserHistory.push('/checkout')
   }
   console.log('======checkout', props)
+
   return (
     <div className="row">
     <div className="col-md-1">
@@ -20,7 +21,7 @@ export default (props) => {
       <div className="col-md-8">
         <div className="panel panel-default">
           <div className="panel-body">
-            {props.cart.user_id && props.cart.address_id ? <Address /> : <AddressForm />}
+            {props.cart.user_id && props.cart.address_id ? <Address address={props.cart.address.fullAddress} /> : <AddressForm />}
             <CreditCard />
           </div>
         </div>
