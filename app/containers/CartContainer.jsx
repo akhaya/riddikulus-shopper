@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import OrderItem from '../components/OrderItem'
 import CartSidebar from '../components/CartSidebar'
-import {updateOrderItemFromUserCart, deleteOrderItemFromUserCart, deleteOrderItemFromGuestCart, updateOrderItemFromGuestCart} from '../reducers/cart'
+import {updateOrderItemFromUserCart, deleteOrderItemFromUserCart, deleteOrderItemFromGuestCart, updateOrderItemFromGuestCart, checkoutUserCart} from '../reducers/cart'
 
 class CartContainer extends Component {
   constructor(props){
@@ -36,6 +36,7 @@ class CartContainer extends Component {
   }
 
   render(){
+    console.log('======cartcontainer', this.props)
     const cart = this.props.cart
     const orderlines = cart.orderlines
     const userId = cart.user_id
@@ -43,6 +44,7 @@ class CartContainer extends Component {
     const handleUserDelete = this.props.handleUserDelete
     const handleGuestDelete = this.props.handleGuestDelete
     const handleGuestUpdate = this.props.handleGuestUpdate
+    const handleCheckoutUserCart = this.props.handleCheckoutUserCart
     const noItemsMessage = (
     <div className="panel panel-default">
       <div className="panel-body">
@@ -62,11 +64,14 @@ class CartContainer extends Component {
           </div>
           <div className="col-md-3">
             <CartSidebar orderTotals={{
-              subtotal: this.calculateSubtotal(),
-              shipping: this.calculateShipping(),
-              tax: this.calculateTax(),
-              total: this.calculateTotal()
-            }}/>
+                subtotal: this.calculateSubtotal(),
+                shippingCost: this.calculateShipping(),
+                tax: this.calculateTax(),
+                totalCost: this.calculateTotal()
+              }}
+              handleCheckoutUserCart={handleCheckoutUserCart}
+              userId={userId}
+            />
           </div>
         </div>
       </div>
@@ -93,6 +98,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleGuestUpdate(orderlineId, color, quantity) {
       dispatch(updateOrderItemFromGuestCart(orderlineId, color, quantity))
+    },
+    handleCheckoutUserCart(orderTotals, userId) {
+      dispatch(checkoutUserCart(orderTotals, userId))
     },
   }
 }
