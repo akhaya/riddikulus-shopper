@@ -16,7 +16,6 @@ class OrderItem extends Component {
   handleDelete (event) {
     event.preventDefault()
     // if user is guest
-    console.log('===', this.props.userId)
     if (!this.props.userId) {
       const orderlineId = this.props.orderline.id
       this.props.handleGuestDelete(orderlineId)
@@ -59,18 +58,15 @@ class OrderItem extends Component {
 
   onQuantityChange (event) {
     event.preventDefault()
-    let newQuantity
     const inventory = this.props.orderline.product.inventory
     // user can only increase quantity up to current inventory
     if (event.target.value === 'increase' && this.state.currentQuantity < inventory) {
-      newQuantity = this.state.currentQuantity + 1
-      this.setState({currentQuantity: newQuantity})
+      this.setState({currentQuantity: this.state.currentQuantity + 1})
     }
     // user can only decrease quantity down to 1
     // user cannot decrease quantity to 0 because this is equivalent of deleting an order item
     if (event.target.value === 'decrease' && this.state.currentQuantity > 1) {
-      newQuantity = this.state.currentQuantity - 1
-      this.setState({currentQuantity: newQuantity})
+      this.setState({currentQuantity: this.state.currentQuantity - 1})
     }
   }
 
