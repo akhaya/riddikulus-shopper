@@ -18,11 +18,9 @@ class Products extends Component {
     this.handleSizeInput = this.handleSizeInput.bind(this)
     this.handleBreedInput = this.handleBreedInput.bind(this)
     this.handleMagicalAbilitiesInput = this.handleMagicalAbilitiesInput.bind(this)
-    // this.handleFilterChange = this.handleFilterChange.bind(this)
   }
 
   handleSizeInput (event) {
-    // event.preventDefault()
     if (event.target.checked) {
       this.setState({size: this.state.size.concat([event.target.value])})
     } else {
