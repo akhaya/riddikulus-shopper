@@ -204,8 +204,8 @@ module.exports = require('express').Router()
         status: 'pending',
       }
     })
-    .then((orderlineToUpdate) => {
-      return orderlineToUpdate.update(req.body)
+    .then((orderToUpdate) => {
+      return orderToUpdate.update(req.body)
     })
     .then(() => {
       return Order.findOne({
@@ -215,6 +215,30 @@ module.exports = require('express').Router()
         }
       })
     })
+    .then(updatedOrder => {
+      res.json(updatedOrder)
+    })
+    .catch(next)
+  })
+  // /cart/process/${userId}
+  .put('/cart/process/:userId', (req, res, next) => {
+    Order.findOne({
+      where: {
+        user_id: req.params.userId,
+        status: 'pending',
+      }
+    })
+    .then((orderToUpdate) => {
+      return orderToUpdate.update({status: 'processing'})
+    })
+    // .then(() => {
+    //   return Order.findOne({
+    //     where: {
+    //       user_id: req.params.userId,
+    //       status: 'processing',
+    //     }
+    //   })
+    // })
     .then(updatedOrder => {
       res.json(updatedOrder)
     })

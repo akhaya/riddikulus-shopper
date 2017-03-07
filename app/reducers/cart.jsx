@@ -48,6 +48,15 @@ export const addToCart = orderline => ({
   orderline: orderline,
 })
 
+export const processUserOrder = userId =>
+  dispatch =>
+    axios.put(`/api/orders/cart/process/${userId}`)
+      .then(response => {
+        const cart = response.data
+        dispatch(receiveCart(cart))
+      })
+      .catch(console.error)
+
 export const checkoutUserCart = (orderTotals, userId) =>
   dispatch =>
     axios.put(`/api/orders/cart/checkout/${userId}`, orderTotals)

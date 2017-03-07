@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 const Orderline = require('./orderline')
+const Address = require('./address')
 
 
 const Order = db.define('orders', {
@@ -38,7 +39,8 @@ const Order = db.define('orders', {
     }
   },
   defaultScope: {
-    include: [Orderline]
+    include: [Orderline],
+    include: [Address]
   }
 })
 
