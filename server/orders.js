@@ -3,6 +3,7 @@
 const db = require('APP/db')
 const Order = db.model('orders')
 const Orderline = db.model('orderlines')
+const Address = db.model('addresses')
 const localUserStorage = require('store')
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
@@ -226,7 +227,8 @@ module.exports = require('express').Router()
       where: {
         user_id: req.params.userId,
         status: 'pending',
-      }
+      },
+      // include: [Orderline, Address]
     })
     .then((orderToUpdate) => {
       return orderToUpdate.update({status: 'processing'})

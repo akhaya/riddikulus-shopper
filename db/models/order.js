@@ -39,8 +39,7 @@ const Order = db.define('orders', {
     }
   },
   defaultScope: {
-    include: [Orderline],
-    include: [Address]
+    include: [{model: Orderline}, {model: Address}]
   }
 })
 
