@@ -71,7 +71,6 @@ class OrderItem extends Component {
   }
 
   render() {
-    console.log('===orderitem', this.props)
     const product = this.props.orderline.product
     const orderline = this.props.orderline
     return (

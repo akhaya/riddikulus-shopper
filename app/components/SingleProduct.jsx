@@ -7,7 +7,6 @@ import Reviews from '../components/Reviews'
 class SingleProduct extends Component {
   constructor(props) {
     super(props)
-    console.log('=====', props)
     this.state = {
       color: props.product ? props.product.colors[0] : '',
       quantity: 1,

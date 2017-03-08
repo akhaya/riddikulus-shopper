@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import AdminProducts from '../components/AdminProducts'
-import deleteProduct from '../reducers/users'
+import {deleteProduct} from '../reducers/users'
 
 
 const mapStateToProps = (state) => {
