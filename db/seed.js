@@ -28,7 +28,7 @@ const seedProducts = () => db.Promise.map([
     magicalAbilities: ['natural camouflage'],
     lifespan: 5,
     price: 100,
-    breed_id: 2
+    breed_id: 3
   },
   { name: 'Hippogriff',
     description: 'Half horse, half eagle creatures, immensely proud and extremely dangerous.',
@@ -39,7 +39,7 @@ const seedProducts = () => db.Promise.map([
     magicalAbilities: ['flying'],
     lifespan: 70,
     price: 500,
-    breed_id: 3
+    breed_id: 4
   },
   { name: 'Niffler',
     description: 'Long-snouted, burrowing creatures native to Britain with a penchant for anything shiny.',
@@ -50,7 +50,7 @@ const seedProducts = () => db.Promise.map([
     magicalAbilities: ['flying'],
     lifespan: 10,
     price: 150,
-    breed_id: 4
+    breed_id: 5
   },
   { name: 'Nundu',
     description: 'Giant mammal native to East Africa, most known for its toxic breath. Considered by some to be th emost dangerous creature alive.',
@@ -72,7 +72,7 @@ const seedProducts = () => db.Promise.map([
     magicalAbilities: ['flying'],
     lifespan: 70,
     price: 4000,
-    breed_id: 6
+    breed_id: 2
   },
   { name: 'Norwegian Ridgeback',
     description: 'The Norwegian Ridgeback is a dragon native to Norway, and its typical habitat is the Northern mountains.It resembles the Hungarian Horntail, except for the black ridges on its back, the browner texture in its scales, and its less hostile attitude. It has venomous fangs, and its food of choice is large mammals, including water mammals, which is unusual for a dragon. Its eggs are black, and young Ridgebacks develop the ability to shoot flame earlier than any other breeds (around one to three months). Female Ridgebacks are generally more ferocious than the males.',
@@ -83,7 +83,7 @@ const seedProducts = () => db.Promise.map([
     magicalAbilities: ['flying', 'fire breathing'],
     lifespan: 70,
     price: 6000,
-    breed_id: 5
+    breed_id: 2
   },
   { name: 'Hungarian Horntail',
     description: "It has black scales, and is lizard-like in appearance. It also has yellow eyes, with vertical pupils like a cat's, bronze horns and similarly coloured spikes that protrude from its long tail which it will gladly deploy in combat. The dragon's roar is a yowling, screeching scream, and its flame can reach to about fifty feet. While having a very far reaching flame the Horntail's breath can reach extremely high temperatures as it made a stone turn red hot in seconds. Its eggs are cement-coloured and particularly hard-shelled. The Horntail's foods of choice include cattle, sheep, goats, and whenever possible, humans.",
@@ -94,7 +94,7 @@ const seedProducts = () => db.Promise.map([
     magicalAbilities: ['flying', 'fire breathing'],
     lifespan: 70,
     price: 6000,
-    breed_id: 5
+    breed_id: 2
   },
    { name: 'Erumpent',
     description: "Rhinoceros-like in appearance, the Erumpent is a dangerous beast whose horn has explosive properties.",
@@ -193,7 +193,7 @@ const seedProducts = () => db.Promise.map([
     magicalAbilities: ['Parseltongue'],
     lifespan: 30,
     price: 1000,
-    breed_id: 7
+    breed_id: 8
   },
   { name: 'Mountain Troll',
     description: "The mountain troll (Troglodytarum alpinum) is a breed of troll. They are the largest, weighing over a tonne, and the most vicious kind of their species. They are often depicted as bald and pale-grey. They sometimes use Graphorns as mounts, which results in scars due to the Graphorns not liking it.",
