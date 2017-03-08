@@ -3,7 +3,7 @@ import SingleReview from './SingleReview'
 import ReviewFormContainer  from '../containers/ReviewFormContainer'
 
 export default (props) =>{
-  const avg = (props.reviews.reduce(function(curr, next){return curr + next.rating}, 0)/props.reviews.length)
+  const avg = Math.floor((props.reviews.reduce(function(curr, next){return curr + next.rating}, 0)/props.reviews.length))
   console.log(props.user)
   return (
     <div className="container-fluid">
