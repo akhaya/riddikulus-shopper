@@ -10,7 +10,6 @@ class Checkout extends Component {
   constructor(props) {
     super(props)
   }
-
   render() {
   const userId = this.props.cart.user_id
   return (
@@ -38,7 +37,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleProcessGuestOrder(address, orderlines) {
       dispatch(processGuestOrder(address, orderlines))
-    }
+    },
   }
 }
 
