@@ -9,6 +9,9 @@ const reducer = (state=null, action) => {
   case RECEIVE_USERS:
     return action.users
 
+  case RECEIVE_USER:
+    return action.user
+
   }
 
   return state
@@ -16,6 +19,7 @@ const reducer = (state=null, action) => {
 
 // constants
 const RECEIVE_USERS = 'RECEIVE_USERS'
+const RECEIVE_USER = 'RECEIVE_USER'
 
 // action creators
 export const receiveUsers = users => ({
@@ -23,6 +27,12 @@ export const receiveUsers = users => ({
   users: users
 })
 
+export const receiveUser = user => ({
+  type: RECEIVE_USER,
+  user: user
+})
+
+// thunks
 export const changeAdminStatus = userId => {
   return dispatch => {
     axios.put(`api/users/${userId}/admin`)

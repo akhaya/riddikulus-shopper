@@ -88,6 +88,10 @@ h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
 }
 
+.glyphicon-user{
+  padding:10px;
+}
+
 .glyphicon-shopping-cart{
   display:inline-flex;
 }
@@ -113,4 +117,3 @@ a.navbar-link{
 .incorrectPasswordBorder:focus{
   border: 3px solid red;
 }
-

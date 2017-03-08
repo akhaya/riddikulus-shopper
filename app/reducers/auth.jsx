@@ -5,7 +5,6 @@ import {browserHistory} from 'react-router'
 const reducer = (state=null, action) => {
   switch(action.type) {
   case AUTHENTICATED:
-    console.log('------ something -------')
     return action.user
   }
   return state
