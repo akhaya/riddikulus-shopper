@@ -105,3 +105,12 @@ a.navbar-link{
   font-size: 20px;
   padding-right:10px;
 }
+
+.incorrectPasswordBorder{
+  border: 3px solid red;
+}
+
+.incorrectPasswordBorder:focus{
+  border: 3px solid red;
+}
+
