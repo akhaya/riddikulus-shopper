@@ -20,59 +20,8 @@ import AdminOrdersContainer from './containers/AdminOrdersContainer'
 // import {receiveOrders} from './reducers/orders'
 import SignupContainer from './containers/SignupContainer'
 import {onAppEnter, onProductsEnter, onSingleProductEnter, onAdminEnter, onAdminLeave, onAdminUsersEnter, onAdminOrdersEnter, onCartEnter} from './onEnter'
+import userHistoryContainer from './containers/userHistoryContainer'
 import CheckoutContainer from './containers/CheckoutContainer'
-
-// const onAppEnter = () => {
-//   //GET THAT CART
-//   store.dispatch(whoami())
-// }
-
-// const onProductsEnter = () => {
-//   axios.get('/api/products')
-//   .then(res => {
-//     store.dispatch(receiveProducts(res.data))
-//   })
-//   .catch(console.error.bind(console))
-// }
-
-// const onSingleProductEnter = (nextRouterState) => {
-//   const productId = nextRouterState.params.productId
-//   store.dispatch(getProductById(productId))
-// }
-// //unsubsribe var declared globally so it can be accessed by onLeave hook.
-// let unsubscribeAdmin
-// const onAdminEnter = () => {
-//   unsubscribeAdmin = store.subscribe(() => {
-//     const user = store.getState().auth
-//     if(!user || !user.isAdmin) browserHistory.push('/products')
-//   })
-//   // if(!store.getState().auth || !store.getState().auth.isAdmin) {
-//   //   browserHistory.push('/products')
-//   // }
-// }
-// const onAdminLeave = () => {
-//   unsubscribeAdmin()
-// }
-
-// const onAdminUsersEnter = () => {
-//   axios.get('/api/users')
-//   .then(res => {
-//     store.dispatch(receiveUsers(res.data))
-//   })
-//   .catch(console.error.bind(console))
-// }
-
-// const onAdminOrdersEnter = () => {
-//   axios.get('/api/orders')
-//   .then(res => {
-//     store.dispatch(receiveOrders(res.data))
-//   })
-//   .catch(console.error.bind(console))
-// }
-
-// const onCartEnter = () => {
-//   store.dispatch(whoami())
-// }
 
 // add this to onEnter file when merging with onEnter branch
 const onCheckoutEnter = () => {
@@ -106,6 +55,7 @@ render (
         </Route>
         <Route path="/signup" component={SignupContainer} />
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
+        <Route path="/users/:userId" component={userHistoryContainer} />
         <Route path="/checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
       </Route>
     </Router>
