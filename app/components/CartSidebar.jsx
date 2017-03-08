@@ -4,8 +4,10 @@ import {Link, browserHistory} from 'react-router'
 export default ({orderTotals, handleCheckoutUserCart, userId}) => {
   function handleCheckout (event) {
     event.preventDefault()
-    handleCheckoutUserCart(orderTotals, userId)
-    browserHistory.push('/checkout')
+    if (orderTotals.totalCost > 0) {
+      handleCheckoutUserCart(orderTotals, userId)
+      browserHistory.push('/checkout')
+    }
   }
   return (
     <div>
