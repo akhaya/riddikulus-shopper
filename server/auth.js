@@ -67,7 +67,7 @@ OAuth.setupStrategy({
   strategy: require('passport-github2').Strategy,
   config: {
     clientID: env.GITHUB_CLIENT_ID,
-    clientSecrets: env.GITHUB_CLIENT_SECRET,
+    clientSecret: env.GITHUB_CLIENT_SECRET,
     callbackURL: `${app.baseUrl}/api/auth/login/github`,
   },
   passport
@@ -139,6 +139,24 @@ auth.post('/logout', (req, res, next) => {
   localUserStorage.remove('cart')
   res.redirect('/api/auth/whoami')
 })
+
+auth.post('/signup', (req, res, next) => {
+  User.create(req.body)
+  .then(user => {
+    console.log(user)
+    req.login(user, function(err) {
+      if(!err){
+        res.redirect('/api/auth/whoami')
+      }
+    })
+  })
+  .catch(next)
+})
+
+// '/api/auth/signup'
+// create the user
+// log the user in - req.login(user)
+
 
 module.exports = auth
 

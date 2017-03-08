@@ -27,7 +27,6 @@ export const changeAdminStatus = userId => {
   return dispatch => {
     axios.put(`api/users/${userId}/admin`)
       .then(res => {
-        console.log("RES IN ACTION CREATOR", res)
         dispatch(receiveUsers(res.data))
       }).catch(console.error)
   }
