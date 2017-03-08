@@ -32,6 +32,7 @@ export const receiveUser = user => ({
   user: user
 })
 
+// thunks
 export const changeAdminStatus = userId => {
   return dispatch => {
     axios.put(`api/users/${userId}/admin`)
