@@ -64,7 +64,7 @@ class SingleProduct extends Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-4">
-            <img src={animal.pictureURL} className="img-responsive"/>
+            <img src={animal.pictureURL} className="img-responsive singleImg"/>
           </div>
           <div className="col-sm-6">
             <div>
