@@ -37,6 +37,7 @@ const App = connect(
       <NavbarComponent user={user} cart={cart}/>
 
       {children}
+      <div>View on <a href="https://github.com/akhaya/riddikulus-shopper/">Github</a></div>
     </div>
 )
 
