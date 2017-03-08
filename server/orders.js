@@ -3,6 +3,7 @@
 const db = require('APP/db')
 const Order = db.model('orders')
 const Orderline = db.model('orderlines')
+const Address = db.model('addresses')
 const localUserStorage = require('store')
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
@@ -198,11 +199,64 @@ module.exports = require('express').Router()
     localUserStorage.set('cart', guestCart)
     res.send(guestCart)
   })
-  // check if local storage is updating correctly
-  // .get('/TEST', (req, res, next) => {
-  //   let guestCart = localUserStorage.get('cart')
-  //   res.send(guestCart)
-  // })
+  .put('/cart/checkout/:userId', (req, res, next) => {
+    Order.findOne({
+      where: {
+        user_id: req.params.userId,
+        status: 'pending',
+      }
+    })
+    .then((orderToUpdate) => {
+      return orderToUpdate.update(req.body)
+    })
+    .then(() => {
+      return Order.findOne({
+        where: {
+          user_id: req.params.userId,
+          status: 'pending',
+        }
+      })
+    })
+    .then(updatedOrder => {
+      res.json(updatedOrder)
+    })
+    .catch(next)
+  })
+  .put('/cart/process/:userId', (req, res, next) => {
+    Order.findOne({
+      where: {
+        user_id: req.params.userId,
+        status: 'pending',
+      },
+    })
+    .then((orderToUpdate) => {
+      return orderToUpdate.update({status: 'processing'})
+    })
+    .then(updatedOrder => {
+      res.json(updatedOrder)
+    })
+    .catch(next)
+  })
+  .post('/cart/process/guest', (req, res, next) => {
+    Address.findOrCreate({
+      where: req.body
+    })
+    .spread((addedAddress, bool) => {
+      // need to put address on order!
+      const cart = req.cart
+      return Order.create({
+        status: 'processing',
+        orderlines: cart.orderlines,
+        address: addedAddress.id
+      })
+    })
+    .then(processedOrder => {
+      console.log('===', processedOrder)
+      localUserStorage.remove('cart')
+      res.json(processedOrder)
+    })
+    .catch(next)
+  })
   .get('/cart/:userId', (req, res, next) => {
       var cart = req.cart
       //is there a cart in local storage?
