@@ -6,6 +6,7 @@ import {receiveProducts} from './reducers/products'
 import {receiveProduct, getProductById} from './reducers/product'
 import {receiveUsers} from './reducers/users'
 import {receiveOrders} from './reducers/orders'
+import {fetchReviews} from './reducers/reviews'
 
 export const onAppEnter = () => {
   //GET THAT CART
@@ -23,6 +24,7 @@ export const onProductsEnter = () => {
 export const onSingleProductEnter = (nextRouterState) => {
   const productId = nextRouterState.params.productId
   store.dispatch(getProductById(productId))
+  store.dispatch(fetchReviews(productId))
 }
 //unsubsribe var declared globally so it can be accessed by onLeave hook.
 let unsubscribeAdmin

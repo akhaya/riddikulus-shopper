@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   product: require('./product').default,
   users: require('./users').default,
   user: require('./users').default,
-  orders: require('./orders').default
+  reviews: require('./reviews').default
 })
 
 export default rootReducer

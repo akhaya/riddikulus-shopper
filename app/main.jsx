@@ -9,7 +9,7 @@ import NavbarComponent from './components/NavbarComponent'
 import ProductsContainer from './containers/ProductsContainer'
 import CartContainer from './containers/CartContainer'
 // import {receiveProducts} from './reducers/products'
-// import {whoami} from './reducers/auth'
+import {whoami} from './reducers/auth'
 import SingleProductContainer from './containers/SingleProductContainer'
 import AdminPanel from './components/AdminPanel'
 import AdminUsersContainer from './containers/AdminUsersContainer'
@@ -21,8 +21,12 @@ import AdminOrdersContainer from './containers/AdminOrdersContainer'
 import SignupContainer from './containers/SignupContainer'
 import {onAppEnter, onProductsEnter, onSingleProductEnter, onAdminEnter, onAdminLeave, onAdminUsersEnter, onAdminOrdersEnter, onCartEnter} from './onEnter'
 import userHistoryContainer from './containers/userHistoryContainer'
+import CheckoutContainer from './containers/CheckoutContainer'
 
-
+// add this to onEnter file when merging with onEnter branch
+const onCheckoutEnter = () => {
+  store.dispatch(whoami())
+}
 
 const App = connect(
 
@@ -52,6 +56,7 @@ render (
         <Route path="/signup" component={SignupContainer} />
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
         <Route path="/users/:userId" component={userHistoryContainer} />
+        <Route path="/checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
       </Route>
     </Router>
   </Provider>,
