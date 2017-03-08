@@ -19,6 +19,7 @@ import AdminOrdersContainer from './containers/AdminOrdersContainer'
 // import {receiveUsers} from './reducers/users'
 // import {receiveOrders} from './reducers/orders'
 import SignupContainer from './containers/SignupContainer'
+import CheckoutContainer from './containers/CheckoutContainer'
 import {onAppEnter, onProductsEnter, onSingleProductEnter, onAdminEnter, onAdminLeave, onAdminUsersEnter, onAdminOrdersEnter, onCartEnter} from './onEnter'
 
 // const onAppEnter = () => {
@@ -73,6 +74,11 @@ import {onAppEnter, onProductsEnter, onSingleProductEnter, onAdminEnter, onAdmin
 //   store.dispatch(whoami())
 // }
 
+// add this to onEnter file when merging with onEnter branch
+const onCheckoutEnter = () => {
+  store.dispatch(whoami())
+}
+
 const App = connect(
 
   ({ auth, cart }) => ({ user: auth, cart })
@@ -100,6 +106,7 @@ render (
         </Route>
         <Route path="/signup" component={SignupContainer} />
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
+        <Route path="/checkout" component={CheckoutContainer} onEnter={onCheckoutEnter} />
       </Route>
     </Router>
   </Provider>,
