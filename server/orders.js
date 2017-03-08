@@ -236,12 +236,23 @@ module.exports = require('express').Router()
     })
     .catch(next)
   })
-  .post('/cart/addAddress', (req, res, next) => {
+  .post('/cart/process/guest', (req, res, next) => {
     Address.findOrCreate({
       where: req.body
     })
     .spread((addedAddress, bool) => {
-      res.send(addedAddress)
+      // need to put address on order!
+      const cart = req.cart
+      return Order.create({
+        status: 'processing',
+        orderlines: cart.orderlines,
+        address: addedAddress.id
+      })
+    })
+    .then(processedOrder => {
+      console.log('===', processedOrder)
+      localUserStorage.remove('cart')
+      res.json(processedOrder)
     })
     .catch(next)
   })

@@ -48,12 +48,11 @@ export const addToCart = orderline => ({
   orderline: orderline,
 })
 
-export const addAddress = address =>
+export const processGuestOrder = (address) =>
   dispatch =>
-    axios.post('/api/orders/cart/addAddress', address)
+    axios.post('/api/orders/cart/process/guest', address)
       .then(response => {
-        const addedAddress = response.data
-        console.log('====added address', addedAddress)
+        console.log('====order processed')
       })
       .catch(console.error)
 
