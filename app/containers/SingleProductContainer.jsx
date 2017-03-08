@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleProduct from '../components/SingleProduct'
+
 import {addItemToUserCart, addItemToGuestCart} from '../reducers/cart'
 
 const mapStateToProps = (state) => {
@@ -8,6 +9,8 @@ const mapStateToProps = (state) => {
     singleProduct: state.singleProduct,
     product: state.product,
     cart: state.cart,
+    reviews: state.reviews,
+    user: state.auth
   }
 }
 
