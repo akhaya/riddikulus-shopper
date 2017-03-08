@@ -29,14 +29,14 @@ export default (props) => {
             <div className="form-group">
               <label for="inputPassword3" className="col-sm-3 control-label">Password</label>
               <div className="col-sm-9">
-                <input type="password" className="form-control" id="inputPassword3" placeholder="Password" onChange={props.handlePasswordChange}/>
+                <input type="password" className="form-control" id="inputPassword3" placeholder="Password" onChange={props.handlePassword1Change}/>
               </div>
             </div>
 
             <div className="form-group">
               <label for="inputPassword3" className="col-sm-3 control-label">Retype Password</label>
               <div className="col-sm-9">
-                <input type="password" className="form-control" id="inputPassword3" placeholder="Password" onChange={props.handlePassword2Change}/>
+                <input type="password" className={(props.isIncorrectPassword ? "incorrectPasswordBorder" : null) + " form-control"} id="inputPassword3again" placeholder="Password" onChange={props.handlePassword2Change}/>
               </div>
             </div>
             <div className="form-group">

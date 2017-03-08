@@ -28,7 +28,7 @@ export const getProductById = productId => {
     .then(res => {
       dispatch(receiveProduct(res.data))
     })
-    .catch(console.error.bind(console))
+    .catch(console.error)
     }
 }
 
