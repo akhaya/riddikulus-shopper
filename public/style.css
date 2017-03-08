@@ -4,6 +4,10 @@
   margin-top:15px;
 }
 
+.singleImg{
+  width:100%;
+}
+
 @font-face {
     font-family: 'harry_pregular';
     src: url('harryp__-webfont.woff2') format('woff2'),
