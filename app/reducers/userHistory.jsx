@@ -29,7 +29,7 @@ export const receiveOrderHistory = (userId) => {
   dispatch =>
     axios.get(`api/orders/${userId}`)
     .then(res => {
-      console.log(res.data)
+      //console.log(res.data)
     })
 }
 

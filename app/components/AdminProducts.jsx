@@ -9,7 +9,7 @@ export default (props) => {
   return (
       <div className="container-fluid">
         <AdminTable headers={headers}>
-          {props.products && props.products.map(product =>
+          {props.products.list && props.products.list.map(product =>
             <ProductRow
               product={product}
               key={product.id}

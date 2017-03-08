@@ -17,7 +17,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(deleteUser(userId))
     },
     onAdminStatus: function(userId, evt) {
-      console.log('In container with id', userId)
       evt.preventDefault()
       dispatch(changeAdminStatus(userId))
     }
