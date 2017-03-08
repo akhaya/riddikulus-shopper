@@ -1,19 +1,20 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import {addAddress} from '../reducers/cart'
-// import {Link} from 'react-router'
+import CreditCard from './CreditCard'
 
 class AddressForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      address1: '',
-      address2: '',
-      city: '',
-      state: '',
-      zip: '',
+        address1: '',
+        address2: '',
+        city: '',
+        state: '',
+        zip: '',
+        orderProcessed: false
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange (event) {
     const target = event.target
@@ -21,13 +22,19 @@ class AddressForm extends Component {
     this.setState({[name]: target.value})
   }
   handleSubmit (event) {
-    console.log('====', this.props)
-    // this.props.handleAddAddress(this.state)
+    this.props.handleProcessGuestOrder({
+        address1: this.state.address1,
+        address2: this.state.address2,
+        city: this.state.city,
+        state: this.state.state,
+        zip: this.state.zip,
+    })
+    this.setState({orderProcessed: true})
   }
   render() {
-    console.log('====', this.props)
     return (
-        <div className="container">
+        this.state.orderProcessed ? <h5>Your order was processed</h5> :
+        (<div className="container">
           <div className="row">
              <form className="form-horizontal">
                     <fieldset>
@@ -81,10 +88,11 @@ class AddressForm extends Component {
                         </div>
                     </fieldset>
                 </form>
-                <button className="btn btn-default" type="submit" onClick={this.handleSubmit}>Register Address</button>
-                <hr />
+            <CreditCard />
+            <button className="btn btn-default" type="submit" onClick={this.handleSubmit}>Place Order</button>
+            <hr />
           </div>
-        </div>
+        </div>)
     )
   }
 }
