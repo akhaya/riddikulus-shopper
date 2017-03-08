@@ -11,16 +11,22 @@ const reducer = (state=null, action) => {
 }
 
 const AUTHENTICATED = 'AUTHENTICATED'
+
 export const authenticated = user => ({
   type: AUTHENTICATED, user
 })
 
 export const login = (username, password) =>
   dispatch =>
-    axios.post('/api/auth/login/local',
-      {username, password})
-      .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))
+    axios.post('/api/auth/login/local', {username, password})
+      .then(() => {
+        console.log("inside the then")
+        dispatch(whoami())
+      })
+      .catch(() => {
+        alert("Email or password is incorrect, please attempt again")
+        dispatch(whoami())
+      })
 
 
 export const signup = (name, email, password) =>
@@ -42,22 +48,22 @@ export const logout = () =>
       .catch(() => dispatch(whoami()))
 
 export const whoami = () =>
-  dispatch =>
-    axios.get('/api/auth/whoami')
+  dispatch => {
+    return axios.get('/api/auth/whoami')
       .then(response => {
         const user = response.data
-        dispatch(authenticated(user))
         //get cart
+        dispatch(authenticated(user))
         if(!user){
           dispatch(receiveGuestCart())
         }else{
           dispatch(receiveUserCart(user.id))
         }
-
       })
       .catch(failed => {
         dispatch(authenticated(null))
         dispatch(receiveGuestCart())
       })
+    }
 
 export default reducer
