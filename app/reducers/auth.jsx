@@ -20,7 +20,6 @@ export const login = (username, password) =>
   dispatch =>
     axios.post('/api/auth/login/local', {username, password})
       .then(() => {
-        console.log("inside the then")
         dispatch(whoami())
       })
       .catch(() => {
