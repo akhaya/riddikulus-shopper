@@ -20,6 +20,7 @@ import AdminOrdersContainer from './containers/AdminOrdersContainer'
 // import {receiveOrders} from './reducers/orders'
 import SignupContainer from './containers/SignupContainer'
 import {onAppEnter, onProductsEnter, onSingleProductEnter, onAdminEnter, onAdminLeave, onAdminUsersEnter, onAdminOrdersEnter, onCartEnter} from './onEnter'
+import userHistoryContainer from './containers/userHistoryContainer'
 
 // const onAppEnter = () => {
 //   //GET THAT CART
@@ -100,6 +101,7 @@ render (
         </Route>
         <Route path="/signup" component={SignupContainer} />
         <Route path="/cart" component={CartContainer} onEnter={onCartEnter}/>
+        <Route path="/users/:userId" component={userHistoryContainer} />
       </Route>
     </Router>
   </Provider>,
