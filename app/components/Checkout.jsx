@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {browserHistory} from 'react-router'
 import Address from './Address'
-import AddressFormContainer from '../containers/AddressFormContainer'
+import AddressForm from '../components/AddressForm'
 import CreditCard from './CreditCard'
 import {addAddress} from '../reducers/cart'
 
@@ -36,7 +36,7 @@ class Checkout extends Component {
       <div className="col-md-8">
         <div className="panel panel-default">
           <div className="panel-body">
-            {this.props.cart.user_id && this.props.cart.address_id ? <Address address={this.props.cart.address.fullAddress} /> : <AddressFormContainer handleAddAddress={this.props.handleAddAddress} />}
+            {this.props.cart.user_id && this.props.cart.address_id ? <Address address={this.props.cart.address.fullAddress} /> : <AddressForm />}
             <CreditCard />
           </div>
         </div>
@@ -48,12 +48,4 @@ class Checkout extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleAddAddress(address) {
-      dispatch(addAddress(address))
-    },
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Checkout)
+export default Checkout
