@@ -52,7 +52,7 @@ export const processGuestOrder = (address) =>
   dispatch =>
     axios.post('/api/orders/cart/process/guest', address)
       .then(response => {
-        console.log('====order processed')
+        // console.log('====order processed')
       })
       .catch(console.error)
 

@@ -9,7 +9,6 @@ export default (props) => {
           <ul className="nav nav-tabs">
             <li role="presentation"><Link to="/admin/users">Users</Link></li>
             <li role="presentation"><Link to="/admin/orders">Orders</Link></li>
-            <li role="presentation"><Link to="/admin/products">Products</Link></li>
           </ul>
         </div>
         <div className="container-fluid">

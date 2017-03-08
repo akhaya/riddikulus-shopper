@@ -21,11 +21,9 @@ class AddressForm extends Component {
     this.setState({[name]: target.value})
   }
   handleSubmit (event) {
-    console.log('====', this.props)
     // this.props.handleAddAddress(this.state)
   }
   render() {
-    console.log('====', this.props)
     return (
         <div className="container">
           <div className="row">

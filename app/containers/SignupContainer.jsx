@@ -42,7 +42,6 @@ class SignupContainer extends React.Component {
 
   handlePassword2Change(evt){
     const value = evt.target.value
-    console.log(this.state.pw1, value, "equality", this.state.pw1 === value)
 
     if(value !== this.state.pw1){
       this.setState({

@@ -5,7 +5,6 @@ import {browserHistory} from 'react-router'
 const reducer = (state=null, action) => {
   switch(action.type) {
   case AUTHENTICATED:
-    console.log('------ something -------')
     return action.user
   }
   return state
@@ -21,7 +20,6 @@ export const login = (username, password) =>
   dispatch =>
     axios.post('/api/auth/login/local', {username, password})
       .then(() => {
-        console.log("inside the then")
         dispatch(whoami())
       })
       .catch(() => {

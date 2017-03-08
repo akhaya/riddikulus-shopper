@@ -15,12 +15,10 @@ module.exports = require('express').Router()
         attributes: ['name', 'email']
       }]
     }).then(reviews => {
-      console.log(reviews)
       res.json(reviews)
     }).catch(next)
   })
   .post('/product/:id', (req, res, next) => {
-    console.log(req.body)
     Review.create(req.body)
       .then(review => {
         res.json(review)

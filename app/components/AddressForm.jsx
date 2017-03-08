@@ -32,7 +32,6 @@ class AddressForm extends Component {
     this.setState({orderProcessed: true})
   }
   render() {
-    console.log('======', this.props)
     return (
         this.state.orderProcessed ? <h5>Your order was processed</h5> :
         (<div className="container">
