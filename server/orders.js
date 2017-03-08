@@ -242,16 +242,14 @@ module.exports = require('express').Router()
       where: req.body
     })
     .spread((addedAddress, bool) => {
-      // need to put address on order!
       const cart = req.cart
       return Order.create({
         status: 'processing',
         orderlines: cart.orderlines,
-        address: addedAddress.id
+        address_id: addedAddress.id
       })
     })
     .then(processedOrder => {
-      console.log('===', processedOrder)
       localUserStorage.remove('cart')
       res.json(processedOrder)
     })
