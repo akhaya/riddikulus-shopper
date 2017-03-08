@@ -11,7 +11,6 @@ class CreditCard extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
   handleChange (event) {
-    console.log(event.target.value)
     this.setState({creditcard: event.target.value})
   }
   render() {

@@ -221,28 +221,27 @@ module.exports = require('express').Router()
     })
     .catch(next)
   })
-  // /cart/process/${userId}
   .put('/cart/process/:userId', (req, res, next) => {
     Order.findOne({
       where: {
         user_id: req.params.userId,
         status: 'pending',
       },
-      // include: [Orderline, Address]
     })
     .then((orderToUpdate) => {
       return orderToUpdate.update({status: 'processing'})
     })
-    // .then(() => {
-    //   return Order.findOne({
-    //     where: {
-    //       user_id: req.params.userId,
-    //       status: 'processing',
-    //     }
-    //   })
-    // })
     .then(updatedOrder => {
       res.json(updatedOrder)
+    })
+    .catch(next)
+  })
+  .post('/cart/addAddress', (req, res, next) => {
+    Address.findOrCreate({
+      where: req.body
+    })
+    .spread((addedAddress, bool) => {
+      res.send(addedAddress)
     })
     .catch(next)
   })
