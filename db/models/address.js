@@ -26,7 +26,7 @@ const Address = db.define('addresses', {
 }, {
   getterMethods: {
     fullAddress: function(){
-      return `${address1}, ${address2}, ${city}, ${state} ${zip}`
+      return `${this.address1}, ${this.address2}, ${this.city}, ${this.state} ${this.zip}`
     }
   }
 })

@@ -7,7 +7,7 @@ export default (props) => {
         <h3>Admin Panel</h3>
         <div className="container-fluid" role="navigation">
           <ul className="nav nav-tabs">
-            <li role="presentation" className="active"><Link to="/admin/users">Users</Link></li>
+            <li role="presentation"><Link to="/admin/users">Users</Link></li>
             <li role="presentation"><Link to="/admin/orders">Orders</Link></li>
             <li role="presentation"><Link to="/admin/products">Products</Link></li>
           </ul>

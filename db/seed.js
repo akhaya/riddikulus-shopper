@@ -336,6 +336,15 @@ const seedOrderlines = () => db.Promise.map([
   },
 ], orderline => db.model('orderlines').create(orderline))
 
+const seedReviews = () => db.Promise.map([
+  {rating: 5 , body: 'Such a great product, I love it!', user_id: 1, product_id: 1},
+  {rating: 5 , body: 'Loved my new creature!', user_id: 2, product_id: 1},
+  {rating: 3 , body: 'Ate all my shoes', user_id: 1, product_id: 2},
+  {rating: 2 , body: 'A little too much to handle', user_id: 2, product_id: 2},
+  {rating: 4 , body: 'New best friend <3, just wish he smelled better.', user_id: 1, product_id: 3},
+  {rating: 1 , body: 'Came in the wrong color...and the wrong creature completely', user_id: 3, product_id: 3},
+], review => db.model('reviews').create(review))
+
 
 db.didSync
   .then(() => db.sync({force: true}))
@@ -351,5 +360,7 @@ db.didSync
   .then((orders) => console.log(`Seeded ${orders.length} orders OK`))
   .then(seedOrderlines)
   .then((orderlines) => console.log(`Seeded ${orderlines.length} orderlines OK`))
+  .then(seedReviews)
+  .then((reviews) => console.log(`Seeded ${reviews.length} reviews OK`))
   .catch(error => console.error(error))
   .finally(() => db.close())

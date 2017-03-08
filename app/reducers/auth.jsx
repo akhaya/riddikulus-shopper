@@ -18,10 +18,24 @@ export const authenticated = user => ({
 
 export const login = (username, password) =>
   dispatch =>
-    axios.post('/api/auth/login/local',
-      {username, password})
-      .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))
+    axios.post('/api/auth/login/local', {username, password})
+      .then(() => {
+        console.log("inside the then")
+        dispatch(whoami())
+      })
+      .catch(() => {
+        alert("Email or password is incorrect, please attempt again")
+        dispatch(whoami())
+      })
+
+
+export const signup = (name, email, password) =>
+  dispatch =>
+  axios.post('/api/auth/signup', {name, email, password})
+    .then(() => dispatch(whoami()))
+    .catch(() => dispatch(whoami()))
+
+
 
 export const logout = () =>
   dispatch =>
