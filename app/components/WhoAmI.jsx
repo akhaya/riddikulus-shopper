@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 
 export const WhoAmI = ({ user, logout }) => (
   <div className="whoami">
-    <span className="whoami-user-name">{user && user.name}</span>
+    <span className="whoami-user-name">{`Hi, ${user && user.name}!`}</span>
+    <Link to={`/pastOrders`}><span className="glyphicon glyphicon-flash"></span></Link>
     <button className="btn btn-default logout" onClick={logout}>Logout</button>
   </div>
 )
