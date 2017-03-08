@@ -21,7 +21,7 @@ export default (props) => {
           </li>
           <li>
             <Link to="/cart" className="navbar-link">
-              <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              <div className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></div>
               ({cart.orderlines? cart.orderlines.length : "0"})
             </Link>
           </li>

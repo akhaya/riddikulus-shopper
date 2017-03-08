@@ -32,14 +32,15 @@
   margin-top: 15px;
 }
 
-#creatureMainPic{
+/*#creatureMainPic{
   width:50%;
   height:auto;
-}
+}*/
 
 .nav-login {
   margin-right: 10px;
 }
+
 
 input {
   margin-right:2px !important;
@@ -81,4 +82,22 @@ input {
 
 h1, h2, h3, h4, h5 {
   font-family: 'Playfair Display', serif;
+}
+
+.glyphicon-shopping-cart{
+  display:inline-flex;
+}
+
+.whoami-user-name{
+  display:inline-flex;
+  padding-right:10px;
+}
+
+a.navbar-link{
+  padding-top:7px !important;
+}
+
+.glyphicon-flash{
+  font-size: 20px;
+  padding-right:10px;
 }
